@@ -1,0 +1,42 @@
+<!DOCTYPEhtml>
+<html>
+<head>
+	<meta charset = utf-8>
+	<title>OpenNote</title>
+	<link rel="stylesheet" href="bootstrap.css"/>
+</head>
+<body>
+
+	<div class = "container">
+
+	<h3 class = "test-center">Realtime Notes</h3>
+	<div class = "jumbotron">
+		<h2 id = "currentThought" class = "text-center"></h2>
+	</div>
+	
+	<div class = "form-group">
+		<input type="text" id="txtNewThought" class= "form-control">
+		<button id"btUpdateNotes" class = "btn btn-primary">Update</button>
+	</div>
+	
+</div>
+
+<script src = "https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+<script>
+	var currentThought = document.getElementById('currentThought'),
+		txtNewThought = document.getElementById('txtNewThought'),
+		btUpdateMessage = document.getElementById('btUpdateMessage'),
+		rootRef = new Firebase('https://brilliant-fire-1581.firebaseio.com'),
+		currentThoughtRef = rootRef.child('currentThought');
+
+		btUpdateMessage.addEventListener('click', function() {
+
+			currentThoughtRef.set(txtNewThought.value);
+			txtNewThought.value = '';
+
+		});		
+
+		currentThoughtRef.on('value', function(snapshot) {
+
+			currentThought.innerText = snapshot.val();
+		});		
