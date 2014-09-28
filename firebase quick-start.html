@@ -9,7 +9,7 @@
 
 	<div class = "container">
 
-	<h3 class = "test-center">Realtime Notes</h3>
+	<h3 style = "color: Blue" class = "test-center">OpenNote</h3>
 	<div class = "jumbotron">
 		<h2 id = "currentThought" class = "text-center"></h2>
 	</div>
@@ -28,6 +28,16 @@
 		btUpdateMessage = document.getElementById('btUpdateMessage'),
 		rootRef = new Firebase('https://brilliant-fire-1581.firebaseio.com'),
 		currentThoughtRef = rootRef.child('currentThought');
+
+		rootRef.set({
+			title: "OpenNote",
+			author: "Group: R17",
+			location: {
+				city: "Ames",
+				State: "Iowa",
+				Organization: "Iowa State University"
+			}
+		});
 
 		btUpdateMessage.addEventListener('click', function() {
 
