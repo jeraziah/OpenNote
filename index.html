@@ -10,6 +10,7 @@
     	var myDataRef = new Firebase('https://brilliant-fire-1581.firebaseio.com/');
       
 
+    	//signup auth
     	var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { ... });
 		authClient.createUser(email, password, function(error, user) {
 		  if (error === null) {
@@ -20,11 +21,20 @@
 		});
 
 
+		//login auth
+		var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { ... });
+			authClient.login('password', {
+  			email: '<email@domain.com>',
+ 	 		password: '<password>',
+  			rememberMe: true
+		});
+
+		//button click update
     	$('#messageInput').keypress(function (e) {
 	    	if (e.keyCode == 13) {
 	        	var name = $('#nameInput').val();
 	        	var text = $('#messageInput').val();
-	        	myDataRef.set({name: name, text: text});
+	        	myDataRef.push({name: name, text: text}); //push the updates to the backend
 	        	$('#messageInput').val('');
 	        }
 		});
