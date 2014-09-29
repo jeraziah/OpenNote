@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editor</title>
+    
+      <link rel="stylesheet" href="editor.css">
+      
+      <!-- jQuery -->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+      <!-- Font-Awesome -->
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      <script src="editor.js"></script>
+  </head>
+    
+  <body>
+      
+      <div class="editor">
+         <div class="editor-toolbar">
+            <button type="button" id="bold" class="editor-toolbar-item toggle" title="Bold">
+                <i class="fa fa-bold"></i>
+             </button>
+             <button type="button" id="italic" class="editor-toolbar-item toggle" title="Italic">
+                <i class="fa fa-italic"></i>
+             </button>
+             <button type="button" id="underline" class="editor-toolbar-item toggle" title="Underline">
+                <i class="fa fa-underline"></i>
+             </button>
+             <button type="button" id="strikeThrough" class="editor-toolbar-item toggle" title="Strikethrough">
+                <i class="fa fa-strikethrough"></i>
+             </button>
+             <div class="editor-divider"></div>
+             <button type="button" id="subscript" class="editor-toolbar-item toggle" title="Subscript">
+                <i class="fa fa-subscript"></i>
+             </button>
+             <button type="button" id="superscript" class="editor-toolbar-item toggle" title="Superscript">
+                <i class="fa fa-superscript"></i>
+             </button>
+             <div class="editor-divider"></div>
+             <button type="button" id="ol" class="editor-toolbar-item toggle" title="Insert Ordered List">
+                <i class="fa fa-list-ol"></i>
+             </button>
+             <button type="button" id="ul" class="editor-toolbar-item toggle" title="Insert Unordered List">
+                <i class="fa fa-list-ul"></i>
+             </button>
+            <div class="editor-divider"></div>
+             <button type="button" id="outdent" class="editor-toolbar-item" title="Outdent">
+                <i class="fa fa-outdent"></i>
+             </button>
+             <button type="button" id="indent" class="editor-toolbar-item" title="Indent">
+                <i class="fa fa-indent"></i>
+             </button>
+             <div class="editor-divider"></div>
+             <button type="button" id="justifyLeft" class="editor-toolbar-item toggle" title="Left Align">
+                <i class="fa fa-align-left"></i>
+             </button>
+             <button type="button" id="justifyCenter" class="editor-toolbar-item toggle" title="Center Align">
+                <i class="fa fa-align-center"></i>
+             </button>
+             <button type="button" id="justifyRight" class="editor-toolbar-item toggle" title="Right Align">
+                <i class="fa fa-align-right"></i>
+             </button>
+             <button type="button" id="justifyFull" class="editor-toolbar-item toggle" title="Block Justify">
+                <i class="fa fa-align-justify"></i>
+             </button>
+             <div class="editor-divider"></div>
+             <button type="button" id="removeFormatting" class="editor-toolbar-item" title="Remove Formatting">
+                <i class="fa fa-bold"></i>
+             </button>
+             <div class="editor-divider"></div>
+             <button type="button" id="undo" class="editor-toolbar-item" title="Undo">
+                <i class="fa fa-undo"></i>
+             </button>
+             <button type="button" id="redo" class="editor-toolbar-item" title="Redo">
+                <i class="fa fa-repeat"></i>
+             </button>
+          </button>
+          
+          <div class="editor-toolbar">
+            <select id="font" class="editor-font">
+                <option value="Verdana">Verdana</option>
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+              </select>
+              <select id="fontSize" class="editor-size">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+              </select>
+              <div class="editor-divider"></div>
+              <button type="button" id="image" class="editor-toolbar-item" title="Insert Image">
+                  <i class="fa fa-bold"></i>
+              </button>
+              <button type="button" id="horizontalRule" class="editor-toolbar-item" title="Insert Horizontal Rule">
+                  <i class="fa fa-bold"></i>
+              </button>
+              <button type="button" id="link" class="editor-toolbar-item" title="Insert Hyperlink">
+                  <i class="fa fa-link"></i>
+              </button>
+              <button type="button" id="unlink" class="editor-toolbar-item" title="Remove Hyperlink">
+                  <i class="fa fa-unlink"></i>
+              </button>
+          </div>
+          
+          
+          
+          <div>
+            <!--the textarea is hidden -->
+            <textarea id="editor-textarea"></textarea>
+            <iframe id="iFrame" name="iFrame"></iframe>
+          </div>
+          
+          </div>
+          
+        </div>
+    
+    </body>
+</html>
