@@ -7,7 +7,7 @@
     <input type='text' id='nameInput' placeholder='Name'>
     <input type='text' id='messageInput' placeholder='Message'>
     <script>
-    	var myDataRef = new Firebase('https://brilliant-fire-1581.firebaseio.com/');
+    	var myDataRef = new Firebase('https://opennote.firebaseio.com/');
       
 
     	//signup auth
@@ -23,11 +23,12 @@
 
 		//login auth
 		var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { ... });
+			
 			authClient.login('password', {
   			email: '<email@domain.com>',
  	 		password: '<password>',
   			rememberMe: true
-		});
+			});
 
 		  
 			//the message code
@@ -48,7 +49,7 @@
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
 
-      
+
     </script>
   </body>
 </html>
