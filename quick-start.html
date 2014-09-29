@@ -22,7 +22,7 @@
 	<!-- Place holder for the message -->
 
 	<div class = "form-group">
-		<input type="text" id="txtNewThought" class= "form-control">
+		<input type="text" id="txtNewThought" class= "form-control" onkeydown="if (event.keyCode == 13) document.getElementById('btUpdateNotes').click()"/>
 		<!-- Text box -->
 
 		<button id = "btUpdateNotes" class = "btn btn-primary">Post Thought</button>
@@ -32,35 +32,7 @@
 </div>
 
 
-<script>
-	var currentThought = document.getElementById('currentThought'),
-		txtNewThought = document.getElementById('txtNewThought'),
-		btUpdateNotes = document.getElementById('btUpdateNotes'),
-		//variables to grab the thoughts and display them
-		rootRef = new Firebase('https://opennote.firebaseio.com'),
-		//creates a conection to firebase
-		currentThoughtRef = rootRef.child('currentThought');
+<script src = "post-notes.js"></script>
+</body>
+</html>
 
-		rootRef.push({
-			title: "OpenNote",
-			author: "Group: R17",
-			location: {
-				city: "Ames",
-				State: "Iowa",
-				Organization: "Iowa State University"
-			}
-		});
-
-		btUpdateNotes.addEventListener('click', function() {
-
-			currentThoughtRef.push(txtNewThought.value);
-			txtNewThought.value = '';
-
-		});		
-		//updates the firebase when button is clicked
-
-		currentThoughtRef.on('value', function(snapshot) {
-
-			currentThought.innerText = snapshot.val();
-		});		
-		//whenever the value changes a new snapshot is displayed
