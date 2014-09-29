@@ -1,8 +1,9 @@
-	var rootRef = new Firebase('https://opennote.firebaseio.com'),
-		currentThought = document.getElementById('currentThought'),
+	var currentThought = document.getElementById('currentThought'),
 		txtNewThought = document.getElementById('txtNewThought'),
 		btUpdateNotes = document.getElementById('btUpdateNotes'),
 		//variables to grab the thoughts and display them
+		rootRef = new Firebase('https://opennote.firebaseio.com'),
+		//creates a conection to firebase
 		currentThoughtRef = rootRef.child('currentThought');
 
 		rootRef.push({
