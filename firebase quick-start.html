@@ -1,35 +1,47 @@
-<!DOCTYPEhtml>
+<!doctype html>
 <html>
 <head>
 	<meta charset = utf-8>
 	<title>OpenNote</title>
-	<link rel="stylesheet" href="bootstrap.css"/>
+	
+	<script src = "https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
+
 </head>
 <body>
 
-	<div class = "container">
+<div class = "container">
 
-	<h3 style = "color: Blue" class = "test-center">OpenNote</h3>
+
+	<h2 class = "text-center" style = "color: Blue" >OpenNote</h2> 
+	<!-- Creates a header with the title 'OpenNote'  -->
+	<img src = "http://www.lakeshorelearning.com/media/images/free_resources/clip_art/school/notebook.jpg">
+
 	<div class = "jumbotron">
 		<h2 id = "currentThought" class = "text-center"></h2>
 	</div>
-	
+	<!-- Place holder for the message -->
+
 	<div class = "form-group">
 		<input type="text" id="txtNewThought" class= "form-control">
-		<button id"btUpdateNotes" class = "btn btn-primary">Update</button>
+		<!-- Text box -->
+
+		<button id = "btUpdateNotes" class = "btn btn-primary">Post Thought</button>
+		<!-- Update message button -->
 	</div>
 	
 </div>
 
-<script src = "https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+
 <script>
 	var currentThought = document.getElementById('currentThought'),
 		txtNewThought = document.getElementById('txtNewThought'),
-		btUpdateMessage = document.getElementById('btUpdateMessage'),
-		rootRef = new Firebase('https://brilliant-fire-1581.firebaseio.com'),
+		btUpdateNotes = document.getElementById('btUpdateNotes'),
+		//variables to grab the thoughts and display them
+		rootRef = new Firebase('https://opennote.firebaseio.com'),
+		//creates a conection to firebase
 		currentThoughtRef = rootRef.child('currentThought');
 
-		rootRef.set({
+		rootRef.push({
 			title: "OpenNote",
 			author: "Group: R17",
 			location: {
@@ -39,14 +51,16 @@
 			}
 		});
 
-		btUpdateMessage.addEventListener('click', function() {
+		btUpdateNotes.addEventListener('click', function() {
 
-			currentThoughtRef.set(txtNewThought.value);
+			currentThoughtRef.push(txtNewThought.value);
 			txtNewThought.value = '';
 
 		});		
+		//updates the firebase when button is clicked
 
 		currentThoughtRef.on('value', function(snapshot) {
 
 			currentThought.innerText = snapshot.val();
 		});		
+		//whenever the value changes a new snapshot is displayed
