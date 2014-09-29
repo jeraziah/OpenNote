@@ -3,7 +3,7 @@ $(document).ready(function () {
     var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
 
     //Create a reference to the pixel data for our drawing.
-    var pixelDataRef = new Firebase('https://o6ummom2bs7.firebaseio-demo.com/');
+    var pixelDataRef = new Firebase('https://o6ummom2bs7.firebaseio-demo.com/draw');
 
     // Set up our canvas
     var myCanvas = document.getElementById('drawing-canvas');
