@@ -1,0 +1,70 @@
+body {
+    margin:0;
+    padding:25px;
+    font:12px Verdana,Arial
+}
+.editor{
+   border:1px solid #bbb;
+    padding:0 1px 1px;
+    font:12px Verdana,Arial
+    border:none;
+    overflow-x:hidden
+}
+.editor-toolbar{
+    height:31px;
+    padding-top:1px;
+    clear:both;
+    background-color:#ccc;
+}
+.editor-toolbar-item {
+    height:30px;
+    width:34px;
+    cursor:pointer;
+    float: left;
+    text-align: center;
+    border:none;
+    background-color:#ccc;
+    padding-bottom:1px
+}
+select{
+    float:left;
+    margin-top: 5px;
+    background-colof: #fff;
+}
+.editor-divider {
+    float:left;
+    width:1px;
+    height:30px;
+    background:#c0c0c0
+}
+.editor-font {
+    margin-left:12px
+}
+.editor-size {
+    margin:0 3px
+}
+.editor-style {
+    margin-right:12px
+}
+.editor-footer {
+    height:32px;
+    border-top:1px solid #bbb;
+    background:#f5f5f5
+}
+#editor-textarea {
+    display:none
+}
+.selected{
+    background-color:#fff;
+    border: 1px solid black;
+    border-radius: 5 px
+}
+#iFrame {
+    border:none;
+    margin:0;
+    padding:0;
+    font:14px 'Courier New',Verdana;
+    height: 200px;
+    width: 100%;
+    float: left
+}
