@@ -18,14 +18,16 @@
 
 		btUpdateNotes.addEventListener('click', function() {
 
-			currentThoughtRef.push(txtNewThought.value);
+			currentThoughtRef.set(txtNewThought.value);
 			txtNewThought.value = '';
+
 
 		});		
 		//updates the firebase when button is clicked
 
 		currentThoughtRef.on('value', function(snapshot) {
 
-			currentThought.innerText = snapshot.val();
+			currentThought.innerText = snapshot.val(); //displays info in currentThough object
+
 		});		
 		//whenever the value changes a new snapshot is displayed
