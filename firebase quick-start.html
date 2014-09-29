@@ -32,37 +32,7 @@
 </div>
 
 
-<script>
-	var rootRef = new Firebase('https://opennote.firebaseio.com'),
-		currentThought = document.getElementById('currentThought'),
-		txtNewThought = document.getElementById('txtNewThought'),
-		btUpdateNotes = document.getElementById('btUpdateNotes'),
-		//variables to grab the thoughts and display them
-		currentThoughtRef = rootRef.child('currentThought');
+<script src = "post-notes.js"></script>
 
-		rootRef.push({
-			title: "OpenNote",
-			author: "Group: R17",
-			location: {
-				city: "Ames",
-				State: "Iowa",
-				Organization: "Iowa State University"
-			}
-		});
-
-		btUpdateNotes.addEventListener('click', function() {
-
-			currentThoughtRef.push(txtNewThought.value);
-			txtNewThought.value = '';
-
-		});		
-		//updates the firebase when button is clicked
-
-		currentThoughtRef.on('value', function(snapshot) {
-
-			currentThought.innerText = snapshot.val();
-		});		
-		//whenever the value changes a new snapshot is displayed
-</script>
 </body>
 </html>
