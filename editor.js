@@ -27,6 +27,8 @@ $(document).ready(function(){
      $('#horizontalRule').data('commandName', 'insertHorizontalRule');
      $('#link').data('commandName', 'createLink');
      $('#unlink').data('commandName', 'unlink');
+     $('#image').data('prompt','Please enter the image url.');
+     $('#link').data('prompt','Please enter the url');
     
     $('.toggle').click(function(){  
         $(this).toggleClass('moused');
@@ -47,7 +49,13 @@ $(document).ready(function(){
     
     $('.editor-toolbar-item').on('click change',function(){
         editor.focus();
-        editor.document.execCommand($(this).data("commandName"),false, $(this).val() || ""); 
+        var value=this.value || "";
+        if($(this).data("prompt"))
+        {
+            value=prompt($(this).data("prompt"));
+        }
+        alert(value);
+        editor.document.execCommand($(this).data("commandName"),false, value); 
         editor.focus();
     });
         
