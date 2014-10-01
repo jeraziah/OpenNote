@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var editor = document.getElementById('iFrame').contentWindow;
+    var editor = document.getElementById('editor-iFrame').contentWindow;
     editor.document.designMode='on';
     editor.focus();
     
@@ -28,26 +28,49 @@ $(document).ready(function(){
      $('#link').data('commandName', 'createLink');
      $('#unlink').data('commandName', 'unlink');
     
-    $('.toggle').click(function(){
+    $('.toggle').click(function(){  
+        $(this).toggleClass('moused');
         $(this).toggleClass('selected');
     });
     
-    $('.editor-toolbar-item').mouseover(function(){
+    $('.btn.editor-toolbar-item').mouseover(function(){
         if(!($(this).hasClass('selected'))){   
-            $(this).css("background-color","#fff");
+            $(this).toggleClass('moused');
         }
     });
     
-    $('.editor-toolbar-item').mouseout(function(){
+    $('.btn.editor-toolbar-item').mouseout(function(){
        if(!($(this).hasClass('selected'))){
-            $(this).css('background-color','#ccc'); 
+            $(this).toggleClass('moused');
         }
     });
     
-    $('.editor-toolbar-item').click(function(){
+    $('.editor-toolbar-item').on('click change',function(){
         editor.focus();
-        editor.document.execCommand($(this).data("commandName"),false,this.value || ""); 
+        editor.document.execCommand($(this).data("commandName"),false, $(this).val() || ""); 
         editor.focus();
+    });
+        
+    $('#text').click(function(){
+        $('#editor-iFrame').show();
+        $('#editor-textarea').hide();
+        $('.editor-toolbar').show();
+        $('.btn-toolbar').show();
+    });
+       
+    $('#html').click(function(){
+        save();
+        $('#editor-textarea').css('display','block');
+        $('#editor-iFrame').hide();
+        $('.btn-toolbar').hide();
+    }); 
+    
+    $('#save').click(function(){
+       save(); 
     });
     
 });
+
+function save(){
+    $("#editor-textarea").val($("#editor-iFrame").contents().find("body").html());
+}

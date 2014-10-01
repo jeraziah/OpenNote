@@ -1,70 +1,61 @@
 body {
     margin:0;
     padding:25px; 
-    font:12px Verdana,Arial
+    font:12px Verdana,Arial;
 }
 .editor{
-   border:1px solid #bbb;
-    padding:0 1px 1px;
-    font:12px Verdana,Arial
     border:none;
-    overflow-x:hidden
+    padding:0 1px 1px;
+    font:12px Verdana,Arial;
+    overflow-x:hidden;
 }
-.editor-toolbar{
-    height:31px; 
-    padding-top:1px;
+.btn-toolbar{
     clear:both;
     background-color:#ccc;
+    border-bottom: solid #c0c0c0 1px;
+    padding:1px;
+    margin:0px;
 }
-.editor-toolbar-item {
-    height:30px;
-    width:34px;
+.btn.editor-toolbar-item {
     cursor:pointer;
     float: left;
+    width:35px;
     text-align: center;
-    border:none;
+    margin:0px;
     background-color:#ccc;
-    padding-bottom:1px
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.btn-group.mine{
+    margin: 0px;
+}
+.btn-group+.btn-group,
+.btn+.btn-group,
+.btn-group+.btn{
+    border-left:solid 1px #c0c0c0;
 }
 select{
     float:left;
-    margin-top: 5px;
-    background-colof: #fff;
+    margin-top:8px;
+    margin-left:10px;
+    background-color: #fff;
 }
-.editor-divider {
-    float:left; 
-    width:1px; 
-    height:30px; 
-    background:#c0c0c0
+.btn.editor-toolbar-item.selected{
+    background-color:#fff; 
 }
-.editor-font {
-    margin-left:12px
-}
-.editor-size {
-    margin:0 3px
-}
-.editor-style {
-    margin-right:12px
-}
-.editor-footer {
-    height:32px;
-    border-top:1px solid #bbb;
-    background:#f5f5f5
+.btn.editor-toolbar-item.moused{
+    background-color:#dcdcdc; 
 }
 #editor-textarea {
-    display:none
-}
-.selected{
-    background-color:#fff; 
-    border: 1px solid black;
-    border-radius: 5 px
-}
-#iFrame {
-    border:none;
-    margin:0; 
-    padding:0; 
-    font:14px 'Courier New',Verdana;
+    display:none;
+    margin:0;  
     height: 200px;
     width: 100%;
-    float: left
+    float: left;
+}
+#editor-iFrame {
+    margin:0;  
+    height: 200px;
+    width: 100%;
+    float: left;
 }
