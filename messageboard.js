@@ -1,6 +1,6 @@
   $(document).ready(function () {
     //Set up some globals
-    var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
+    var pixSize = 4, lastPoint = null, currentColor = "000", mouseDown = 0;
 
     //Create a reference to the pixel data for our drawing.
     var pixelDataRef = new Firebase('https://opennote.firebaseapp.com');
@@ -16,7 +16,7 @@
     //Setup each color palette & add it to the screen
     var colors = ["fff","000","f00","0f0","00f","88f","f8d","f88","f05","f80","0f8","cf0","08f","408","ff8","8ff"];
     for (c in colors) {
-      var item = $('<div/>').css("background-color", '#' + colors[c]).addClass("colorbox");
+      var item = $('<div/>').css("background-color", '#' + colors[c]).css('display', 'inline-block').addClass("colorbox").height(20).width(20);
       item.click((function () {
         var col = colors[c];
         return function () {
@@ -26,6 +26,12 @@
       item.appendTo('#colorholder');
     }
 
+	//TODO:
+	//create a button to save thought
+	
+	//TODO:
+	//allow text editing inside the html canvas reference: http://css-tricks.com/absolute-positioning-inside-relative-positioning/
+	
     //Keep track of if the mouse is up or down
     myCanvas.onmousedown = function () {mouseDown = 1;};
     myCanvas.onmouseout = myCanvas.onmouseup = function () {
@@ -77,6 +83,8 @@
       var coords = snapshot.name().split(":");
       myContext.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
     };
+	
+	//monitors for updating the screen with the current status of pixels.
     pixelDataRef.on('child_added', drawPixel);
     pixelDataRef.on('child_changed', drawPixel);
     pixelDataRef.on('child_removed', clearPixel);
