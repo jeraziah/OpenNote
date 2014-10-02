@@ -80,4 +80,47 @@ $(document).ready(function(){
 
 function save(){
     $("#editor-textarea").val($("#editor-iFrame").contents().find("body").html());
+    
+    //variables to grab the thoughts and display them
+	var currentThought = document.getElementById('currentThought');
+    var txtNewThought = document.getElementById('editor-textarea');
+    var btUpdateNotes = document.getElementById('save');
+		
+       
+    //creates a conection to firebase
+    var rootRef = new Firebase('https://opennote.firebaseio.com');
+
+    //sets the current message to the child of the root
+    var currentThoughtRef = rootRef.child('currentThought');
+
+    //lastLocation = currentThoughtRef.push();
+
+    //used to store the last input text
+    var outputString = '';
+    
+    //information regarding the program. just gets saved to the back end
+    rootRef.push({
+        title: "OpenNote",
+        author: "Group: R17",
+        location: {
+            city: "Ames",
+            State: "Iowa",
+            Organization: "Iowa State University"
+        }
+    });
+
+    //updates the firebase when button is clicked
+    btUpdateNotes.addEventListener('click', function() {
+        currentThoughtRef.push(txtNewThought.value);
+        //currentThoughtRef.set(txtNewThought.value);
+        txtNewThought.value = '';
+    });		
+
+    currentThoughtRef.endAt().limit(1).on('child_added', function(snapshot) {
+        var text=snapshot.val();
+        //var para = document.createElement("p");
+        //var node = document.createTextNode(text);
+        //para.appenChild(node);
+        currentThought.innerHTML = text;
+    });	
 }
