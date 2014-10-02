@@ -1,9 +1,9 @@
-$(document).ready(function () {
+  $(document).ready(function () {
     //Set up some globals
     var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
 
     //Create a reference to the pixel data for our drawing.
-    var pixelDataRef = new Firebase('https://opennote.firebaseapp.com/draw');
+    var pixelDataRef = new Firebase('https://opennote.firebaseapp.com');
 
     // Set up our canvas
     var myCanvas = document.getElementById('drawing-canvas');
