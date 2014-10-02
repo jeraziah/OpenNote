@@ -1,14 +1,16 @@
 var myRef = new Firebase("https://shaun314.firebaseio.com/");
 
-var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-	// check if user is already logged in maybe?
-	if (user)
-	{
-		// user is logged on already
-	}
-	else
-	{
-		// user is not logged in
-	}
-});
+var currentUser = undefined;
 
+var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
+  if (error) {
+    // an error occurred while attempting login
+    console.log(error);
+  } else if (user) {
+    // user authenticated with Firebase
+    console.log("User ID: " + user.uid + ", Provider: " + user.provider);
+    currentUser = user;
+  } else {
+    // user is logged out
+  }
+});

@@ -20,10 +20,6 @@ $('#finalizeRegistration').click(function() {
 		console.log("Pass: " + $('#registration_inputPassword').val());
 		console.log("University: " + $('#registration_university').val());
 
-		var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-			// check if user is already logged in maybe?
-		});
-
 		authClient.createUser($('#registration_inputEmail').val(), $('#registration_inputPassword').val(), function(error, user) {
 		  if (error === null) 
 		  {
@@ -65,27 +61,11 @@ $('#finalizeRegistration').click(function() {
 
 $('#loginButton').click(function() {
 
-	var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-		// check if user is already logged in maybe?
-		if (user)
-		{
-			// user is logged in
-			authClient.logout();
-		}
-	});
-
+	// login user using the email/password method
 	authClient.login('password', {
 		email: $('#InputEmail1').val(),
 		password: $('#InputPassword1').val()
 	});
 
-	var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-		// check if user is already logged in maybe?
-		if (user)
-		{
-			// user is logged in
-			console.log("user id: " + user.uid);
-		}
-	});
-
 });
+
