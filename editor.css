@@ -43,7 +43,7 @@ select{
 .btn.editor-toolbar-item.selected{
     background-color:#fff; 
 }
-.btn.editor-toolbar-item.moused{
+btn.editor-toolbar-item.moused{
     background-color:#dcdcdc; 
 }
 #editor-textarea {

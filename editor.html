@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editor</title>
-      
-      <!-- jQuery -->
+	<title>OpenNote</title>
+	
+	<script src = "https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
+
+	 <!-- jQuery -->
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
       <!-- Font-Awesome -->
@@ -21,16 +23,21 @@
 <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <script src="editor.js"></script>
-  </head>
-    
-  <body>
-      
-    <div id="note_list" class = "jumbotron">
-		<h2 id = "currentThought" class = "text-center"></h2>
+
+</head>
+<body>
+
+<div class = "container">
+	
+    <h1 class = "text-center" style="font-family: bigChalk; font-size: 60px;">OpenNote</h2> 
+	<!-- Creates a header with the title 'OpenNote'  -->
+
+	<div class = "jumbotron" style="color:white;background-color:#404040;">
+		<h2 id = "currentThought" class = "text-center" ></h2>
 	</div>
-      
-      
-      <div class="editor">
+	<!-- Place holder for the message -->
+
+	<div class="editor">
          <div class="btn-toolbar">
             <button type="button" id="bold" class="editor-toolbar-item btn toggle" title="Bold">
                 <i class="fa fa-bold"></i>
@@ -125,14 +132,17 @@
                   <i class="fa fa-unlink"></i>
               </button>
           </div>
-          
-          <div>
+
+	<div class = "form-group">
+		<div>
             <!--the textarea is hidden -->
             <textarea id="editor-textarea"></textarea>
             <iframe id="editor-iFrame" name="iFrame"></iframe>
           </div>
-          
-          </div>
+		<button id = "btUpdateNotes" class = "btn btn-default">Post Thought</button>
+		<!-- Update message button -->
+	</div>
+    
       
       <div class="btn-group mine">
         <button id="text" type="button" class="btn btn-default" title="text">
@@ -142,10 +152,10 @@
           html
           </button>
       </div>
-      
-      <button id="save" title="save" class="btn btn-default">Save</button>
+	
+</div>
 
-    </body>
-    
-    <script src = "https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
+
+<script src = "post-notes.js"></script>
+</body>
 </html>
