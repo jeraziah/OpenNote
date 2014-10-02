@@ -54,7 +54,6 @@ $(document).ready(function(){
         {
             value=prompt($(this).data("prompt"));
         }
-        alert(value);
         editor.document.execCommand($(this).data("commandName"),false, value); 
         editor.focus();
     });
