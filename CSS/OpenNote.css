@@ -112,11 +112,12 @@ background-color: transparent;
 .colHeader{
 	text-align: center;
 	height: 30px;
-	font-size: 18px;
-	padding-top: 3px;
+	font-size: 16px;
 	background-color: #2561B2;
-	border-bottom-style: solid;
-	border-bottom-color: #eee;
+	border-style: solid;
+	border-color: #eee;
+	border-top-style: solid;
+	border-top-width: 6px;
 }
 
 .colTab{
