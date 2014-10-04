@@ -5,6 +5,7 @@
 body {
 	background-image: url(../IMG/chalk_bg.jpg);
 	color: #eee;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 @font-face {
@@ -80,4 +81,61 @@ background-color: transparent;
 #registerButton:hover{
 	color: #fff;
 	border-color: #fff;
+}
+
+/* -------------------------------- */
+/* --- Class and Note Selection --- */
+/* -------------------------------- */
+
+.colWrapper{
+	height: 100%;
+	background-color: rgba(255,255,255,.4);
+	border-right-color: #2561B2;
+	border-right-style: solid;
+	border-right-width: 3px;
+	overflow: auto;
+}
+
+#classWrapper{
+
+}
+
+#noteWrapper{
+
+}
+
+#editorWrapper{
+	height: 100%;
+	background-color: rgba(255,255,255,.4);
+}
+
+.colHeader{
+	text-align: center;
+	height: 30px;
+	font-size: 18px;
+	padding-top: 3px;
+	background-color: #2561B2;
+	border-bottom-style: solid;
+	border-bottom-color: #eee;
+}
+
+.colTab{
+	font-size: 15px;
+	text-align: center;
+	padding: 9px 0;
+	background-color: rgba(255,255,255,.7);
+	color: #222;
+	font-weight: bold;
+	border-bottom-style: solid;
+	border-bottom-color: #666;
+}
+
+.colTab:hover{
+	background-color: #4581E2;
+	color: white;
+}
+
+.tabSelected{
+	background-color: #4581E2;
+	color: white;
 }

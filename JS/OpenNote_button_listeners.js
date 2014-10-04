@@ -23,7 +23,7 @@ $('#finalizeRegistration').click(function() {
 		authClient.createUser($('#registration_inputEmail').val(), $('#registration_inputPassword').val(), function(error, user) {
 		  if (error === null) 
 		  {
-		    console.log("User created successfully:", user);
+		    //console.log("User created successfully:", user);
 
 		    // add fields to user data
 			myRef.child('users').child(user.uid).set({
@@ -68,4 +68,58 @@ $('#loginButton').click(function() {
 	});
 
 });
+
+$('#navOptionLogin').click(function() {
+	$('#navOptionLoginModal').modal('show');
+
+});
+
+$('#navOptionLoginAction').click(function() {
+	authClient.login('password', {
+		email: $('#navOptionLogin_inputEmail').val(),
+		password: $('#navOptionLogin_inputPassword').val()
+	});	
+});
+
+$('#navOptionForgotPass').click(function() {
+
+});
+
+$('#navOptionChangePass').click(function() {
+	//navOptionChangePassModal
+	$('#navOptionChangePassModal').modal('show');
+});
+
+$('#navOptionChangePassAction').click(function() {
+	//navOptionChangePassModal
+
+	authClient.changePassword($('#navOptionChangePassEmail').val(), $('#navOptionChangePassOldPassword').val(), 
+		$('#navOptionChangePassNewPassword').val(), 
+		function(error) {
+	  if (error === null) {
+	    console.log("Password changed successfully");
+	    $('#navOptionChangePassModal').modal('hide');
+	  } else {
+	    console.log("Error changing password:", error);
+	    $('#navOptionChangePassErrorMsg').html(error);
+		$('#navOptionChangePassErrorMsg').show();
+	  }
+	});
+});
+
+$('#navOptionAccountDetails').click(function() {
+
+});
+
+$('#navOptionLogout').click(function() {
+	authClient.logout();
+});
+
+
+
+
+
+
+
+
 
