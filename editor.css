@@ -1,0 +1,61 @@
+body {
+    margin:0;
+    padding:25px; 
+    font:12px Verdana,Arial;
+}
+.editor{
+    border:none;
+    padding:0 1px 1px;
+    font:12px Verdana,Arial;
+    overflow-x:hidden;
+}
+.btn-toolbar{
+    clear:both;
+    background-color:#ccc;
+    border-bottom: solid #c0c0c0 1px;
+    padding:1px;
+    margin:0px;
+}
+.btn.editor-toolbar-item {
+    cursor:pointer;
+    float: left;
+    width:35px;
+    text-align: center;
+    margin:0px;
+    background-color:#ccc;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.btn-group.mine{
+    margin: 0px;
+}
+.btn-group+.btn-group,
+.btn+.btn-group,
+.btn-group+.btn{
+    border-left:solid 1px #c0c0c0;
+}
+select{
+    float:left;
+    margin-top:8px;
+    margin-left:10px;
+    background-color: #fff;
+}
+.btn.editor-toolbar-item.selected{
+    background-color:#fff; 
+}
+btn.editor-toolbar-item.moused{
+    background-color:#dcdcdc; 
+}
+#editor-textarea {
+    display:none;
+    margin:0;  
+    height: 200px;
+    width: 100%;
+    float: left;
+}
+#editor-iFrame {
+    margin:0;  
+    height: 200px;
+    width: 100%;
+    float: left;
+}
