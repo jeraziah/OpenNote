@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>OpenNote</title>
+	
+	<script src = "https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
+
+	 <!-- jQuery -->
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+      <!-- Font-Awesome -->
+      <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet"    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+      <link rel="stylesheet" href="editor.css">
+<!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      <script src="editor.js"></script>
+
+</head>
+<body>
+
+<div class = "container">
+
+
+	<h2 class = "text-center" style = "color: Blue" >OpenNote</h2> 
+	<!-- Creates a header with the title 'OpenNote'  -->
+	<img src = "http://www.lakeshorelearning.com/media/images/free_resources/clip_art/school/notebook.jpg">
+
+	<div class = "jumbotron">
+		<h2 id = "currentThought" class = "text-center"></h2>
+	</div>
+	<!-- Place holder for the message -->
+
+	<div class="editor">
+         <div class="btn-toolbar">
+            <button type="button" id="bold" class="editor-toolbar-item btn toggle" title="Bold">
+                <i class="fa fa-bold"></i>
+             </button>
+             <button type="button" id="italic" class="editor-toolbar-item btn toggle" title="Italic">
+                <i class="fa fa-italic"></i>
+             </button>
+             <button type="button" id="underline" class="editor-toolbar-item btn toggle" title="Underline">
+                <i class="fa fa-underline"></i>
+             </button>
+             <button type="button" id="strikeThrough" class="editor-toolbar-item btn toggle" title="Strikethrough">
+                <i class="fa fa-strikethrough"></i>
+             </button>
+             <div class="btn-group mine">
+                 <button type="button" id="subscript" class="editor-toolbar-item btn toggle" title="Subscript">
+                    <i class="fa fa-subscript"></i>
+                 </button>
+                 <button type="button" id="superscript" class="editor-toolbar-item btn toggle" title="Superscript">
+                    <i class="fa fa-superscript"></i>
+                 </button>
+             </div>
+             <div class="btn-group mine">
+                 <button type="button" id="ol" class="editor-toolbar-item btn toggle" title="Insert Ordered List">
+                    <i class="fa fa-list-ol"></i>
+                 </button>
+                 <button type="button" id="ul" class="editor-toolbar-item btn toggle" title="Insert Unordered List">
+                    <i class="fa fa-list-ul"></i>
+                 </button>
+             </div>
+             <div class="btn-group mine">
+                 <button type="button" id="outdent" class="editor-toolbar-item btn" title="Outdent">
+                    <i class="fa fa-outdent"></i>
+                 </button>
+                 <button type="button" id="indent" class="editor-toolbar-item btn" title="Indent">
+                    <i class="fa fa-indent"></i>
+                 </button>
+             </div>
+             <div class="btn-group mine">
+                 <button type="button" id="justifyLeft" class="editor-toolbar-item btn toggle" title="Left Align">
+                    <i class="fa fa-align-left"></i>
+                 </button>
+                 <button type="button" id="justifyCenter" class="editor-toolbar-item btn toggle" title="Center Align">
+                    <i class="fa fa-align-center"></i>
+                 </button>
+                 <button type="button" id="justifyRight" class="editor-toolbar-item btn toggle" title="Right Align">
+                    <i class="fa fa-align-right"></i>
+                 </button>
+                 <button type="button" id="justifyFull" class="editor-toolbar-item btn toggle" title="Block Justify">
+                    <i class="fa fa-align-justify"></i>
+                 </button>
+             </div>
+             <button type="button" id="removeFormatting" class="editor-toolbar-item btn" title="Remove Formatting">
+                <span class="fa-stack" style="font-size:9px;">
+  <i class="fa fa-ban fa-stack-2x"></i>
+  <i class="fa fa-font fa-stack-1x"></i>
+</span>
+             </button>
+             <button type="button" id="undo" class="editor-toolbar-item btn" title="Undo">
+                <i class="fa fa-undo"></i>
+             </button>
+             <button type="button" id="redo" class="editor-toolbar-item btn" title="Redo">
+                <i class="fa fa-repeat"></i>
+             </button>
+          </div>
+          
+         <div class="btn-toolbar">
+            <select id="font" class="editor-toolbar-item">
+                <option value="Verdana">Verdana</option>
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+              </select>
+              <select id="fontSize" class="editor-toolbar-item">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+              </select>
+              <button type="button" id="image" class="editor-toolbar-item btn" title="Insert Image">
+                  <i class="fa fa-file-image-o"></i>
+              </button>
+              <button type="button" id="horizontalRule" class="editor-toolbar-item btn" title="Insert Horizontal Rule">
+                  hr
+              </button>
+              <button type="button" id="link" class="editor-toolbar-item btn" title="Insert Hyperlink">
+                  <i class="fa fa-link"></i>
+              </button>
+              <button type="button" id="unlink" class="editor-toolbar-item btn" title="Remove Hyperlink">
+                  <i class="fa fa-unlink"></i>
+              </button>
+          </div>
+
+	<div class = "form-group">
+		<input type="text" id="txtNewThought" class= "form-control" onkeydown="if (event.keyCode == 13) document.getElementById('btUpdateNotes').click()"/>
+		<!-- Text box -->
+
+		<button id = "btUpdateNotes" class = "btn btn-primary">Post Thought</button>
+		<!-- Update message button -->
+	</div>
+	
+</div>
+
+
+<script src = "post-notes.js"></script>
+</body>
+</html>

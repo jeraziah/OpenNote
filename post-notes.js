@@ -1,5 +1,4 @@
-	
-	//variables to grab the thoughts and display them
+//variables to grab the thoughts and display them
 	var currentThought = document.getElementById('currentThought'),
 		txtNewThought = document.getElementById('txtNewThought'),
 		btUpdateNotes = document.getElementById('btUpdateNotes'),
@@ -34,20 +33,6 @@
 		});		
 
 		currentThoughtRef.on('value', function(snapshot) {
-			currentThought.innerText = snapshot.val();
+        	currentThought.innerText = snapshot.val();
+        	var newThought = shapshot.val();
 		});		
-
-		//displays info in currentThough object
-		/*currentThoughtRef.on('value', function(snapshot) {
-			outputString += (lastLocation.value + '\n');
-			currentThought.innerText = outputString;
-			
-		lastLocation = currentThoughtRef.push();
-			lastLocation.set(txtNewThought.value);	
-
-		});		
-		//whenever the value changes a new snapshot is displayed
-
-		console.log('\nsnapshot.val() = ' + snapshot.val() + '\n');
-			console.log('lastLocation.val() = ' + lastLocation.val() + '\n');
-			console.log('lastLocation.value = ' + lastLocation.value + '\n');*/
