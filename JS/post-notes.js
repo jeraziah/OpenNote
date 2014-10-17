@@ -9,7 +9,7 @@
     //sets the current message to the child of the root
     currentThoughtRef = rootRef.child('currentThought'),
     
-    //lastLocation = currentThoughtRef.push(),
+
     
     //used to store the last input text
     outputString = '';
@@ -37,17 +37,3 @@
       currentThought.innerText = snapshot.val();
     });   
 
-    //displays info in currentThough object
-    /*currentThoughtRef.on('value', function(snapshot) {
-      outputString += (lastLocation.value + '\n');
-      currentThought.innerText = outputString;
-      
-    lastLocation = currentThoughtRef.push();
-      lastLocation.set(txtNewThought.value);  
-
-    });   
-    //whenever the value changes a new snapshot is displayed
-
-    console.log('\nsnapshot.val() = ' + snapshot.val() + '\n');
-      console.log('lastLocation.val() = ' + lastLocation.val() + '\n');
-      console.log('lastLocation.value = ' + lastLocation.value + '\n');*/
