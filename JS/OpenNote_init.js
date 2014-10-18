@@ -1,4 +1,4 @@
-var myRef = new Firebase("https://shaun314.firebaseio.com/");
+var myRef = new Firebase("https://opennote.firebaseio.com/");
 
 var currentUser = undefined;
 
