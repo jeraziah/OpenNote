@@ -31,8 +31,8 @@ var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
 		    $('#navOptionAccountDetails').show();
 		    $('#navOptionLogout').show();
 
-		    $('#mainscreen').show();
 		    $('#welcomescreen').hide();
+		    $('#mainscreen').show();    
 
 		  });
 
