@@ -107,7 +107,9 @@ $('#navOptionChangePassAction').click(function() {
 });
 
 $('#navOptionAccountDetails').click(function() {
-
+	$('#personalProfileModal').modal('show');
+	$('#accountDetailsFirstName').val(currentUser.firstName);
+	$('#accountDetailsLastName').val(currentUser.lastName);
 });
 
 $('#navOptionLogout').click(function() {
