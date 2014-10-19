@@ -83,13 +83,20 @@ background-color: transparent;
 	border-color: #fff;
 }
 
+#footerWrapper{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #2561B2;
+}
+
 /* -------------------------------- */
 /* --- Class and Note Selection --- */
 /* -------------------------------- */
 
 .colWrapper{
 	height: 100%;
-	background-color: rgba(255,255,255,.4);
 	border-right-color: #2561B2;
 	border-right-style: solid;
 	border-right-width: 3px;
@@ -106,7 +113,6 @@ background-color: transparent;
 
 #editorWrapper{
 	height: 100%;
-	background-color: rgba(255,255,255,.4);
 }
 
 .colHeader{
@@ -124,11 +130,13 @@ background-color: transparent;
 	font-size: 15px;
 	text-align: center;
 	padding: 9px 0;
-	background-color: rgba(255,255,255,.7);
 	color: #222;
 	font-weight: bold;
 	border-bottom-style: solid;
 	border-bottom-color: #666;
+	background-color: #ddd;
+	margin: 5px;
+	border-radius: 10px;
 }
 
 .colTab:hover{
@@ -140,3 +148,5 @@ background-color: transparent;
 	background-color: #4581E2;
 	color: white;
 }
+
+

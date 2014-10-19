@@ -1,8 +1,12 @@
-var myRef = new Firebase("https://opennote.firebaseio.com/");
+var rootFBRef = new Firebase("https://opennote.firebaseio.com/");
 
 var currentUser = undefined;
 
-var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
+var currentClass = undefined;
+
+var currentNote = undefined;
+
+var authClient = new FirebaseSimpleLogin(rootFBRef, function(error, user) {
 	if (error) 
 	{
     	// an error occurred while attempting login
@@ -14,12 +18,13 @@ var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
 	{
 	    // user authenticated with Firebase
 	    console.log("User ID: " + user.uid + ", Provider: " + user.provider);
-	    //myRef.child('users').child(user.uid);
+	    //rootFBRef.child('users').child(user.uid);
 
 	    // close possible login modal that was up
 	    $('#navOptionLoginModal').modal('hide');
 
-	    myRef.child('users').child(user.uid).on('value', function (snapshot) {
+	    // update currentUser and menu options ONE TIME
+	    rootFBRef.child('users').child(user.uid).once('value', function (snapshot) {
 		    //GET DATA and store as currentUser
 		    currentUser = snapshot.val();
 
@@ -34,8 +39,39 @@ var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
 		    $('#welcomescreen').hide();
 		    $('#mainscreen').show();    
 
-		  });
+		});
 
+	    // load class lists based off of what user is enrolled in
+	    rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
+	    	var childAdded = snapshot.val();
+	    	var innerHTML = '';
+
+	    	// make sure it is a valid class
+	    	if (childAdded.classId != undefined)
+	    	{
+	    		var classList = childAdded;
+	    		if (currentClass == undefined)
+				{
+					currentClass = {userClassId: snapshot.name(), classId: classList.classId, className: classList.classShortName};
+					innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.name() + '">';
+					innerHTML += classList.classShortName + '</div>';
+				}  
+				else 
+				{
+					innerHTML += '<div class="colTab classTab" id=' + classList.classId + '" name="' + snapshot.name() + '">';
+					innerHTML += classList.classShortName + '</div>';
+				} 
+
+			    $('#dynamicClassWrapper').append(innerHTML);	
+
+			    // update click handler for class selection
+			    $('.classTab').click(function() {
+					$('.classTab').attr("class","colTab classTab");
+					$(this).attr("class","colTab classTab tabSelected");
+					currentClass = {userClassId: $(this).attr('name'), classId: this.id, className: this.innerHTML};
+				});		
+	    	}
+	    });
 	} 
 
 	else 

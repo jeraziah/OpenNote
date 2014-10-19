@@ -1,17 +1,21 @@
-function getUserLoggedIn() {
-	var authClient = new FirebaseSimpleLogin(myRef, function(error, user) { 
-		// check if user is already logged in maybe?
-		if (user)
-		{
-			// user is logged on already
-			return "hey";
-		}
-		else
-		{
-			// user is not logged in
-			return "damn";
-		}
-		return user;
-	});
-	return "oh";
+function loadScript(url, callback) {
+ 
+    var script = document.createElement("script")
+    script.type = "text/javascript";
+
+    if (script.readyState) { //IE
+        script.onreadystatechange = function () {
+            if (script.readyState == "loaded" || script.readyState == "complete") {
+                script.onreadystatechange = null;
+                callback();
+            }
+        };
+    } else { //Others
+        script.onload = function () {
+            callback();
+        };
+    }
+
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script);
 }
