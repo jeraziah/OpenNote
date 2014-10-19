@@ -75,28 +75,5 @@ $(document).ready(function(){
         
         editor.focus();   
     });
-        
-    $('#text').click(function(){
-        $('#editor-iFrame').show();
-        $('#editor-textarea').hide();
-        $('.editor-toolbar').show();
-        $('.btn-toolbar').show();
-    });
-       
-    $('#html').click(function(){
-        save();
-        $('#editor-textarea').css('display','block');
-        $('#editor-iFrame').hide();
-        $('.btn-toolbar').hide();
-    }); 
-    
-    $('#save').click(function(){
-       save(); 
-    });
-    
     
 });
-
-function save(){
-    $('#editor-textarea').val($('#editor-iFrame').contents().find('body').html());
-}
