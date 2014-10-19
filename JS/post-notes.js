@@ -14,17 +14,6 @@
     //used to store the last input text
     outputString = '';
 
-    //information regarding the program. just gets saved to the back end
-    rootRef.push({
-      title: "OpenNote",
-      author: "Group: R17",
-      location: {
-        city: "Ames",
-        State: "Iowa",
-        Organization: "Iowa State University"
-      }
-    });
-
     //updates the firebase when button is clicked
     btUpdateNotes.addEventListener('click', function() {
       $("#editor-textarea").val($("#editor-iFrame").contents().find("body").html());
