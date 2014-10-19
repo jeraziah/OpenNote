@@ -1,0 +1,142 @@
+﻿/* -------------------- */
+/*    General Styles    */
+/* -------------------- */
+
+body {
+	background-image: url(../IMG/chalk_bg.jpg);
+	color: #eee;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+@font-face {
+    font-family: bigChalk;
+    src: url(KGBrokenVesselsSketch.ttf);
+}
+
+@font-face {
+    font-family: smallChalk;
+    src: url(KGTenThousandReasons.ttf);
+}
+
+.no_padding_margins{
+    padding: 0px;
+    margin: 0px;
+}
+
+.lightBG{
+	color: #222;
+}
+
+/* -------------------- */
+/*       Home Page      */
+/* -------------------- */
+
+.navbar{
+    background-color: #eee;
+    border-bottom-width: 3px;
+    border-bottom-color: #2561B2;
+    color: #FFB62A;
+}
+
+.navbarOption{
+	color: #222;
+	font-size: 20px;
+	padding: 11px;
+}
+
+#navbar_title{
+	padding: 10px;
+	color: #222;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.navbarOption:hover{
+	color: #eee;
+	background-color: #2561B2;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+color: #eee;
+background-color: #2561B2;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+color: #222;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+color: #222;
+background-color: transparent;
+}
+
+#registerButton{
+	font-family: bigChalk; 
+	font-size: 50px;
+	display: inline-block;
+	border-bottom-style: dashed;
+	border-color: #ddd;
+}
+
+#registerButton:hover{
+	color: #fff;
+	border-color: #fff;
+}
+
+/* -------------------------------- */
+/* --- Class and Note Selection --- */
+/* -------------------------------- */
+
+.colWrapper{
+	height: 100%;
+	background-color: rgba(255,255,255,.4);
+	border-right-color: #2561B2;
+	border-right-style: solid;
+	border-right-width: 3px;
+	overflow: auto;
+}
+
+#classWrapper{
+
+}
+
+#noteWrapper{
+
+}
+
+#editorWrapper{
+	height: 100%;
+	background-color: rgba(255,255,255,.4);
+}
+
+.colHeader{
+	text-align: center;
+	height: 30px;
+	font-size: 16px;
+	background-color: #2561B2;
+	border-style: solid;
+	border-color: #eee;
+	border-top-style: solid;
+	border-top-width: 6px;
+}
+
+.colTab{
+	font-size: 15px;
+	text-align: center;
+	padding: 9px 0;
+	background-color: rgba(255,255,255,.7);
+	color: #222;
+	font-weight: bold;
+	border-bottom-style: solid;
+	border-bottom-color: #666;
+}
+
+.colTab:hover{
+	background-color: #4581E2;
+	color: white;
+}
+
+.tabSelected{
+	background-color: #4581E2;
+	color: white;
+}
