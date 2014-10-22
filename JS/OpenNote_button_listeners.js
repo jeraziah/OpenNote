@@ -4,6 +4,10 @@ $('#registerButton').click(function() {
 	$('#registrationModal').modal('show');
 });
 
+$('#navOptionContact').click(function() {
+	$('#contactModal').modal('show');
+});
+
 $('#finalizeRegistration').click(function() {
 	// double check both passwords entered match
 	
@@ -81,6 +85,10 @@ $('#navOptionLoginAction').click(function() {
 });
 
 $('#navOptionForgotPass').click(function() {
+	$('#navOptionForgotPassModal').modal('show');
+});
+
+$('#navOptionForgotPassAction').click(function() {
 
 });
 
@@ -107,6 +115,12 @@ $('#navOptionChangePassAction').click(function() {
 });
 
 $('#navOptionAccountDetails').click(function() {
+	$('#personalProfileModal').modal('show');
+	$('#accountDetailsFirstName').val(currentUser.firstName);
+	$('#accountDetailsLastName').val(currentUser.lastName);
+});
+
+$('#saveProfile').click(function() {
 
 });
 

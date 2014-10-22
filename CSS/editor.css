@@ -43,6 +43,7 @@ select{
     background-color:#dcdcdc; 
 }
 #editor-textarea {
+    color: red;
     display:none;
     margin:0;  
     height: 200px;
@@ -51,6 +52,7 @@ select{
 }
 
 #editorFrame{
+    color: blue;
     width: 80%;
     margin: 20px;
     margin-left: 10%;
@@ -62,6 +64,8 @@ select{
 }
 
 #editor-iFrame {
+    background-color : white;
+    color: red;
     margin:0;  
     height: 120px;
     width: 100%;
