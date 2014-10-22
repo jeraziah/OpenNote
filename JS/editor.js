@@ -1,5 +1,6 @@
-    var iFrame= document.getElementById('editor-iFrame');
+        var iFrame= document.getElementById('editor-iFrame');
     var editor = iFrame.contentWindow;
+    var doc = editor.document;
     editor.document.designMode='on';
     editor.focus();
     
@@ -7,11 +8,11 @@
      $('#bold').data('commandName', 'bold');
      $('#italic').data('commandName', 'italic');
      $('#underline').data('commandName', 'underline');
-     $('#strikethrough').data('commandName', 'strikeThrough');
+     $('#strikeThrough').data('commandName', 'strikeThrough');
      $('#subscript').data('commandName', 'subscript');
      $('#superscript').data('commandName', 'superscript');
-     $('#ol').data('commandName', 'insertOrderedList');
-     $('#ul').data('commandName', 'insertUnorderedList');
+     $('#insertOrderedList').data('commandName', 'insertOrderedList');
+     $('#insertUnorderedList').data('commandName', 'insertUnorderedList');
      $('#outdent').data('commandName', 'outdent');
      $('#indent').data('commandName', 'indent');
      $('#justifyLeft').data('commandName', 'justifyLeft');
@@ -21,14 +22,69 @@
      $('#removeFormatting').data('commandName', 'removeFormat');
      $('#undo').data('commandName', 'undo');
      $('#redo').data('commandName', 'redo');
-     $('#font').data('commandName', 'fontName');
+     $('#fontName').data('commandName', 'fontName');
      $('#fontSize').data('commandName', 'fontSize');
      $('#image').data('commandName', 'insertImage');
      $('#horizontalRule').data('commandName', 'insertHorizontalRule');
      $('#link').data('commandName', 'createLink');
      $('#unlink').data('commandName', 'unlink');
-     $('#image').data('prompst','Please enter the image url.');
+     $('#image').data('prompt','Please enter the image url.');
      $('#link').data('prompt','Please enter the url');
+
+     var fontNameRef = rootFBRef.child("fontNames");
+     var fontSizeRef = rootFBRef.child("fontSizes");
+     
+    //Fill the font name dropdown
+     
+//    for(var i=0; i<30;i++)
+//    {
+//        font={value:"Arial", text:"Arial"}
+//        fontNameRef.push(font);
+//    }
+//    
+    fontNameRef.on("value",function(fontsObject){
+         var list=$('#fontName');
+         var fonts=fontsObject.val();
+         $.each(fonts, function() {
+             list.append($('<option />').val(this['value']).text(this['text']));
+         });           
+                     
+     });
+
+    //Fill the font size dropdown
+
+//    for(var i=0; i<20;i++)
+//    {
+//        size={value:"12px", text:"12"}
+//        fontSizeRef.push(size);
+//    }
+   
+    fontSizeRef.on("value",function(sizesObject){
+         var list=$('#fontSize');
+        var sizes=sizesObject.val();
+         $.each(sizes, function() {
+             list.append($('<option />').val(this['value']).text(this['text']));
+         });      
+                     
+     });
+
+ //Set default font and size
+     editor.document.execCommand('fontName',false,'Arial');
+     editor.document.execCommand('fontSize',false,'12px');
+     queryCommandValue('fontName');
+     queryCommandValue('fontSize');
+
+
+    if (doc.addEventListener) {
+        doc.addEventListener("keyup", handleIframeKeyPress, false);
+          doc.addEventListener("click", handleIframeCursorMove, false);
+    } else if (doc.attachEvent) {
+        doc.attachEvent("onkeyup", handleIframeKeyPress);
+        doc.addEvent("onclick", handleIframeCursorMove);
+    } else {
+        doc.onkeyup = handleIframeKeyPress;
+        doc.onclick=handleIframeCursorMove;
+    }
     
     $('.btn.editor-toolbar-item').mouseover(function(){
         if(!($(this).hasClass('active'))){   
@@ -39,15 +95,8 @@
     $('.btn.editor-toolbar-item').mouseout(function(){
         $(this).removeClass('moused');
     });
-
-    $('iFrame').click(function(){
-       if(document.queryCommandState('bold'))
-       {
-           $('#bold').addClass('active');
-       }
-    });
     
-    $('.editor-toolbar-item.btn').on('click change',function(){
+    $('.editor-toolbar-item').on('click change',function(){
          editor.focus();
         $(this).removeClass('moused');
         
@@ -80,3 +129,52 @@
         
         editor.focus();   
     });
+
+function handleIframeKeyPress(e) {
+    e = e || iframe.contentWindow.event;
+    var code = e.keyCode || e.which;
+   if(code==13 || code==33 || code==34 || code==37 || code==38 || code==39 || code==40){
+           handleIframeCursorMove();
+        }
+}
+
+function handleIframeCursorMove(){
+     queryCommand('bold');
+     queryCommand('italic');
+     queryCommand('underline');
+     queryCommand('strikeThrough');
+     queryCommand('subscript');
+     queryCommand('superscript');
+     queryCommand('insertOrderedList');
+     queryCommand('insertUnorderedList');
+     queryCommand('justifyLeft');
+     queryCommand('justifyRight');
+     queryCommand('justifyCenter');
+     queryCommand('justifyFull');
+     queryCommandValue('fontName');
+     queryCommandValue('fontSize');
+}
+
+function queryCommand(commandName){
+    var state=doc.queryCommandState(commandName);
+    btn='#'+commandName;
+    if(state)
+    {
+        $(btn).addClass('active');
+    }
+    else
+    {
+        $(btn).removeClass('active');
+    }
+}
+
+function queryCommandValue(commandName)
+{
+    var value=doc.queryCommandValue(commandName);
+    strippedValue=value;
+    if(value.search(/['"]*['"]/)>-1){
+        strippedValue=value.substring(1,value.length-1);
+    }
+    btn='#'+commandName;
+    $(btn).val(strippedValue);
+}
