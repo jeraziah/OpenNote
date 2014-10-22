@@ -1,6 +1,5 @@
-var editor = document.getElementById('editor-iFrame').contentWindow;
-
-$(document).ready(function(){
+    var iFrame= document.getElementById('editor-iFrame');
+    var editor = iFrame.contentWindow;
     editor.document.designMode='on';
     editor.focus();
     
@@ -40,6 +39,13 @@ $(document).ready(function(){
     $('.btn.editor-toolbar-item').mouseout(function(){
         $(this).removeClass('moused');
     });
+
+    $('iFrame').click(function(){
+       if(document.queryCommandState('bold'))
+       {
+           $('#bold').addClass('active');
+       }
+    });
     
     $('.editor-toolbar-item.btn').on('click change',function(){
          editor.focus();
@@ -67,13 +73,10 @@ $(document).ready(function(){
                 $(this).siblings().removeClass('active');
             }
         }
-        
-        if(editor.getSelection().toString() != "")
+        else if(editor.getSelection().toString() == "" && $(this).hasClass('toggle'))
         {
-            $(this).removeClass('active');  
+            $(this).toggleClass('active');  
         }
         
         editor.focus();   
     });
-    
-});
