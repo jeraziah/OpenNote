@@ -31,46 +31,21 @@
      $('#image').data('prompt','Please enter the image url.');
      $('#link').data('prompt','Please enter the url');
 
-     var fontNameRef = rootFBRef.child("fontNames");
-     var fontSizeRef = rootFBRef.child("fontSizes");
-     
+     var fontNameRef = rootFBRef.child("fontName");
+
     //Fill the font name dropdown
-     
-//    for(var i=0; i<30;i++)
-//    {
-//        font={value:"Arial", text:"Arial"}
-//        fontNameRef.push(font);
-//    }
-//    
     fontNameRef.on("value",function(fontsObject){
          var list=$('#fontName');
          var fonts=fontsObject.val();
          $.each(fonts, function() {
-             list.append($('<option />').val(this['value']).text(this['text']));
+             list.append($('<option />').val(this).text(this));
          });           
-                     
-     });
-
-    //Fill the font size dropdown
-
-//    for(var i=0; i<20;i++)
-//    {
-//        size={value:"12px", text:"12"}
-//        fontSizeRef.push(size);
-//    }
-   
-    fontSizeRef.on("value",function(sizesObject){
-         var list=$('#fontSize');
-        var sizes=sizesObject.val();
-         $.each(sizes, function() {
-             list.append($('<option />').val(this['value']).text(this['text']));
-         });      
                      
      });
 
  //Set default font and size
      editor.document.execCommand('fontName',false,'Arial');
-     editor.document.execCommand('fontSize',false,'12px');
+     editor.document.execCommand('fontSize',false,'3');
      queryCommandValue('fontName');
      queryCommandValue('fontSize');
 
