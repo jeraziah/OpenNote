@@ -1,4 +1,4 @@
-        var iFrame= document.getElementById('editor-iFrame');
+    var iFrame= document.getElementById('editor-iFrame');
     var editor = iFrame.contentWindow;
     var doc = editor.document;
     editor.document.designMode='on';
@@ -78,10 +78,9 @@
         var value=this.value || '';
         if($(this).data('prompt'))
         {
-            value=prompt($(this).data('prompt'));
+            value=prompt($(this).data('prompt'),'http://');
         }
         editor.document.execCommand($(this).data('commandName'),false, value); 
-        var testing=$(this).data('commandName');
     
         if($(this).hasClass('radio'))
         {
