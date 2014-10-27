@@ -1,8 +1,16 @@
     var iFrame= document.getElementById('editor-iFrame');
     var editor = iFrame.contentWindow;
     var doc = editor.document;
+    var iFrameHead = doc.getElementsByTagName("head")[0];
+    var link = doc.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("type", "text/css");
+    link.setAttribute("href", "../CSS/iFrame.css");
+    iFrameHead.appendChild(link);
     editor.document.designMode='on';
+    handleIframeCursorMove();
     editor.focus();
+    
     
     //Specify commandNames for the buttons
      $('#bold').data('commandName', 'bold');
@@ -52,10 +60,10 @@
 
     if (doc.addEventListener) {
         doc.addEventListener("keyup", handleIframeKeyPress, false);
-          doc.addEventListener("click", handleIframeCursorMove, false);
+         doc.addEventListener("click", handleIframeCursorMove, false);
     } else if (doc.attachEvent) {
         doc.attachEvent("onkeyup", handleIframeKeyPress);
-        doc.addEvent("onclick", handleIframeCursorMove);
+        doc.attachEvent("onclick", handleIframeCursorMove);
     } else {
         doc.onkeyup = handleIframeKeyPress;
         doc.onclick=handleIframeCursorMove;
@@ -104,10 +112,12 @@
         editor.focus();   
     });
 
+
+
 function handleIframeKeyPress(e) {
     e = e || iframe.contentWindow.event;
     var code = e.keyCode || e.which;
-   if(code==13 || code==33 || code==34 || code==37 || code==38 || code==39 || code==40){
+    if(code==33 || code==34 || code==37 || code==38 || code==39 || code==40){
            handleIframeCursorMove();
         }
 }
@@ -140,6 +150,8 @@ function queryCommand(commandName){
     {
         $(btn).removeClass('active');
     }
+    
+    return state;
 }
 
 function queryCommandValue(commandName)
@@ -151,4 +163,6 @@ function queryCommandValue(commandName)
     }
     btn='#'+commandName;
     $(btn).val(strippedValue);
+    
+    return strippedValue;
 }
