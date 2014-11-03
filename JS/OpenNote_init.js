@@ -2,6 +2,8 @@ var rootFBRef = new Firebase("https://opennote.firebaseio.com/");
 
 var currentUser = undefined;
 
+var currentUserRef= undefined;
+
 var currentClass = undefined;
 
 var currentNote = undefined;
@@ -24,12 +26,18 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 	    $('#navOptionLoginModal').modal('hide');
 
 	    // update currentUser and menu options ONE TIME
-	    rootFBRef.child('users').child(user.uid).once('value', function (snapshot) {
+	    
+      currentUserRef=rootFBRef.child('users').child(user.uid);
+        
+       currentUserRef.on('value', function (snapshot) {
 		    //GET DATA and store as currentUser
-		    currentUser = snapshot.val();
-
-		    $("#navAccountHeader").html(currentUser.firstName);
-
+		    currentUser = snapshot.val();	         
+            $("#navAccountHeader").html(currentUser.firstName);
+            $('#accountDetailsFirstName').val(currentUser.firstName);
+            $('#accountDetailsLastName').val(currentUser.lastName);
+            $('#accountDetailsEmail').val(currentUser.email);
+		});
+        
 		    $('#navOptionLogin').hide();
 		    $('#navOptionForgotPass').hide();
 		    $('#navOptionChangePass').show();
@@ -38,8 +46,6 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 
 		    $('#welcomescreen').hide();
 		    $('#mainscreen').show();    
-
-		});
 
 	    // load class lists based off of what user is enrolled in
 	    rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
