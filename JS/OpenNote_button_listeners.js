@@ -35,10 +35,7 @@ $('#navOptionChangePass').click(function() {
 //Main Screen 'HEADER' show profile
 $('#navOptionAccountDetails').click(function() {
 	$('#personalProfileModal').modal('show');
-    rootFBRef.child('users').child(user.uid).on('value', function (snapshot) {
-$('#accountDetailsFirstName').val(currentUser.firstName);
-$('#accountDetailsLastName').val(currentUser.lastName);
-});
+
 });
 
 //Main SCreen 'HEADER' logout
