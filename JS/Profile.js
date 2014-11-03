@@ -9,3 +9,8 @@ $('#saveProfile').click(function() {
     
     $("#personalProfileModal").modal("hide");
 });
+
+//Post to the wall button
+$('#wallPost').click(function() {
+
+});
