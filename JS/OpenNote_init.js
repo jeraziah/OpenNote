@@ -75,6 +75,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 					$('.classTab').attr("class","colTab classTab");
 					$(this).attr("class","colTab classTab tabSelected");
 					currentClass = {userClassId: $(this).attr('name'), classId: this.id, className: this.innerHTML};
+                    loadNotes();
 				});		
 	    	}
 	    });
