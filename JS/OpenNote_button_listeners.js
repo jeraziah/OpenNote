@@ -85,10 +85,60 @@ $('#joinClassTab').click(function() {
 	});
 });
 
-//Main Screen Create a new Note
-$('#createNewNoteTab').click(function() {
+////Main Screen Create a new Note
+//$('#createNewNoteTab').click(function() {
+//	$('#createNoteModal').modal('show');
+//});
+
+$(document).on('click', '#createNewNoteTab', function() {
 	$('#createNoteModal').modal('show');
 });
 
+$(document).on('click', '.notesTab', function() {
+	// make class for clicked element "tab selected"
+    $('.notesTab').attr("class","colTab notesTab");
+    $(this).attr("class","colTab notesTab tabSelected");
+    
+    // update current note
+    currentNote = {noteId: $(this).attr("id"), noteName: this.innerHTML};
+    
+    // clear current thoughts
+    $('#messagesWrapper').empty();
+    
+    attachMessageWrapperListener(currentUser.userId);
+    
+    // clear editor
+    $('#editor').empty();
+    
+});
 
 
+$('#postThoughtBtn').click(function() {
+    
+    // establish ref to note thoughts
+    var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts")
+    
+    // get HTML to save
+    var HTMLToSave = $('#editor').html();
+    
+    // clear editor
+    $('#editor').empty();
+    
+    // wrap it in an object
+    var d = new Date();
+    var thoughtToUpload = {
+        noteHTML: HTMLToSave,
+        authorId: currentUser.userId,
+        authorName: currentUser.firstName + " " + currentUser.lastName,
+        parentNote: currentNote.noteId,
+        timeAdded: d.getTime()
+    }
+    
+    // push it up to user notes section
+    noteRef.push(thoughtToUpload);
+    
+    // push it up to class notes section
+    
+
+    
+});

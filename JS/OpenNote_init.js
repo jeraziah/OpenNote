@@ -8,6 +8,14 @@ var currentClass = undefined;
 
 var currentNote = undefined;
 
+var h = window.innerHeight;
+$('#messagesWrapper').css('height',h-300);
+
+$( window ).resize(function() {
+    var h = window.innerHeight;
+    $('#messagesWrapper').css('height',h-300);
+});
+
 var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 	if (error) 
 	{
@@ -38,14 +46,14 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             $('#accountDetailsEmail').val(currentUser.email);
 		});
         
-		    $('#navOptionLogin').hide();
-		    $('#navOptionForgotPass').hide();
-		    $('#navOptionChangePass').show();
-		    $('#navOptionAccountDetails').show();
-		    $('#navOptionLogout').show();
+        $('#navOptionLogin').hide();
+        $('#navOptionForgotPass').hide();
+        $('#navOptionChangePass').show();
+        $('#navOptionAccountDetails').show();
+        $('#navOptionLogout').show();
 
-		    $('#welcomescreen').hide();
-		    $('#mainscreen').show();    
+        $('#welcomescreen').hide();
+        $('#mainscreen').show();    
 
 	    // load class lists based off of what user is enrolled in
 	    rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
@@ -64,7 +72,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 				}  
 				else 
 				{
-					innerHTML += '<div class="colTab classTab" id=' + classList.classId + '" name="' + snapshot.name() + '">';
+					innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.name() + '">';
 					innerHTML += classList.classShortName + '</div>';
 				} 
 
@@ -75,8 +83,12 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 					$('.classTab').attr("class","colTab classTab");
 					$(this).attr("class","colTab classTab tabSelected");
 					currentClass = {userClassId: $(this).attr('name'), classId: this.id, className: this.innerHTML};
-                    loadNotes();
+                    loadNotes(user.uid);
+                    $('#editor').empty();
 				});		
+                
+                // load notes for that particular class
+                loadNotes(user.uid);
 	    	}
 	    });
 	} 

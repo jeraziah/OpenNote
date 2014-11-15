@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/site.css">
     <link rel="stylesheet" type="text/css" href="../CSS/OpenNote.css">
     <link rel="stylesheet" type="text/css" href="../CSS/editor.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/editor2.css">
 
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
 
@@ -128,144 +129,54 @@
 		        	</div>
 
 		        	<div id="noteWrapper" class="colWrapper col-md-6 no_padding_margins">
-		        		<div class="colHeader" style="border-left-style: solid;">Notes</div>
-		        		<div class="colTab notesTab" id="createNewNoteTab">Create New Note</div>
-		        		<div class="colTab notesTab tabSelected" id="class147812">10/4/14</div>
-		        		<div class="colTab notesTab" id="class142412">10/2/14</div>
-		        		<div class="colTab notesTab" id="class142412">9/30/14</div>
-		        		<div class="colTab notesTab" id="class142412">9/28/14</div>
-		        		<div class="colTab notesTab" id="class142412">9/23/14</div>
-		        		<div class="colTab notesTab" id="class142412">9/21/14</div>
-		        		<div class="colTab notesTab" id="class142412">9/19/14</div>
-		        	</div>
+		        		
+                    </div>
 				</div>
 			</div>
 		<div id="editorWrapper" class="col-md-9 no_padding_margins">
-			<div id="messagesWrapper">
-
-			</div>
-            
-			<div id="editorFrame">
-<!---------------------------->
-<!-- textbox -->
-<!---------------------------->
-				<div class="editor">
-				
-					<!-- canvas for the drawing component -->
-					<div class="canvas-container">
-						<canvas id="drawing-canvas" width="960" height="500" style="border:4px solid #000000"></canvas>
-					</div>
-				
-			         <div class="btn-toolbar">
-			            <button type="button" id="bold" class="editor-toolbar-item btn toggle" title="Bold">
-			                <i class="fa fa-bold"></i>
-			             </button>
-			             <button type="button" id="italic" class="editor-toolbar-item btn toggle" title="Italic">
-			                <i class="fa fa-italic"></i>
-			             </button>
-			             <button type="button" id="underline" class="editor-toolbar-item btn toggle" title="Underline">
-			                <i class="fa fa-underline"></i>
-			             </button>
-			             <button type="button" id="strikeThrough" class="editor-toolbar-item btn toggle" title="StrikeThrough">
-			                <i class="fa fa-strikethrough"></i>
-			             </button>
-			             <div class="btn-group mine">
-			                 <button type="button" id="subscript" class="editor-toolbar-item btn radio toggle" title="Subscript">
-			                    <i class="fa fa-subscript"></i>
-			                 </button>
-			                 <button type="button" id="superscript" class="editor-toolbar-item btn radio toggle" title="Superscript">
-			                    <i class="fa fa-superscript"></i>
-			                 </button>
-			             </div>
-			             <div class="btn-group mine">
-			                 <button type="button" id="insertOrderedList" class="editor-toolbar-item btn toggle" title="Insert Ordered List">
-			                    <i class="fa fa-list-ol"></i>
-			                 </button>
-			                 <button type="button" id="insertUnorderedList" class="editor-toolbar-item btn toggle" title="Insert Unordered List">
-			                    <i class="fa fa-list-ul"></i>
-			                 </button>
-			             </div>
-			             <div class="btn-group mine">
-			                 <button type="button" id="outdent" class="editor-toolbar-item btn" title="Outdent">
-			                    <i class="fa fa-outdent"></i>
-			                 </button>
-			                 <button type="button" id="indent" class="editor-toolbar-item btn" title="Indent">
-			                    <i class="fa fa-indent"></i>
-			                 </button>
-			             </div>
-			             <div class="btn-group mine">
-			                 <button type="button" id="justifyLeft" class="editor-toolbar-item btn toggle active" title="Left Align">
-			                    <i class="fa fa-align-left"></i>
-			                 </button>
-			                 <button type="button" id="justifyCenter" class="editor-toolbar-item btn toggle" title="Center Align">
-			                    <i class="fa fa-align-center"></i>
-			                 </button>
-			                 <button type="button" id="justifyRight" class="editor-toolbar-item btn toggle" title="Right Align">
-			                    <i class="fa fa-align-right"></i>
-			                 </button>
-			                 <button type="button" id="justifyFull" class="editor-toolbar-item btn toggle" title="Block Justify">
-			                    <i class="fa fa-align-justify"></i>
-			                 </button>
-			             </div>
-			             <button type="button" id="removeFormatting" class="editor-toolbar-item btn" title="Remove Formatting">
-			                <span class="fa-stack" style="font-size:9px;">
-			  <i class="fa fa-ban fa-stack-2x"></i>
-			  <i class="fa fa-font fa-stack-1x"></i>
-			</span>
-			             </button>
-			             <button type="button" id="undo" class="editor-toolbar-item btn" title="Undo">
-			                <i class="fa fa-undo"></i>
-			             </button>
-			             <button type="button" id="redo" class="editor-toolbar-item btn" title="Redo">
-			                <i class="fa fa-repeat"></i>
-			             </button>
-			          </div>
-			          
-			         <div class="btn-toolbar">
-			            <select id="fontName" class="editor-toolbar-item">
-			             
-			              </select>
-			              <select id="fontSize" class="editor-toolbar-item">
-			                  <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-			              </select>
-			              <button type="button" id="image" class="editor-toolbar-item btn" title="Insert Image">
-			                  <i class="fa fa-file-image-o"></i>
-			              </button>
-			              <button type="button" id="horizontalRule" class="editor-toolbar-item btn" title="Insert Horizontal Rule">
-			                  hr
-			              </button>
-			              <button type="button" id="link" class="editor-toolbar-item btn" title="Insert Hyperlink">
-			                  <i class="fa fa-link"></i>
-			              </button>
-			              <button type="button" id="unlink" class="editor-toolbar-item btn" title="Remove Hyperlink">
-			                  <i class="fa fa-unlink"></i>
-			              </button>
-			          </div>
-			      </div>
-
-			      <div class = "form-group"  id="editorOptionsWrapper">
-					<div>
-			            <!--the textarea is hidden -->
-			            <textarea id="editor-textarea" ></textarea>
-			            <iframe id="editor-iFrame" name="iFrame" >
-                            <head>
-                                <link type="text/css" rel="Stylesheet" href="Style/simple.css" />
-                            </head>
-                            <body>
-                            </body>
-                        </iframe>
-			          </div>
-					<button id = "btUpdateNotes" class = "btn btn-default" style="float: right;">Post Thought</button>
-					<!-- Update message button -->
-				</div>
-			</div>
-		</div>
+			<div id="writeNoteWrapper">
+                <div id="editorButtonToolbar"></div>
+                <div contenteditable="true" id="editor"></div>
+                <button id = "postThoughtBtn" class = "btn btn-default">Post Thought</button>
+            </div>
+        
+            <div id="messagesWrapper">
+<!--
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">
+                        Hi, have a note, its really great to have lots of sample notes such as this one tol fill lots of space. WronglySpelled word.
+                    </div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+-->
+            </div>
+        </div>
     </div>
 
 	<!------------------------------------------------------------------------------------------>
@@ -454,7 +365,8 @@
 			</div>
 		</div>
 	</div>	
-			<!------------------------------------------------------------------------------------------>
+			
+    <!------------------------------------------------------------------------------------------>
 	<!-- Forgot Password Modal -------------------------------------------------------------------->
 	<!------------------------------------------------------------------------------------------>	
 
@@ -762,7 +674,7 @@
 
     <script type="text/javascript" src="../JS/note-portions.js"></script>
     <script type="text/javascript" src="../JS/editor.js"></script>
-	<script type="text/javascript" src="../JS/drawingCanvas.js"></script>
+<!--	<script type="text/javascript" src="../JS/drawingCanvas.js"></script>-->
 	<script type="text/javascript" src="../JS/Change_password_modal.js"></script>
 	<script type="text/javascript" src="../JS/Contact_modal.js"></script>
 	<script type="text/javascript" src="../JS/Create_class_modal.js"></script>

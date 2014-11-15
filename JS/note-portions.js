@@ -11,7 +11,7 @@ userThoughtRef.on('value',function( snapshot) {
 });
     
 //updates the firebase when button is clicked
-btUpdateNotes.addEventListener('click', function() {
+btUpdateNotes.on('click', function() {
     
     // get text from editor box
     var textToUpload=$("#editor-iFrame").contents().find("body").html();
