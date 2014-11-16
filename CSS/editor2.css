@@ -91,6 +91,7 @@
 .noteStar{
     float: right;
     font-style: bold;
+    color: #333;
 }
 
 #messagesWrapper::-webkit-scrollbar-track
