@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenNote</title>
+
+    <link rel="stylesheet" type="text/css" href="../CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/site.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/OpenNote.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/editor.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/editor2.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+
+    <!-- Font-Awesome -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  	
+  	<!-- DataTables.net for join class modal -->
+    <link href='http://cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
+
+</head>
+<body style="height: 100%">
+
+	<!------------------------------------------------------------------------------------------>
+    <!-- Header -------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div id="navbar_title">OpenNote</div>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown navbarOption" id="accountNavBar" style="padding: 0px;">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="navAccountHeader">Login</span> <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li id="navOptionLogin"><a href="#">Login</a></li>
+							<li id="navOptionForgotPass"><a href="#">Forgot Password</a></li>
+							<li id="navOptionAccountDetails"><a href="#">Account Details</a></li>
+							<li id="navOptionChangePass"><a href="#">Change Password</a></li>
+							<li id="navOptionLogout"><a href="#">Logout</a></li>
+							<!--<li class="divider"></li>-->
+						</ul>
+					</li>
+                    <li class="dropdown navbarOption" id="contactNavBar" style="padding:0px;">
+                    	<a href="#" class="dropdown-toggle" data-toggle="dropdown"></span id="navContactHeader">Contact</span> <span class="caret"></span></a>
+                    		<ul class="dropdown-menu" role="menu">
+                    			<li id="navOptionContact"><a href="#">Contact Us</a></li>
+                    		</ul>	
+                    </li>		
+                </ul>
+            </div>
+        </div>
+    </div>
+	
+	<!------------------------------------------------------------------------------------------>
+    <!-- Footer -------------------------------------------------------------------------------->
+    <!------------------------------------------------------------------------------------------>
+	<div id="footerWrapper">
+		OpenNote (C)2014
+	</div>
+
+
+
+    <div class="container-fluid body-content no_padding_margins" style="height: 100%">
+
+        <!------------------------------------------------------------------------------------------>
+        <!-- Welcome Screen ------------------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------------>
+
+        <div id="welcomescreen" class="row no_padding_margins">
+            <div class="col-md-1"></div>
+            <div class="col-md-4" style="text-align: center;">
+                <div style="height: 100px;"></div>
+                <h1 style="font-family: bigChalk; font-size: 90px;">OpenNote</h1>
+                <p style="font-family: smallChalk; font-size: 20px;">
+                    Note taking has never been so much fun and colloborative before. OpenNote's real-time note synchronization technology allows students to not only save their own notes, but to add classmates and instructors notes as well. When students take notes together, the whole class benefits. Click below to make OpenNote start working for your class today! 
+                </p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more for students &raquo;</a></p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more for universities &raquo;</a></p>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4">
+                <div style="height: 100px;"></div>
+                <h1 style="font-family: bigChalk; font-size: 50px;">Login</h1>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="InputEmail1" style="font-family: smallChalk; font-size: 20px;">Email address</label>
+                        <input type="email" class="form-control" id="InputEmail1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPassword1" style="font-family: smallChalk; font-size: 20px;">Password</label>
+                        <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                    </div>
+                    <button type="button" class="btn btn-default" id="navOptionForgotPass">Forgot Password?</button>
+                    <button id="loginButton" class="btn btn-default">Login</button>
+                </form>
+                <br>
+                <br>
+                <div id="registerButton">Register</div>
+            </div>
+        </div>
+
+
+        <!------------------------------------------------------------------------------------------>
+        <!-- Main Screen --------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------>
+
+        <div id="mainscreen" class="row no_padding_margins" style="height: 100%; display: none;">
+        	<div class="col-md-3 no_padding_margins" style="height: 100%;">
+        		<div class="row no_padding_margins" style="height: 100%;">
+		        	<div id="classWrapper" class="colWrapper col-md-6 no_padding_margins">
+		        		<div class="colHeader" style="border-right-style: solid;">Classes</div>
+						
+						<div id="dynamicClassWrapper">
+							<!-- Classes Added Dynamically -->
+						</div>
+
+						<div class="colTab" id="joinClassTab">Join a Class</div>
+						<div class="colTab" id="createNewClassTab">Create New Class</div>
+		        	</div>
+
+		        	<div id="noteWrapper" class="colWrapper col-md-6 no_padding_margins">
+		        		
+                    </div>
+				</div>
+			</div>
+		<div id="editorWrapper" class="col-md-9 no_padding_margins">
+			<div id="writeNoteWrapper">
+                <div id="editorButtonToolbar"></div>
+                <div contenteditable="true" id="editor"></div>
+                <button id = "postThoughtBtn" class = "btn btn-default">Post Thought</button>
+            </div>
+        
+            <div id="messagesWrapper">
+<!--
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">
+                        Hi, have a note, its really great to have lots of sample notes such as this one tol fill lots of space. WronglySpelled word.
+                    </div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+                <div class="notePortionWrapper">
+                    <div class="noteContent" contenteditable="true" spellcheck="false">This was a really cool past note that I want to keep because it's great. This was a really cool past note that I want to keep because it.This was a really cool past note that I want to keep because it's great.This was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's greatThis was a really cool past note that I want to keep because it's great's great</div>
+                    <div class="noteOptions"></div>
+                    <div class="noteDate">9:40 PM - 11/09/14</div>
+                    <div class="noteAuthor">Shaun VanWeelden</div>
+                </div>
+-->
+            </div>
+        </div>
+    </div>
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Registration Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Register a new OpenNote Account</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="registrationForm">
+						<div class="form-group">
+							<label for="registration_firstName" class="col-sm-4 control-label">First Name</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="registration_firstName" placeholder="First Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_lastName" class="col-sm-4 control-label">Last Name</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="registration_lastName" placeholder="Last Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputEmail" class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="registration_inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputPassword" class="col-sm-4 control-label">Password</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" id="registration_inputPassword" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputPasswordCheck" class="col-sm-4 control-label">Confirm Password</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" id="registration_inputPasswordCheck" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_university" class="col-sm-4 control-label">University</label>
+							<div class="col-sm-8">
+								<select class="form-control" id="registration_university">
+									<option>Iowa State University</option>
+									<option>Illinois State University</option>
+									<option>University of Iowa</option>
+									<option>Hawaii State University</option>
+									<option>UCLA</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-8">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox"> Remember me
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="registrationErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="finalizeRegistration">Register</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Contact Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Contact Us: </h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="contactForm">
+						<div class="form-group">
+							<label for="contact_firstName" class="col-sm-4 control-label">First Name</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="contact_firstName" placeholder="First Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="contact_lastName" class="col-sm-4 control-label">Last Name</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="contact_lastName" placeholder="Last Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="contact_inputEmail" class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="contact_inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="contact_reason" class="col-sm-4 control-label">Reason for contacting: </label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="contact_reason" placeholder="Reason for Contacting">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="contact_explanation" class="col-sm-4 control-label">Explanation</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="contact_inputEmail" placeholder="Explanation">
+							</div>
+						</div>		
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="contactErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="contact_Send">Send</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Login Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="navOptionLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Login</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="loginForm">
+						<div class="form-group">
+							<label for="registration_inputEmail" class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="navOptionLogin_inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputPassword" class="col-sm-4 control-label">Password</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" id="navOptionLogin_inputPassword" placeholder="Password">
+								<button type="button" class="btn btn-default" id="navOptionForgotPass" data-dismiss="modal">Forgot Password?</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-8">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox"> Remember me
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="navOptionLoginErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="navOptionLoginAction">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+			
+    <!------------------------------------------------------------------------------------------>
+	<!-- Forgot Password Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="navOptionForgotPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">I Forgot My Password</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="navOptionForgotPassForm">
+						<div class="form-group">
+							<label for="registration_inputEmail" class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="navOptionChangePassEmail" placeholder="Email">
+							</div>
+						</div>	
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="navOptionForgotPassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="navOptionForgotPassAction">Send New Password</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!------------------------------------------------------------------------------------------>
+	<!-- Change Password Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="navOptionChangePassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Change Password</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="navOptionChangePassForm">
+						<div class="form-group">
+							<label for="registration_inputEmail" class="col-sm-4 control-label">Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="navOptionChangePassEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputPassword" class="col-sm-4 control-label">Old Password</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" id="navOptionChangePassOldPassword" placeholder="Password">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="registration_inputPassword" class="col-sm-4 control-label">New Password</label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control" id="navOptionChangePassNewPassword" placeholder="Password">
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="navOptionChangePassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="navOptionChangePassAction">Change Password</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Create a Class Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="createClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Create a Class</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="createClassForm">
+						<div class="form-group">
+							<label for="createClassFullName" class="col-sm-4 control-label">Full Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="createClassFullName" placeholder="Computer Science 309">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createClassShortName" class="col-sm-4 control-label">Short Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="createClassShortName" placeholder="COM S 309">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createClassInstructor" class="col-sm-4 control-label">Instructor</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="createClassInstructor" placeholder="Simanta Mitra">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createClassTerm" class="col-sm-4 control-label">Term</label>
+							<div class="col-sm-8">
+								<label class="radio-inline">
+								  <input type="radio" name="createClassTerm" id="createClassTermFall" value="Fall"> Fall
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="createClassTerm" id="createClassTermSpring" value="Spring"> Spring
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createClassTerm" class="col-sm-4 control-label">Year</label>
+							<select class="form-control" id="createClassYear">
+							  <option>2014</option>
+							  <option>2015</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="createClassDescription" class="col-sm-4 control-label">Class Description</label>
+							<div class="col-sm-8">
+								<input type="text" id="createClassDescription" class="form-control" placeholder="Text input">
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="createClassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="createClassAction">Create Class</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Join a Class Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="joinClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Join a Class</h4>
+				</div>
+				<div class="modal-body" style="height: 500px;overflow-x: hidden;overflow-y: auto;">
+					<div style="width: 100%; text-align: center;" id="addClassLoadingMsg"><b>Class List is Loading</b></div>
+
+					<table id="classListTable" style="display: none;">
+						
+					</table>
+
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="createClassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="joinClassAction">Join Class</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- Create a Note Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="createNoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Create a Note</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="createClassForm">
+						<div class="form-group">
+							<label for="createNoteName" class="col-sm-4 control-label">Note Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="createNoteName" placeholder="Computer Science 309">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createNoteDescription" class="col-sm-4 control-label">Note Description</label>
+							<div class="col-sm-8">
+								<input type="text" id="createNoteDescription" class="form-control" placeholder="Text input">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-8">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="createNotePrivate"> Make Private
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="createNoteErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="createNoteAction">Create Note</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+
+
+
+	<!------------------------------------------------------------------------------------------>
+	<!-- View Your Profile Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="personalProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">View Profile</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="personalProfile">
+						
+						<p align="center">
+						<img class="profile-pic" src="http://fbcofchesapeake.com/wp-content/uploads/2013/05/question-mark-face.jpg" />
+						<br>
+						<div class="upload-button">Upload Image</div>
+						<input class="file-upload" type="file" accept="image/*"/>
+					</p>
+
+
+						<br>
+						<div class="form-group">
+							<label for="Name" class="col-sm-4 control-label">First Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountDetailsFirstName" placeholder="[Insert Name Here]">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Name" class="col-sm-4 control-label">Last Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountDetailsLastName" placeholder="[Insert Name Here]">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="email" class="col-sm-4 control-label">Email:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountDetailsEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="wallPost" class="col-sm-4 control-label">Leave a note</label>
+							<div class="col-sm-8">
+								<input type="text" id="wallPost" class="form-control" placeholder="Leave a Note!"><button type="button" class="btn btn-primary" data-dismiss="modal">Post</button>
+								
+							</div>
+						</div>
+						
+					</form>
+	
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="saveProfile">Save</button>
+
+				</div>
+			</div>
+		</div>
+	</div>		
+
+    <script type="text/javascript" src="../JS/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../JS/bootstrap.min.js"></script>    
+    <script src="https://cdn.firebase.com/js/client/1.0.24/firebase.js"></script>
+    <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
+
+	<script type="text/javascript" src="../JS/OpenNote_init.js"></script>
+
+    <script type="text/javascript" src="../JS/OpenNote_button_listeners.js"></script>
+
+    <script type="text/javascript" src="../JS/OpenNote_helper.js"></script>
+
+    <script type="text/javascript" src="../JS/note-portions.js"></script>
+    <script type="text/javascript" src="../JS/editor.js"></script>
+<!--	<script type="text/javascript" src="../JS/drawingCanvas.js"></script>-->
+	<script type="text/javascript" src="../JS/Change_password_modal.js"></script>
+	<script type="text/javascript" src="../JS/Contact_modal.js"></script>
+	<script type="text/javascript" src="../JS/Create_class_modal.js"></script>
+	<script type="text/javascript" src="../JS/Create_note.js"></script>
+	<script type="text/javascript" src="../JS/Forgot_password_modal.js"></script>
+	<script type="text/javascript" src="../JS/Join_class_modal.js"></script>
+	<script type="text/javascript" src="../JS/Login_modal.js"></script>
+	<script type="text/javascript" src="../JS/Profile.js"></script>
+	<script type="text/javascript" src="../JS/Registration_modal.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+.editor{
+    border:none;
+    padding:0 1px 1px;
+    font:12px Verdana,Arial;
+    overflow-x:hidden;
+    color: #222;
+}
+.btn-toolbar{
+    clear:both;
+    background-color:#ccc;
+    border-bottom: solid #c0c0c0 1px;
+    padding:1px;
+    margin:0px;
+}
+.btn.editor-toolbar-item {
+    cursor:pointer;
+    float: left;
+    width:35px;
+    text-align: center;
+    margin:0px;
+    background-color:#ccc;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.btn-group.no-margin{
+    margin: 0px;
+}
+.btn-group+.btn-group,
+.btn+.btn-group,
+.btn-group+.btn{
+    border-left:solid 1px #c0c0c0;
+}
+select{
+    float:left;
+    margin-top:8px;
+    margin-left:10px;
+    background-color: #fff;
+}
+.btn.editor-toolbar-item.active {
+    background-color:#fff; 
+}
+.btn.editor-toolbar-item.moused{
+    background-color:#dcdcdc; 
+}
+#editor-textarea {
+    color: red;
+    display:none;
+    margin:0;  
+    height: 200px;
+    width: 100%;
+    float: left;
+}
+
+#editorFrame{
+    color: blue;
+    width: 80%;
+    margin: 20px;
+    margin-left: 10%;
+    border-width: 12px;
+    border-style: solid;
+    border-radius: 12px;
+    position: absolute;
+    bottom: 0;
+}
+
+#editor-iFrame {
+    background-color : white;
+    color: red;
+    margin:0;  
+    height: 120px;
+    width: 100%;
+    float: left;
+}
+
+#editor-iFrame body{
+    color: white;
+    font-size: 1.5em;
+}
+
+#editorOptionsWrapper{
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.upload-button {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    float: left;
+}
+
+.profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
+
+.file-upload {
+    display: none;
+}
