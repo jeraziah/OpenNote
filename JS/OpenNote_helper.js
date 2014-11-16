@@ -80,7 +80,7 @@ function attachMessageWrapperListener(userId){
             htmlToAppend += notePortion.authorName;
             htmlToAppend += '</div>';
             htmlToAppend += '<div class="noteStar">';
-            htmlToAppend += '<span class="gold-star">★</span>';
+            htmlToAppend += '<h3 class="gold-star">★</h3>';
             htmlToAppend += '</div>';
             htmlToAppend += '</div>';
         }
