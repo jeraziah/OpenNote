@@ -1,12 +1,12 @@
 //welcome screen register button
-$('#registerButton').click(function() {
+$('#registerButton').click(function () {
 	$('#registrationErrorMsg').hide();
 	// $('#registrationForm').reset();
 	$('#registrationModal').modal('show');
 });
 
 //welcome screen login button
-$('#loginButton').click(function() {
+$('#loginButton').click(function () {
 
 	// login user using the email/password method
 	authClient.login('password', {
@@ -16,18 +16,18 @@ $('#loginButton').click(function() {
 });
 
 //welcome screen header login button
-$('#navOptionLogin').click(function() {
+$('#navOptionLogin').click(function () {
 	$('#navOptionLoginModal').modal('show');
 
 });
 
 //Welcome Screen forgot password button
-$('#navOptionForgotPass').click(function() {
+$('#navOptionForgotPass').click(function () {
 	$('#navOptionForgotPassModal').modal('show');
 });
 
 //Welcome Screen 'HEADER' change password
-$('#navOptionChangePass').click(function() {
+$('#navOptionChangePass').click(function () {
 	//navOptionChangePassModal
 	$('#navOptionChangePassModal').modal('show');
 });
@@ -35,6 +35,12 @@ $('#navOptionChangePass').click(function() {
 //Main Screen 'HEADER' show profile
 $('#navOptionAccountDetails').click(function() {
 	$('#personalProfileModal').modal('show');
+
+});
+
+//Main Screen 'HEADER' show profile
+$('#navOptionClassAdmin').click(function() {
+	$('#navOptionClassAdminModal').modal('show');
 
 });
 

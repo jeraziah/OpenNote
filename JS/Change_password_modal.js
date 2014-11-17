@@ -12,6 +12,6 @@ $('#navOptionChangePassAction').click(function() {
 	    console.log("Error changing password:", error);
 	    $('#navOptionChangePassErrorMsg').html(error);
 		$('#navOptionChangePassErrorMsg').show();
-	  }
+	  } 
 	});
 });

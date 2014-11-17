@@ -44,6 +44,7 @@
 							<li id="navOptionForgotPass"><a href="#">Forgot Password</a></li>
 							<li id="navOptionAccountDetails"><a href="#">Account Details</a></li>
 							<li id="navOptionChangePass"><a href="#">Change Password</a></li>
+                            <li id="navOptionClassAdmin"><a href="#">Manage Classes</a></li>
 							<li id="navOptionLogout"><a href="#">Logout</a></li>
 							<!--<li class="divider"></li>-->
 						</ul>
@@ -364,6 +365,36 @@
 				</div>
 			</div>
 		</div>
+	</div>
+        
+        
+        <!------------------------------------------------------------------------------------------>
+	<!-- Class Admin Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="navOptionClassAdminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Manage Classes</h4>
+                    <h6 class="modal-subtitle" id="myModalSubLabel">Classes that YOU are an Admin</h6>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="navOptionListClasses">
+						
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="navOptionForgotPassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>	
 			
     <!------------------------------------------------------------------------------------------>
@@ -616,7 +647,7 @@
 						<p align="center">
 						<img class="profile-pic" src="http://fbcofchesapeake.com/wp-content/uploads/2013/05/question-mark-face.jpg" />
 						<br>
-						<div class="upload-button">Upload Image</div>
+						
 						<input class="file-upload" type="file" accept="image/*"/>
 					</p>
 
