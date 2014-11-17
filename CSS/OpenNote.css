@@ -1,4 +1,4 @@
-﻿/* -------------------- */
+/* -------------------- */
 /*    General Styles    */
 /* -------------------- */
 
@@ -153,4 +153,31 @@ background-color: transparent;
 	color: white;
 }
 
+.compareNavigation{
+    width:5%;
+    vertical-align: middle;
+}
 
+.compareNavigation.right{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.compareNavigation.left{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.thought{
+    display: table-cell;
+}
+
+.thoughtContainer{
+    padding-left: 10px;
+    padding-right: 10px;
+    width:90%;
+}
+
+.hover{
+    background-color: #555;
+}

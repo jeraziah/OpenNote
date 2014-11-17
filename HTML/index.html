@@ -44,6 +44,7 @@
 							<li id="navOptionForgotPass"><a href="#">Forgot Password</a></li>
 							<li id="navOptionAccountDetails"><a href="#">Account Details</a></li>
 							<li id="navOptionChangePass"><a href="#">Change Password</a></li>
+                            <li id="navOptionClassAdmin"><a href="#">Manage Classes</a></li>
 							<li id="navOptionLogout"><a href="#">Logout</a></li>
 							<!--<li class="divider"></li>-->
 						</ul>
@@ -134,6 +135,8 @@
 				</div>
 			</div>
 		<div id="editorWrapper" class="col-md-9 no_padding_margins">
+            <button id=compareNotes class="btn btn-default">Compare Notes</button>
+            <button id=returnToWriting class="btn btn-default">Return to Writing Notes</button>
 			<div id="writeNoteWrapper">
                 <div id="editorButtonToolbar"></div>
                 <div contenteditable="true" id="editor"></div>
@@ -362,6 +365,36 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-primary" id="navOptionLoginAction">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+        
+        
+        <!------------------------------------------------------------------------------------------>
+	<!-- Class Admin Modal -------------------------------------------------------------------->
+	<!------------------------------------------------------------------------------------------>	
+
+	<div class="modal fade lightBG" id="navOptionClassAdminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Manage Classes</h4>
+                    <h6 class="modal-subtitle" id="myModalSubLabel">Classes that YOU are an Admin</h6>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" id="navOptionListClasses">
+						
+					</form>
+					<div class="col-sm-4"></div>
+					<div class="col-sm-8">
+						<span id="navOptionForgotPassErrorMsg" style="color: red; display: none;"></span>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -617,7 +650,7 @@
 						<p align="center">
 						<img class="profile-pic" src="http://fbcofchesapeake.com/wp-content/uploads/2013/05/question-mark-face.jpg" />
 						<br>
-						<div class="upload-button">Upload Image</div>
+						
 						<input class="file-upload" type="file" accept="image/*"/>
 					</p>
 
@@ -667,7 +700,7 @@
     <script type="text/javascript" src="../JS/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../JS/bootstrap.min.js"></script>    
-    <script src="https://cdn.firebase.com/js/client/1.0.24/firebase.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.3/firebase.js"></script>
     <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
 
 	<script type="text/javascript" src="../JS/OpenNote_init.js"></script>
@@ -675,9 +708,9 @@
 
     <script type="text/javascript" src="../JS/OpenNote_helper.js"></script>
 
-    <script type="text/javascript" src="../JS/note-portions.js"></script>
-    <script type="text/javascript" src="../JS/editor.js"></script>
-<!--	<script type="text/javascript" src="../JS/drawingCanvas.js"></script>-->
+ <!--   <script type="text/javascript" src="../JS/note-portions.js"></script>
+    <script type="text/javascript" src="../JS/editor.js"></script> 
+	<script type="text/javascript" src="../JS/drawingCanvas.js"></script>-->
 	<script type="text/javascript" src="../JS/Change_password_modal.js"></script>
 	<script type="text/javascript" src="../JS/Contact_modal.js"></script>
 	<script type="text/javascript" src="../JS/Create_class_modal.js"></script>

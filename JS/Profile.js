@@ -3,7 +3,7 @@ $('#saveProfile').click(function() {
     
         currentUserRef.update({
             "firstName": $("#accountDetailsFirstName").val(),
-            "lastName": $("#accountDetailsFirstName").val(),
+            "lastName": $("#accountDetailsLastName").val(),
             "email": $("#accountDetailsEmail").val()   
         })
     

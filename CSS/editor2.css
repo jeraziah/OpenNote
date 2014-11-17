@@ -42,14 +42,13 @@
 
 .notePortionWrapper{
     margin: 0 auto;
-    display: inline-block;
+    display: table;
     background-color: #ddd;
 /*    margin-top: 20px;*/
     border-bottom-style: solid;
     border-bottom-color: #666;
     border-radius: 10px;
-    padding: 10px;
-    padding-top: 3px;
+    padding: 0px;
     width: 100%;
 }
 
