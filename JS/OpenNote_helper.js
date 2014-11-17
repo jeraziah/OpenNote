@@ -181,7 +181,7 @@ function grabNextNote(element, direction)
             var userThoughtRef = rootFBRef.child("users").child(displayedUserId).child("classes").child(currentClass.classId).child("thoughts");
             
                     userThoughtRef.on('child_added', function(snapshot){
-                    rootFBRef.child("thoughts").child(snapshot.key()).orderByChild('startTime').startAt(thought.startTime).endAt(thought.endAt).on('value',function(snapshot){
+                    rootFBRef.child("thoughts").child(snapshot.key()).on('value',function(snapshot){
                         
                             if(snapshot.val() != null)
                             {
@@ -247,6 +247,9 @@ function replaceThoughtContent(divToAlter,thought)
 function restoreUserThoughts(){
     
 }
+
+
+/*Written by Alec*/
 
 function printIt(printThis)
 {

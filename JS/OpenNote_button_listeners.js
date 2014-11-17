@@ -213,10 +213,7 @@ $('#returnToWriting').click(function(){
 });
 
 
-<<<<<<< HEAD
-
-
-=======
+/*Written by Alec*/
 $('#createGuideBtn').click(function() {
 	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
 	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
@@ -261,5 +258,4 @@ $('#starNoteBtn').click(function() {
 	 *  4. update the message star to change color
 	 */
 });
->>>>>>> 960f5903ea42de7818f549db0842da53b307f4e5
 
