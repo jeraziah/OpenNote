@@ -244,11 +244,10 @@ function replaceThoughtContent(divToAlter,thought)
     divToAlter.children('.noteAuthor').html(thought.authorName);                 
 }
 
-<<<<<<< HEAD
 function restoreUserThoughts(){
     
-    
-=======
+}
+
 function printIt(printThis)
 {
     var win=null;
@@ -264,5 +263,4 @@ function printIt(printThis)
     win.document.close();
     win.print();
     win.close();
->>>>>>> 960f5903ea42de7818f549db0842da53b307f4e5
 }
