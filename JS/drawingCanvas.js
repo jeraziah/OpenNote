@@ -75,12 +75,12 @@
     // Add callbacks that are fired any time the pixel data changes and adjusts the canvas appropriately.
     // Note that child_added events will be fired for initial pixel data as well.
     var drawPixel = function(snapshot) {
-      var coords = snapshot.name().split(":");
+      var coords = snapshot.key().split(":");
       myContext.fillStyle = "#" + snapshot.val();
       myContext.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
     };
     var clearPixel = function(snapshot) {
-      var coords = snapshot.name().split(":");
+      var coords = snapshot.key().split(":");
       myContext.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
     };
 	

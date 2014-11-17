@@ -2,6 +2,7 @@
 $('#createClassAction').click(function() {
 	// add class to university classes list
 	var universityRef = rootFBRef.child("universities").child(currentUser.university).child("classes");
+    
 	var d = new Date();
 	var classUniqueId = universityRef.push({
 		longClassName: $('#createClassFullName').val(),
@@ -16,10 +17,13 @@ $('#createClassAction').click(function() {
 
 	// enroll user in that class
 	var currentUserClassRef = rootFBRef.child("users").child(currentUser.userId).child("classes");
-	currentUserClassRef.push({
-		classId: classUniqueId.name(),
+    currentUserClassRef.child(classUniqueId.key()).set({
+		classId: classUniqueId.key(),
 		classShortName: $('#createClassShortName').val()
 	})
+        
+        //add user to the member list for the class
+        universityRef.child(classUniqueId.key()).child("users").child(currentUser.userId).set(true);
 
 	$('#createClassModal').modal('hide');
 });

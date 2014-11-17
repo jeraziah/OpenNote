@@ -156,6 +156,7 @@ background-color: transparent;
 .compareNavigation{
     width:5%;
     vertical-align: middle;
+    display: table-cell;
 }
 
 .compareNavigation.right{
@@ -168,7 +169,7 @@ background-color: transparent;
     border-top-left-radius: 10px;
 }
 
-.thought{
+.thoughts{
     display: table-cell;
 }
 

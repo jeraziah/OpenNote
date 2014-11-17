@@ -55,7 +55,9 @@ $('#joinClassTab').click(function() {
 
 	// create table of available classes
 	tableHTML = "<thead><tr><th>Class</th><th>Full Name</th><th>Instructor</th><th>Term</th>";
-	tableHTML += "<th>Year</th><th>Description</th><th>Join?</th></tr></thead>";
+	tableHTML += "<th>Year</th>";
+    //<th>Description</th>
+    tableHTML += "<th>Join?</th></tr></thead>";
 	tableHTML += '<tbody>';
 	var universityClassRef = rootFBRef.child("universities").child(currentUser.university).child("classes").on('value', function( snapshot) {
 		var classSnapshot = snapshot.val();
@@ -64,7 +66,8 @@ $('#joinClassTab').click(function() {
 			var tempClass = classSnapshot[aClass];
 			tableHTML += '<tr><td>' + tempClass.shortClassName + '</td><td>' + tempClass.longClassName + '</td>';
 			tableHTML += '<td>' + tempClass.instructor + '</td><td>' + tempClass.term + '</td>';
-			tableHTML += '<td>' + tempClass.year + '</td><td>' + tempClass.description + '</td>';
+			tableHTML += '<td>' + tempClass.year + '</td>';
+            //<td>' + tempClass.description + '</td>';
 			tableHTML += '<td style="text-align: center;"><input type="checkbox" class="joinClassCheckbox" value="'; 
 			tableHTML += aClass + '|||||' + tempClass.shortClassName + '"></input></td></tr>';
 			//console.log(tempClass.instructor);
@@ -117,8 +120,9 @@ $(document).on('click', '.notesTab', function() {
 $('#postThoughtBtn').click(function() {    
     // establish ref to thought, class notes, and user notes
     var thoughtRef = rootFBRef.child("thoughts");
-    var classNoteRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
-    var userNoteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
+    var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+    var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
+    var userThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("thoughts");
         
     // get HTML to save
     var HTMLToSave = $('#editor').html();
@@ -128,30 +132,32 @@ $('#postThoughtBtn').click(function() {
     
     // wrap it in an object
     var d=new Date();
+    var endTime= d.getTime();
     var thoughtToUpload = {
         noteHTML: HTMLToSave,
         authorId: currentUser.userId,
         authorName: currentUser.firstName + " " + currentUser.lastName,
         parentNote: currentNote.noteId,
         startTime: currNoteStartTime,
-        endTime: d.getDate()
+        endTime: endTime
     }
     var thoughtIndexToUpload = {
         startTime: currNoteStartTime,
-        endTime: d.getDate()
+        endTime: endTime
     }
     
     //push it up to the thoughts section
     var id= thoughtRef.push(thoughtToUpload);
      
     // push index to user and class notes section
-    id.set(thoughtToUpload, function(err){
-        if(!err){
+//    id.set(thoughtToUpload, function(err){
+//        if(!err){
             var name=id.key();
-            classNoteRef.child(name).set(thoughtIndexToUpload);
-            userNoteRef.child(name).set(thoughtIndexToUpload);  
-        }
-    });
+            classThoughtRef.child(name).set(thoughtIndexToUpload);
+            userNoteThoughtRef.child(name).set(thoughtIndexToUpload); 
+            userThoughtRef.child(name).set(thoughtIndexToUpload);
+//        }
+//    });
     
 });
 
@@ -160,11 +166,11 @@ $(document).on('mouseover mouseout','.compareNavigation',function(){
 });
 
 $(document).on('click', '.compareNavigation.left', function(){
-    grabNextNote($(this),'left');
+    grabNextNote($(this).parent(),'left');
 })
 
 $(document).on('click', '.compareNavigation.right', function(){
-    grabNextNote($(this),'right');
+    grabNextNote($(this).parent(),'right');
 })
 
 $('#compareNotes').click(function(){
@@ -196,6 +202,11 @@ $('#returnToWriting').click(function(){
     //show the compareNotes button
     $('#compareNotes').show();
     
+    //replace all the note portions with the user notes (except the ones that were pinned)
+    restoreUserThoughts();
 });
+
+
+
 
 

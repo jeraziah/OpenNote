@@ -10,6 +10,8 @@ var currentNote = undefined;
 
 var currNoteStartTime= undefined;
 
+var classMembers= undefined;
+
 var h = window.innerHeight;
 $('#messagesWrapper').css('height',h-300);
 
@@ -46,8 +48,9 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             $('#accountDetailsFirstName').val(currentUser.firstName);
             $('#accountDetailsLastName').val(currentUser.lastName);
             $('#accountDetailsEmail').val(currentUser.email);
-		});
-        
+           
+           
+            
         $('#navOptionLogin').hide();
         $('#navOptionForgotPass').hide();
         $('#navOptionChangePass').show();
@@ -73,6 +76,9 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 					currentClass = {userClassId: snapshot.name(), classId: classList.classId, className: classList.classShortName};
 					innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.name() + '">';
 					innerHTML += classList.classShortName + '</div>';
+                    
+                    // load notes for that particular class
+                    loadNotes(user.uid);
 				}  
 				else 
 				{
@@ -91,10 +97,11 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                     $('#editor').empty();
 				});		
                 
-                // load notes for that particular class
-                loadNotes(user.uid);
+                
 	    	}
 	    });
+		});
+       
 	} 
 
 	else 

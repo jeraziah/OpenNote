@@ -16,7 +16,7 @@ $('#createNoteAction').click(function() {
 		noteCreatedBy: currentUser.userId
 	});
 
-	//currentNote = {id: noteId.name(), ;
+	//currentNote = {id: noteId.key(), ;
 
 	$('#createNoteModal').modal('hide');
 });

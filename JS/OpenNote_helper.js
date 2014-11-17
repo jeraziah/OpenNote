@@ -28,6 +28,23 @@ function loadNotes(userId) {
     
     $('#messagesWrapper').empty();
     
+    
+    // create list of class members
+    classMembers= [];
+    var classMemberRef= rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("users");
+    classMemberRef.on("child_added", function(snapshot)
+    {
+        classMembers.push(snapshot.key());
+        //make the currentUser be in the front of the list
+        if(currentUser.userId === snapshot.key())
+        {
+            var tmp=classMembers[0];
+            classMembers[0]=classMembers[classMembers.length-1];
+            classMembers[classMembers.length-1]=tmp;
+        }
+    });
+    
+    
     rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").on("value", function(snapshot) {
         
         var htmlNotes = '<div class="colHeader" style="border-left-style: solid;">Notes</div><div class="colTab notesTab" id="createNewNoteTab">Create New Note</div>';
@@ -38,6 +55,7 @@ function loadNotes(userId) {
             {
                 htmlNotes += '<div class="colTab notesTab tabSelected" id="' + a_note + '">' + tNote.noteName + '</div>';
                 currentNote = {noteId: a_note, noteName: tNote.noteName};
+                $('#' + currentNote.noteId).attr("class","colTab notesTab tabSelected");
                 
                 // create firebase ref to listen to child_added note thoughts
                 attachMessageWrapperListener(userId);
@@ -52,10 +70,9 @@ function loadNotes(userId) {
         
         //set the start time for new thought to be right now
             var tmp=new Date();
-            currNoteStartTime= tmp.getDate();
+            currNoteStartTime= tmp.getTime();
         
         $('#noteWrapper').empty().html(htmlNotes);
-        $('#' + currentNote.noteId).attr("class","colTab notesTab tabSelected");
     });
     
     
@@ -73,13 +90,14 @@ function attachMessageWrapperListener(userId){
                 var notePortion = snapshot.val();
 
                 // double check note isn't already being displayed
-                if (($('#' + snapshot.name()).length == 0))
+                if (($('#' + snapshot.key()).length == 0))
                 {       
-                    var htmlToAppend = '<div class="notePortionWrapper" id="' + snapshot.name() + '">';
+                    var htmlToAppend = '<div class="notePortionWrapper" id="' + snapshot.key() + '">';
 
                     //add button arrows for navigation when comparing notes
                     htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
 
+                    htmlToAppend += '<div class="thoughts">'
                     htmlToAppend += '<div class="thoughtContainer thought">'
                     htmlToAppend += '<div class="noteContent" contenteditable="true" spellcheck="false">';
                     htmlToAppend += notePortion.noteHTML;
@@ -94,6 +112,7 @@ function attachMessageWrapperListener(userId){
                     htmlToAppend += notePortion.authorName;
                     htmlToAppend += '</div>';
                     htmlToAppend += '</div>';
+                     htmlToAppend += '</div>';
 
                     //add button arrows for navigation when comparing notes
                     htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
@@ -103,8 +122,11 @@ function attachMessageWrapperListener(userId){
 
                 // actually add the html for the note portions
                 $('#messagesWrapper').append(htmlToAppend);
+                
+                // attach the firebase thought object to the jquery object for the element
+                $('#' + snapshot.key()).data('thought',notePortion);
 
-                //hide the compare navigation buttons
+                // hide the compare navigation buttons
                 $('.compareNavigation').hide();
 
                 // scroll to bottom of messages
@@ -117,11 +139,108 @@ function attachMessageWrapperListener(userId){
 
 
 /*Written by Kim*/
-function grabNextNote(curr, direction)
+function grabNextNote(element, direction)
 {
-//    currId=
-//    class=
-//    timeframe=
+      var thought=element.data('thought');
+      var otherUserThought= undefined;
+      var displayedUserId= undefined;
+      var numNotes=0;
+      var foundPortions=false;
+    
+      //reduce number of thoughts showing to 1
+      element.children(".thoughts").children().slice(1).remove();
+    
+      if(!element.data('displayedUser'))
+      {
+          element.data('displayedUser',0);
+      }
+       var displayedUser= element.data('displayedUser')
+    
+        while(!foundPortions)
+        {
+            if(direction === 'right')
+            {
+                displayedUser++;
+                if(displayedUser >= classMembers.length)
+                    displayedUser=0;
+            }
+            else
+            {
+                displayedUser--;
+                if(displayedUser < 0)
+                    displayedUser= classMembers.length-1;
+            }
+            //Get the id for the next user
+            displayedUserId=classMembers[displayedUser];
+            
+            //Get the note portions written by this user in the timeframe
+            var userThoughtRef = rootFBRef.child("users").child(displayedUserId).child("classes").child(currentClass.classId).child("thoughts");
+            
+                    userThoughtRef.on('child_added', function(snapshot){
+                    rootFBRef.child("thoughts").child(snapshot.key()).orderByChild('startTime').startAt(thought.startTime).endAt(thought.endAt).on('value',function(snapshot){
+                        
+                            if(snapshot.val() != null)
+                            {
+                                 otherUserThought=snapshot.val();
+                                foundPortions=true;
+
+                                //if this is the first note for this user then replace the text in the first
+                                if(++numNotes == 1)
+                                {
+                                    var divToAlter= element.children('.thoughts').children('.thoughtContainer');
+                                    replaceThoughtContent(divToAlter,otherUserThought);              
+                                }
+
+                                //otherwise add a thoughtContainer to the thoughts div
+                                else{
+                                    var htmlToAppend = '<div class="thoughtContainer thought">';
+                                    htmlToAppend = '<div class="noteContent" contenteditable="true" spellcheck="false">';
+                                    htmlToAppend += otherUserThought.noteHTML;
+                                    htmlToAppend += '</div>';
+                                    htmlToAppend += '<div class="noteDate">';
+                                    var ds = new Date(otherUserThought.startTime);
+                                    var de = new Date(otherUserThought.endTime);
+                                    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
+                                    htmlToAppend += dateStr;
+                                    htmlToAppend += '</div>';
+                                    htmlToAppend += '<div class="noteAuthor">';
+                                    htmlToAppend += otherUserThought.authorName;
+                                    htmlToAppend += '</div>';
+                                    htmlToAppend += '</div>';
+
+                                    // actually add the html to the note potionWrapper
+                                    element.children('.thoughts').append(htmlToAppend);
+                                }
+                            }
+                        });
+//                    });
+//                }
+            });
+            
+        }
+        
+        //set the displayedUser data in the currNote equal to the new value
+        element.data('displayedUser',displayedUser);   
+    
+        //if we are not displaying the current user's notes then make the wrapper a different color
+        if(displayedUser == 0)
+            element.removeClass('otherNotes');
+        else
+            element.removeClass('otherNotes');
 }
 
+function replaceThoughtContent(divToAlter,thought)
+{
+    var ds = new Date(thought.startTime);
+    var de = new Date(thought.endTime);
+    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
 
+    divToAlter.children('.noteContent').html(thought.noteHTML);
+    divToAlter.children('.noteDate').html(dateStr);
+    divToAlter.children('.noteAuthor').html(thought.authorName);                 
+}
+
+function restoreUserThoughts(){
+    
+    
+}
