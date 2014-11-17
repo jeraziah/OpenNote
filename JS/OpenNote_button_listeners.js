@@ -205,3 +205,18 @@ $('#returnToWriting').click(function(){
 });
 
 
+//Matt
+$(document).on('click', '.flip', function(){
+    
+    $(this).parent().children('.noteContent').hide();
+    var htmlToAppend = '<input type="flashCard" class="form-control" id="flashCard" placeholder=""/>';
+    $(this).parent().prepend(htmlToAppend);
+
+});
+
+
+//link to a cool flip animation
+//http://codepen.io/rhernando/pen/vjGxH
+
+
+
