@@ -8,6 +8,8 @@ var currentClass = undefined;
 
 var currentNote = undefined;
 
+var currNoteStartTime= undefined;
+
 var h = window.innerHeight;
 $('#messagesWrapper').css('height',h-300);
 
@@ -54,6 +56,8 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 
         $('#welcomescreen').hide();
         $('#mainscreen').show();    
+        
+        $('#returnToWriting').hide();
 
 	    // load class lists based off of what user is enrolled in
 	    rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {

@@ -50,6 +50,10 @@ function loadNotes(userId) {
             }
         }
         
+        //set the start time for new thought to be right now
+            var tmp=new Date();
+            currNoteStartTime= tmp.getDate();
+        
         $('#noteWrapper').empty().html(htmlNotes);
         $('#' + currentNote.noteId).attr("class","colTab notesTab tabSelected");
     });
@@ -60,37 +64,64 @@ function loadNotes(userId) {
 // for retrieving thoughts for the messages wrapper
 function attachMessageWrapperListener(userId){
     // create firebase ref to listen to child_added note thoughts
-    var noteRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").on("child_added", function(snapshot) {
-               
-        var notePortion = snapshot.val();
-        
-        // double check note isn't already being displayed
-        if (($('#' + snapshot.name()).length == 0))
-        {       
-            var htmlToAppend = '<div class="notePortionWrapper" id="' + snapshot.name() + '">';
-            htmlToAppend += '<div class="noteContent" contenteditable="true" spellcheck="false">';
-            htmlToAppend += notePortion.noteHTML;
-            htmlToAppend += '</div>';
-            htmlToAppend += '<div class="noteDate">';
-            var d = new Date(notePortion.timeAdded);
-            var dateStr = d.getHours() + ":" + d.getMinutes() + " - " + (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substring(2,4);
-            htmlToAppend += dateStr;
-            htmlToAppend += '</div>';
-            htmlToAppend += '<div class="noteAuthor">';
-            htmlToAppend += notePortion.authorName;
-            htmlToAppend += '</div>';
-            htmlToAppend += '</div>';
-        }
-        
-        // actually add the html for the note portions
-        $('#messagesWrapper').append(htmlToAppend);
-        
-        // scroll to bottom of messages
-        $('#messagesWrapper').scrollTop($('#messagesWrapper').prop("scrollHeight"));
-        
+    var noteKeyRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").on("child_added", function(snapshot) {
+            
+            var id = snapshot.key();
+            
+            var noteRef=rootFBRef.child("thoughts").child(id).on('value', function(snapshot){
+
+                var notePortion = snapshot.val();
+
+                // double check note isn't already being displayed
+                if (($('#' + snapshot.name()).length == 0))
+                {       
+                    var htmlToAppend = '<div class="notePortionWrapper" id="' + snapshot.name() + '">';
+
+                    //add button arrows for navigation when comparing notes
+                    htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
+
+                    htmlToAppend += '<div class="thoughtContainer thought">'
+                    htmlToAppend += '<div class="noteContent" contenteditable="true" spellcheck="false">';
+                    htmlToAppend += notePortion.noteHTML;
+                    htmlToAppend += '</div>';
+                    htmlToAppend += '<div class="noteDate">';
+                    var ds = new Date(notePortion.startTime);
+                    var de = new Date(notePortion.endTime);
+                    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
+                    htmlToAppend += dateStr;
+                    htmlToAppend += '</div>';
+                    htmlToAppend += '<div class="noteAuthor">';
+                    htmlToAppend += notePortion.authorName;
+                    htmlToAppend += '</div>';
+                    htmlToAppend += '</div>';
+
+                    //add button arrows for navigation when comparing notes
+                    htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
+
+                    htmlToAppend += '</div>';
+                }
+
+                // actually add the html for the note portions
+                $('#messagesWrapper').append(htmlToAppend);
+
+                //hide the compare navigation buttons
+                $('.compareNavigation').hide();
+
+                // scroll to bottom of messages
+                $('#messagesWrapper').scrollTop($('#messagesWrapper').prop("scrollHeight"));
+        });
     });
     
    
+}
+
+
+/*Written by Kim*/
+function grabNextNote(curr, direction)
+{
+//    currId=
+//    class=
+//    timeframe=
 }
 
 
