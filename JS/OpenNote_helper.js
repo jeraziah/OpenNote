@@ -93,6 +93,9 @@ function attachMessageWrapperListener(userId){
                     htmlToAppend += '<div class="noteAuthor">';
                     htmlToAppend += notePortion.authorName;
                     htmlToAppend += '</div>';
+                    htmlToAppend += '<button class="noteStar">';
+                    htmlToAppend += '&#9733';
+                    htmlToAppend += '</button>';
                     htmlToAppend += '</div>';
 
                     //add button arrows for navigation when comparing notes
