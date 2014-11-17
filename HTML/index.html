@@ -644,9 +644,12 @@
 						<div class="form-group">
 							<label for="wallPost" class="col-sm-4 control-label">Leave a note</label>
 							<div class="col-sm-8">
-								<input type="text" id="wallPost" class="form-control" placeholder="Leave a Note!"><button type="button" class="btn btn-primary" data-dismiss="modal">Post</button>
+								<input type="text" id="wallPost" class="form-control" placeholder="Leave a Note!"><button type="button" id="wallPostBtn" class="btn btn-primary" data-dismiss="modal">Post</button>
 								
 							</div>
+
+							<!-- placeholder for the wall posts to show up. Probably should only show one or two most recent. -->
+							<div align="center" id="wallPosts">Placeholder for wall posts. need to add a load() function on wall post.</div>
 						</div>
 						
 					</form>
@@ -668,8 +671,6 @@
     <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
 
 	<script type="text/javascript" src="../JS/OpenNote_init.js"></script>
-	<script type="text/javascript" src="../JS/Printing.js"></script>
-
     <script type="text/javascript" src="../JS/OpenNote_button_listeners.js"></script>
 
     <script type="text/javascript" src="../JS/OpenNote_helper.js"></script>
