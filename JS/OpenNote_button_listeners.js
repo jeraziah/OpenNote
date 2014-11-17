@@ -60,7 +60,7 @@ $('#joinClassTab').click(function() {
 
 
 	// create table of available classes
-	tableHTML = "<thead><tr><th>Class</th><th>Full Name</th><th>Instructor</th><th>Term</th>"
+	tableHTML = "<thead><tr><th>Class</th><th>Full Name</th><th>Instructor</th><th>Term</th>";
 	tableHTML += "<th>Year</th><th>Description</th><th>Join?</th></tr></thead>";
 	tableHTML += '<tbody>';
 	var universityClassRef = rootFBRef.child("universities").child(currentUser.university).child("classes").on('value', function( snapshot) {
@@ -118,12 +118,14 @@ $(document).on('click', '.notesTab', function() {
     
 });
 
+/*Written by Kim*/
 
-$('#postThoughtBtn').click(function() {
-    
-    // establish ref to note thoughts
-    var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts")
-    
+$('#postThoughtBtn').click(function() {    
+    // establish ref to thought, class notes, and user notes
+    var thoughtRef = rootFBRef.child("thoughts");
+    var classNoteRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+    var userNoteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
+        
     // get HTML to save
     var HTMLToSave = $('#editor').html();
     
@@ -131,20 +133,75 @@ $('#postThoughtBtn').click(function() {
     $('#editor').empty();
     
     // wrap it in an object
-    var d = new Date();
+    var d=new Date();
     var thoughtToUpload = {
         noteHTML: HTMLToSave,
         authorId: currentUser.userId,
         authorName: currentUser.firstName + " " + currentUser.lastName,
         parentNote: currentNote.noteId,
-        timeAdded: d.getTime()
+        startTime: currNoteStartTime,
+        endTime: d.getDate()
+    }
+    var thoughtIndexToUpload = {
+        startTime: currNoteStartTime,
+        endTime: d.getDate()
     }
     
-    // push it up to user notes section
-    noteRef.push(thoughtToUpload);
-    
-    // push it up to class notes section
-    
-
+    //push it up to the thoughts section
+    var id= thoughtRef.push(thoughtToUpload);
+     
+    // push index to user and class notes section
+    id.set(thoughtToUpload, function(err){
+        if(!err){
+            var name=id.key();
+            classNoteRef.child(name).set(thoughtIndexToUpload);
+            userNoteRef.child(name).set(thoughtIndexToUpload);  
+        }
+    });
     
 });
+
+$(document).on('mouseover mouseout','.compareNavigation',function(){
+    $(this).toggleClass('hover');
+});
+
+$(document).on('click', '.compareNavigation.left', function(){
+    grabNextNote($(this),'left');
+})
+
+$(document).on('click', '.compareNavigation.right', function(){
+    grabNextNote($(this),'right');
+})
+
+$('#compareNotes').click(function(){
+    
+    //hide the editor box
+    $('#writeNoteWrapper').hide();
+    
+    //hide the compareNotes button
+    $('#compareNotes').hide();
+    
+    //show the navigation buttons
+    $('.compareNavigation').show();
+
+    //show the returnToWriting button
+    $('#returnToWriting').show();
+});
+
+$('#returnToWriting').click(function(){
+    
+    //hide the navigation buttons
+    $('.compareNavigation').hide();
+    
+    //hide the returnToWriting button
+    $('#returnToWriting').hide();
+    
+     //show the editor box
+    $('#writeNoteWrapper').show();
+    
+    //show the compareNotes button
+    $('#compareNotes').show();
+    
+});
+
+
