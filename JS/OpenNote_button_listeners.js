@@ -213,7 +213,9 @@ $('#createGuideBtn').click(function() {
 	
 	//still need to get the notes from the studyguide child.
 
-<<<<<<< HEAD
+    printIt(printThis);
+});
+
 //Matt
 $(document).on('click', '.flip', function(){
     
@@ -227,12 +229,6 @@ $(document).on('click', '.flip', function(){
 //link to a cool flip animation
 //http://codepen.io/rhernando/pen/vjGxH
 
-
-
-=======
-
-	printIt(printThis);
-});
 
 $('#starNoteBtn').click(function() {
 	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
@@ -253,4 +249,4 @@ $('#starNoteBtn').click(function() {
 	 *  4. update the message star to change color
 	 */
 });
->>>>>>> 3568392f6addd2ac549fb77b3cf7dbd2322ad098
+
