@@ -142,3 +142,34 @@ $('#postThoughtBtn').click(function() {
 
     
 });
+
+
+$('#createGuideBtn').click(function() {
+	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide")
+
+	var printThis = "Hello!";
+
+	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
+	//initialize the string for the studyguide
+	printIt(printThis);
+
+});
+
+$('#starNoteBtn').click(function() {
+	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide")
+
+	var studyGuideText = {
+		html = 
+	}
+
+	/*
+	 *  Things to do:
+	 *  1. get current message html
+	 *  2. add one line break with dashes
+	 *  3. add the message html
+	 *  4. update the message star to change color
+	 */
+
+
+
+});
