@@ -205,6 +205,15 @@ $('#returnToWriting').click(function(){
 });
 
 
+$('#createGuideBtn').click(function() {
+	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
+	//initialize the string for the studyguide
+	var printThis = "<h1>Studyguide</h1>";
+	
+	//still need to get the notes from the studyguide child.
+
+<<<<<<< HEAD
 //Matt
 $(document).on('click', '.flip', function(){
     
@@ -220,3 +229,28 @@ $(document).on('click', '.flip', function(){
 
 
 
+=======
+
+	printIt(printThis);
+});
+
+$('#starNoteBtn').click(function() {
+	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+
+/*
+
+	var studyGuideText = {
+		html = 
+	}
+*/
+
+
+	/*
+	 *  Things to do:
+	 *  1. get current message html
+	 *  2. add one line break with dashes
+	 *  3. add the message html
+	 *  4. update the message star to change color
+	 */
+});
+>>>>>>> 3568392f6addd2ac549fb77b3cf7dbd2322ad098
