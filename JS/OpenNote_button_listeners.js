@@ -139,28 +139,31 @@ $('#postThoughtBtn').click(function() {
     
     // push it up to class notes section
     
-
-    
 });
 
 
 $('#createGuideBtn').click(function() {
-	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide")
-
-	var printThis = "Hello!";
-
+	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
 	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
 	//initialize the string for the studyguide
-	printIt(printThis);
+	var printThis = "<h1>Studyguide</h1>";
+	
+	//still need to get the notes from the studyguide child.
 
+
+	printIt(printThis);
 });
 
 $('#starNoteBtn').click(function() {
-	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide")
+	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+
+/*
 
 	var studyGuideText = {
 		html = 
 	}
+*/
+
 
 	/*
 	 *  Things to do:
