@@ -3,7 +3,7 @@ $('#saveProfile').click(function() {
     
         currentUserRef.update({
             "firstName": $("#accountDetailsFirstName").val(),
-            "lastName": $("#accountDetailsFirstName").val(),
+            "lastName": $("#accountDetailsLastName").val(),
             "email": $("#accountDetailsEmail").val()   
         })
     
@@ -11,8 +11,28 @@ $('#saveProfile').click(function() {
 });
 
 //Post to the wall button
-$('#wallPost').click(function() {
+$('#wallPostBtn').click(function() {
 
+    // establish ref to note posts
+    var postRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("wall");
+    
+    // get text to save
+    var ToSave = document.getElementById('wallPost').value;
+    
+
+    // wrap it in an object
+    var d = new Date();
+    var postToUpload = {
+        noteHTML: ToSave,
+        authorId: currentUser.userId,
+        authorName: currentUser.firstName + " " + currentUser.lastName,
+        parentNote: currentNote.noteId,
+        timeAdded: d.getTime()
+    }
+    // push it up to user notes section
+    postRef.push(postToUpload);
+    
+    //TODO: still need to update wall.
 });
 
 $(document).ready(function() {

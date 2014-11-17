@@ -1,12 +1,12 @@
 //welcome screen register button
-$('#registerButton').click(function() {
+$('#registerButton').click(function () {
 	$('#registrationErrorMsg').hide();
 	// $('#registrationForm').reset();
 	$('#registrationModal').modal('show');
 });
 
 //welcome screen login button
-$('#loginButton').click(function() {
+$('#loginButton').click(function () {
 
 	// login user using the email/password method
 	authClient.login('password', {
@@ -16,18 +16,18 @@ $('#loginButton').click(function() {
 });
 
 //welcome screen header login button
-$('#navOptionLogin').click(function() {
+$('#navOptionLogin').click(function () {
 	$('#navOptionLoginModal').modal('show');
 
 });
 
 //Welcome Screen forgot password button
-$('#navOptionForgotPass').click(function() {
+$('#navOptionForgotPass').click(function () {
 	$('#navOptionForgotPassModal').modal('show');
 });
 
 //Welcome Screen 'HEADER' change password
-$('#navOptionChangePass').click(function() {
+$('#navOptionChangePass').click(function () {
 	//navOptionChangePassModal
 	$('#navOptionChangePassModal').modal('show');
 });
@@ -35,6 +35,12 @@ $('#navOptionChangePass').click(function() {
 //Main Screen 'HEADER' show profile
 $('#navOptionAccountDetails').click(function() {
 	$('#personalProfileModal').modal('show');
+
+});
+
+//Main Screen 'HEADER' show profile
+$('#navOptionClassAdmin').click(function() {
+	$('#navOptionClassAdminModal').modal('show');
 
 });
 
@@ -207,6 +213,53 @@ $('#returnToWriting').click(function(){
 });
 
 
+<<<<<<< HEAD
 
 
+=======
+$('#createGuideBtn').click(function() {
+	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
+	//initialize the string for the studyguide
+	var printThis = "<h1>Studyguide</h1>";
+	
+	//still need to get the notes from the studyguide child.
+
+    printIt(printThis);
+});
+
+//Matt
+$(document).on('click', '.flip', function(){
+    
+    $(this).parent().children('.noteContent').hide();
+    var htmlToAppend = '<input type="flashCard" class="form-control" id="flashCard" placeholder=""/>';
+    $(this).parent().prepend(htmlToAppend);
+
+});
+
+
+//link to a cool flip animation
+//http://codepen.io/rhernando/pen/vjGxH
+
+
+$('#starNoteBtn').click(function() {
+	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+
+/*
+
+	var studyGuideText = {
+		html = 
+	}
+*/
+
+
+	/*
+	 *  Things to do:
+	 *  1. get current message html
+	 *  2. add one line break with dashes
+	 *  3. add the message html
+	 *  4. update the message star to change color
+	 */
+});
+>>>>>>> 960f5903ea42de7818f549db0842da53b307f4e5
 

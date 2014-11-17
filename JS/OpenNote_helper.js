@@ -111,6 +111,10 @@ function attachMessageWrapperListener(userId){
                     htmlToAppend += '<div class="noteAuthor">';
                     htmlToAppend += notePortion.authorName;
                     htmlToAppend += '</div>';
+                    htmlToAppend += '<button class="flip">Flip</button>';
+                    htmlToAppend += '<button class="noteStar">';
+                    htmlToAppend += '&#9733';
+                    htmlToAppend += '</button>';
                     htmlToAppend += '</div>';
                      htmlToAppend += '</div>';
 
@@ -240,7 +244,25 @@ function replaceThoughtContent(divToAlter,thought)
     divToAlter.children('.noteAuthor').html(thought.authorName);                 
 }
 
+<<<<<<< HEAD
 function restoreUserThoughts(){
     
     
+=======
+function printIt(printThis)
+{
+    var win=null;
+    
+    win = window.open();
+    self.focus();
+    win.document.open();
+    win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+    win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+    win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+    win.document.write(printThis);
+    win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+    win.document.close();
+    win.print();
+    win.close();
+>>>>>>> 960f5903ea42de7818f549db0842da53b307f4e5
 }
