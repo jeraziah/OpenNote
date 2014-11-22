@@ -71,18 +71,18 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 	    	if (childAdded.classId != undefined)
 	    	{
 	    		var classList = childAdded;
-	    		if (currentClass == undefined)
+	    		if (currentClass == undefined && $('#' + classList.classId).length == 0) // make sure an html element hasn't already been created for it
 				{
-					currentClass = {userClassId: snapshot.name(), classId: classList.classId, className: classList.classShortName};
-					innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.name() + '">';
+					currentClass = {userClassId: snapshot.key(), classId: classList.classId, className: classList.classShortName};
+					innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.key() + '">';
 					innerHTML += classList.classShortName + '</div>';
                     
                     // load notes for that particular class
                     loadNotes(user.uid);
 				}  
-				else 
+				else if ($('#' + classList.classId).length == 0) // make sure an html element hasn't already been created for it
 				{
-					innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.name() + '">';
+					innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.key() + '">';
 					innerHTML += classList.classShortName + '</div>';
 				} 
 
