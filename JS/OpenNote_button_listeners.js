@@ -121,14 +121,16 @@ $(document).on('click', '.notesTab', function() {
     
 });
 
-/*Written by Kim*/
+/*Written by Kim and Shaun*/
 
 $('#postThoughtBtn').click(function() {    
     // establish ref to thought, class notes, and user notes
-    var thoughtRef = rootFBRef.child("thoughts");
+    // DELETE THIS ? var thoughtRef = rootFBRef.child("thoughts");
     var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+    
     var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
-    var userThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("thoughts");
+    
+    // DELETE ME var userThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("thoughts");
         
     // get HTML to save
     var HTMLToSave = $('#editor').html();
@@ -136,7 +138,7 @@ $('#postThoughtBtn').click(function() {
     // clear editor
     $('#editor').empty();
     
-    // wrap it in an object
+    // wrap thought details in an object
     var d=new Date();
     var endTime= d.getTime();
     var thoughtToUpload = {
@@ -147,23 +149,32 @@ $('#postThoughtBtn').click(function() {
         startTime: currNoteStartTime,
         endTime: endTime
     }
-    var thoughtIndexToUpload = {
-        startTime: currNoteStartTime,
-        endTime: endTime
-    }
     
-    //push it up to the thoughts section
-    var id= thoughtRef.push(thoughtToUpload);
+//    var thoughtIndexToUpload = {
+//        startTime: currNoteStartTime,
+//        endTime: endTime
+//    }
+    
+    //push it up to the user notes thoughts section
+    var noteIdInClass = classThoughtRef.push(thoughtToUpload);
+    
+    // save ref to where the thought is within all of the class thoughts
+    thoughtToUpload.noteIdInClass = noteIdInClass.key();
+    
+    // upload updated thought to the user thoughts section
+    userNoteThoughtRef.push(thoughtToUpload);
+    
+    
      
-    // push index to user and class notes section
-//    id.set(thoughtToUpload, function(err){
-//        if(!err){
-            var name=id.key();
-            classThoughtRef.child(name).set(thoughtIndexToUpload);
-            userNoteThoughtRef.child(name).set(thoughtIndexToUpload); 
-            userThoughtRef.child(name).set(thoughtIndexToUpload);
-//        }
-//    });
+//    // push index to user and class notes section
+////    id.set(thoughtToUpload, function(err){
+////        if(!err){
+//            var name=id.key();
+//            classThoughtRef.child(name).set(thoughtIndexToUpload);
+//            userNoteThoughtRef.child(name).set(thoughtIndexToUpload); 
+//            userThoughtRef.child(name).set(thoughtIndexToUpload);
+////        }
+////    });
     
 });
 
@@ -212,6 +223,28 @@ $('#returnToWriting').click(function(){
     restoreUserThoughts();
 });
 
+// when a user clicks on a thought to type into it
+$('#messagesWrapper').delegate(".noteContent","focusin",function(){
+    //console.log("focused on " + this.id.toString().substring(6));
+});
+
+// when the user had clicked on a thought, but now clicks or tabs away from it
+$('#messagesWrapper').delegate(".noteContent","focusout",function(){
+    // get refernces to the user copy of the note and the class copy of the note
+    var userThoughtId = this.id.toString().substring(6);
+    var classThoughtId = $(this).data().thought.noteIdInClass;
+    
+    // get HTML from content box
+    var newHTML = $(this).html();
+    
+    // update class copy of thought
+    rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});;
+    
+    // update user copy of thought
+    rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});;;
+    
+    
+});
 
 /*Written by Alec*/
 $('#createGuideBtn').click(function() {
