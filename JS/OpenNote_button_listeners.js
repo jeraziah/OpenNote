@@ -54,6 +54,14 @@ $('#createNewClassTab').click(function() {
 	$('#createClassModal').modal('show');
 });
 
+$('#settings_gear').click(function() {
+    $('#settings_box').toggle(600);
+})
+
+$('#settings_minimize').click(function() {
+    $('#settings_box').hide(600);
+})
+
 //Main Screen join a class
 $('#joinClassTab').click(function() {
 	$('#joinClassModal').modal('show');
