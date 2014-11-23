@@ -119,6 +119,8 @@ function attachMessageWrapperListener(userId){
                 // delete thought
                 htmlToAppend += '<div class="delete_thought" id="delete_' + snapshot.key() + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>'; 
                 
+                // merge thought
+                htmlToAppend += '<div class="merge_thought" id="merge_' + snapshot.key() + '" toMerge="false"><span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span></div>'; 
                 
                 htmlToAppend += '</div>';
                 htmlToAppend += '</div>';
@@ -272,9 +274,40 @@ function printIt(printThis)
     win.close();
 }
 
-function custom_confirm_bar(msg, callback,param){
+function custom_confirm_bar(msg, accept_callback,accept_param,cancel_callback){
     $('#confirmation_msg').html(msg);
-    $("#confirmation_accept").click(function(){callback(param)});
+    
+    $("#confirmation_accept").click(function(){accept_callback(accept_param)});
+    
+    if (cancel_callback != null)
+    {
+        $("#confirmation_cancel").click(function(){
+            // call cancel callback
+            cancel_callback();
+            
+            // hide confirmation bar
+            $('#confirmation_bar').hide(500);
+            
+            // reset default confirmation cancel/exit behavior
+            $('#confirmation_cancel').click(function() {
+                $('#confirmation_bar').hide(500);
+            });
+        });
+        
+        $("#confirmation_exit").click(function(){
+            // call cancel callback
+            cancel_callback();
+            
+            // hide confirmation bar
+            $('#confirmation_bar').hide(500);
+            
+            // reset default confirmation cancel/exit behavior
+            $('#confirmation_cancel').click(function() {
+                $('#confirmation_bar').hide(500);
+            });
+        });
+    }
+    
     $("#confirmation_bar").show();
     $("#confirmation_accept").focus();
 }

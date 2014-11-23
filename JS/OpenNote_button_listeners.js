@@ -266,7 +266,7 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
         
     }   
     
-    custom_confirm_bar("Are you sure you want to delete this thought?",callback_fcn,this.id.toString().substring(7));
+    custom_confirm_bar("Are you sure you want to delete this thought?",callback_fcn,this.id.toString().substring(7),null);
     
 });
 
@@ -323,4 +323,95 @@ $(document).on('click', '.noteStar',function() {
 
     // do all file generation by looking through all thoughts and seeing which are starred in your print it method
 });
+
+$(document).on('click', '.merge_thought',function() {
+	if ($(this).attr("toMerge")==="true")
+    {
+        // change font color, update "toMerge" field at ref to "true"
+        $(this).css("color","#333"); 
+        $(this).attr("toMerge","false");
+    }
+    else
+    {
+        // change back font color, update "toMerge" field ref to "false"    
+        $(this).css("color","#4581E2"); 
+        $(this).attr("toMerge","true");
+    }  
+    
+    // update confirmation bar things
+    var numItemsToMerge = $('.merge_thought[toMerge="true"]').length;
+    
+    var accept_callbackfcn = function(param){
+        var selectedMergeDivs = $('.merge_thought[toMerge="true"]');
+        
+        if (selectedMergeDivs.length > 0)
+        {
+            var firstStartTime = Date.now();
+            var lastEndTime = 0;
+            var content = "";
+            var firstTime = true;
+            var firstThoughtIdHolder;
+
+            console.log("Accepted fcn called");
+
+            for (var i=0; i<selectedMergeDivs.length;i++)
+            {
+                // reset color and unmark to be merged
+                $(selectedMergeDivs[i]).css("color","#333"); 
+                $(selectedMergeDivs[i]).attr("toMerge","false");
+
+                var thoughtId = selectedMergeDivs[i].id.toString().substring(6);
+                var data = $("#child_" + thoughtId).data().thought;
+                if (firstTime){
+                    firstThoughtIdHolder = thoughtId;
+
+                    firstStartTime = data.startTime;
+                    lastEndTime = data.endTime;
+                    content = data.noteHTML;
+
+                    firstTime=false;
+                }
+                else{
+                    if (data.startTime < firstStartTime){
+                        firstStartTime = data.startTime;
+                    }
+                    if (data.endTime > lastEndTime){
+                        lastEndTime = data.endTime;
+                    }
+                    content += ("<br>" + data.noteHTML);
+
+                    // remove note 
+                    rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(thoughtId).remove();
+
+                }
+            }
+
+            // fix oddity with content spacing
+            content.replace("<div></div>","");
+            
+            // update first note
+                    rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(firstThoughtIdHolder).update({"startTime":firstStartTime,"endTime":lastEndTime,"noteHTML":content});
+            
+            $("#confirmation_exit").click();
+        }    
+    }
+    
+    cancel_fcn = function(){
+        var selectedMergeDivs = $('.merge_thought[toMerge="true"]');
+        
+        for (var i=0; i<selectedMergeDivs.length; i++)
+        {
+            // reset color and unmark to be merged
+            $(selectedMergeDivs[i]).css("color","#333"); 
+            $(selectedMergeDivs[i]).attr("toMerge","false");
+        }
+    }
+    
+    custom_confirm_bar("Click Merge Icon on each thought to merge, will merge " + numItemsToMerge + " together now",accept_callbackfcn,null,cancel_fcn);
+    
+});
+
+
+
+
 

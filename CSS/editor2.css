@@ -62,6 +62,16 @@
     width: 100%;
 }
 
+.noteSelected{
+    border-style: dashed;
+    border-top-style: dashed;
+    border-left-style: none;
+    border-right-style: none;
+    border-top-color: #2561B2;
+    border-bottom-color: #2561B2;
+    border-width: 4px;
+}
+
 .noteContent{
     font-family: sans-serif;
     background-color: #ddd;
@@ -118,6 +128,16 @@
 }
 
 .flip:hover{
+    color: #4581E2;
+}
+
+.merge_thought{
+    color: #333;
+    float: right;
+    margin-right: 10px;
+}
+
+.merge_thought:hover{
     color: #4581E2;
 }
 
