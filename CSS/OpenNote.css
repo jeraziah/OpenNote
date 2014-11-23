@@ -169,6 +169,53 @@ background-color: transparent;
     border-top-left-radius: 10px;
 }
 
+#confirmation_bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+    background-color: #4581E2;
+    height: 30px;
+}
+
+#confirmation_msg_wrapper{
+    float: left;
+    width: 95%;
+}
+
+#confirmation_msg{
+    display: inline-block;
+    padding: 5px;
+    font-style: italic;
+}
+
+#confirmation_accept{
+    display: inline-block;
+    background-color: #2561B2;
+/*    padding: 3px 5px;*/
+    border-radius: 8px;
+    margin-top: 3px;
+/*    text-decoration: underline;*/
+    cursor: pointer;
+}
+
+#confirmation_cancel{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#confirmation_cancel:hover{
+    text-decoration: underline;
+}
+
+#confirmation_exit{
+    float: right;
+    margin: 5px;
+    cursor: pointer;
+}
+
 #settings_gear{
     position: absolute;
     bottom: 0;

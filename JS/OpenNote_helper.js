@@ -271,3 +271,10 @@ function printIt(printThis)
     win.print();
     win.close();
 }
+
+function custom_confirm_bar(msg, callback,param){
+    $('#confirmation_msg').html(msg);
+    $("#confirmation_accept").click(function(){callback(param)});
+    $("#confirmation_bar").show();
+    $("#confirmation_accept").focus();
+}

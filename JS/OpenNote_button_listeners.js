@@ -56,11 +56,19 @@ $('#createNewClassTab').click(function() {
 
 $('#settings_gear').click(function() {
     $('#settings_box').toggle(600);
-})
+});
 
 $('#settings_minimize').click(function() {
     $('#settings_box').hide(600);
-})
+});
+
+$('#confirmation_exit').click(function() {
+    $('#confirmation_bar').hide(500);
+});
+
+$('#confirmation_cancel').click(function() {
+    $('#confirmation_bar').hide(500);
+});
 
 //Main Screen join a class
 $('#joinClassTab').click(function() {
@@ -242,10 +250,9 @@ $('#messagesWrapper').delegate(".noteContent","focusout",function(){
 /* Written by Shaun */
 // remove note from both class and user 
 $('#messagesWrapper').delegate(".delete_thought","click",function(){
-    if (confirm("Are you sure you want to delete this note?"))
-    {
+    var callback_fcn = function(thoughtId) {
         // get refernces to the user copy of the note and the class copy of the note
-        var userThoughtId = this.id.toString().substring(7);
+        var userThoughtId = thoughtId;
         var classThoughtId = $("#child_" + userThoughtId).data().thought.noteIdInClass;
 
         // remove class copy of thought
@@ -255,8 +262,12 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
         rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).remove();
         
         $('#par_' + userThoughtId).hide();
+        $('#confirmation_bar').hide(300);
         
     }   
+    
+    custom_confirm_bar("Are you sure you want to delete this thought?",callback_fcn,this.id.toString().substring(7));
+    
 });
 
 /*Written by Alec*/
