@@ -124,13 +124,12 @@ $(document).on('click', '.notesTab', function() {
 /*Written by Kim and Shaun*/
 
 $('#postThoughtBtn').click(function() {    
-    // establish ref to thought, class notes, and user notes
-    // DELETE THIS ? var thoughtRef = rootFBRef.child("thoughts");
+    // establish ref to class thoughts
     var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
     
+    // establish ref to user thoughts for that particular class and note
     var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
     
-    // DELETE ME var userThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("thoughts");
         
     // get HTML to save
     var HTMLToSave = $('#editor').html();
@@ -147,13 +146,9 @@ $('#postThoughtBtn').click(function() {
         authorName: currentUser.firstName + " " + currentUser.lastName,
         parentNote: currentNote.noteId,
         startTime: currNoteStartTime,
+        isStarred: "false",
         endTime: endTime
     }
-    
-//    var thoughtIndexToUpload = {
-//        startTime: currNoteStartTime,
-//        endTime: endTime
-//    }
     
     //push it up to the user notes thoughts section
     var noteIdInClass = classThoughtRef.push(thoughtToUpload);
@@ -163,18 +158,6 @@ $('#postThoughtBtn').click(function() {
     
     // upload updated thought to the user thoughts section
     userNoteThoughtRef.push(thoughtToUpload);
-    
-    
-     
-//    // push index to user and class notes section
-////    id.set(thoughtToUpload, function(err){
-////        if(!err){
-//            var name=id.key();
-//            classThoughtRef.child(name).set(thoughtIndexToUpload);
-//            userNoteThoughtRef.child(name).set(thoughtIndexToUpload); 
-//            userThoughtRef.child(name).set(thoughtIndexToUpload);
-////        }
-////    });
     
 });
 
@@ -229,6 +212,7 @@ $('#messagesWrapper').delegate(".noteContent","focusin",function(){
 });
 
 // when the user had clicked on a thought, but now clicks or tabs away from it
+/* Written by Shaun */
 $('#messagesWrapper').delegate(".noteContent","focusout",function(){
     // get refernces to the user copy of the note and the class copy of the note
     var userThoughtId = this.id.toString().substring(6);
@@ -272,23 +256,31 @@ $(document).on('click', '.flip', function(){
 //http://codepen.io/rhernando/pen/vjGxH
 
 
-$('#starNoteBtn').click(function() {
-	var noteRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+$(document).on('click', '.noteStar',function() {
+	
+    // get a reference to that particular thought that was clicked
+    var thoughtId = $(this).attr("name");
+    var thoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(thoughtId);
+    
+    // figure out if already starred or not, make new attribute to keep track
+    var currentStarColor = $(this).css("color");   
+    
+    // if not starred
+    if ($(this).attr("isStarred")==="true")
+    {
+        // change font color, update "isStarred" field at ref to "true"
+        $(this).css("color","#333"); 
+        $(this).attr("isStarred","false");
+        thoughtRef.update({"isStarred":"false"});
+    }
+    else
+    {
+        // change back font color, update "isStared" field ref to "false"    
+        $(this).css("color","#4581E2"); 
+        $(this).attr("isStarred","true");
+        thoughtRef.update({"isStarred":"true"});
+    }  
 
-/*
-
-	var studyGuideText = {
-		html = 
-	}
-*/
-
-
-	/*
-	 *  Things to do:
-	 *  1. get current message html
-	 *  2. add one line break with dashes
-	 *  3. add the message html
-	 *  4. update the message star to change color
-	 */
+    // do all file generation by looking through all thoughts and seeing which are starred in your print it method
 });
 

@@ -100,6 +100,9 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="noteContent" id="child_' + snapshot.key() + '" contenteditable="true" spellcheck="false">';
                 htmlToAppend += notePortion.noteHTML;
                 htmlToAppend += '</div>';
+                htmlToAppend += '<div class="noteStar" name="' + snapshot.key() + '" isStarred="';
+                htmlToAppend += notePortion.isStarred + '" style="color: ';
+                htmlToAppend += ((notePortion.isStarred === "true") ? "#4581E2" : "#333") + ';">&#9733</div>';
                 htmlToAppend += '<div class="noteDate">';
                 var ds = new Date(notePortion.startTime);
                 var de = new Date(notePortion.endTime);
@@ -109,10 +112,7 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="noteAuthor">';
                 htmlToAppend += notePortion.authorName;
                 htmlToAppend += '</div>';
-                htmlToAppend += '<button class="flip">Flip</button>';
-                htmlToAppend += '<button class="noteStar">';
-                htmlToAppend += '&#9733';
-                htmlToAppend += '</button>';
+                htmlToAppend += '<button class="flip">Flip</button>';                
                 htmlToAppend += '</div>';
                 htmlToAppend += '</div>';
 
