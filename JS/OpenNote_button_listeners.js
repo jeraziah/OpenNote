@@ -230,6 +230,27 @@ $('#messagesWrapper').delegate(".noteContent","focusout",function(){
     
 });
 
+
+/* Written by Shaun */
+// remove note from both class and user 
+$('#messagesWrapper').delegate(".delete_thought","click",function(){
+    if (confirm("Are you sure you want to delete this note?"))
+    {
+        // get refernces to the user copy of the note and the class copy of the note
+        var userThoughtId = this.id.toString().substring(7);
+        var classThoughtId = $("#child_" + userThoughtId).data().thought.noteIdInClass;
+
+        // remove class copy of thought
+        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).remove();
+
+        // remove user copy of thought
+        rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).remove();
+        
+        $('#par_' + userThoughtId).hide();
+        
+    }   
+});
+
 /*Written by Alec*/
 $('#createGuideBtn').click(function() {
 	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");

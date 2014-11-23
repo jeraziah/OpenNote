@@ -111,6 +111,25 @@
     color: #4581E2!important;
 }
 
+.flip{
+    float: left;
+    margin-left: 15px;
+    color: #333;
+}
+
+.flip:hover{
+    color: #4581E2;
+}
+
+.delete_thought{
+    color: #333;
+    float: right;
+}
+
+.delete_thought:hover{
+    color: #4581E2;
+}
+
 #messagesWrapper::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);

@@ -87,8 +87,8 @@ function attachMessageWrapperListener(userId){
 
             var notePortion = snapshot.val();
 
-            // double check note isn't already being displayed
-            if (($('#' + snapshot.key()).length == 0))
+            // double check thought isn't already being displayed
+            if (($('#par_' + snapshot.key()).length == 0))
             {       
                 var htmlToAppend = '<div class="notePortionWrapper" id="par_' + snapshot.key() + '">';
 
@@ -112,7 +112,14 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="noteAuthor">';
                 htmlToAppend += notePortion.authorName;
                 htmlToAppend += '</div>';
-                htmlToAppend += '<button class="flip">Flip</button>';                
+                
+                // flashcard
+                htmlToAppend += '<div class="flip" id="flip_' + snapshot.key() + '"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></div>'; 
+                
+                // delete thought
+                htmlToAppend += '<div class="delete_thought" id="delete_' + snapshot.key() + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>'; 
+                
+                
                 htmlToAppend += '</div>';
                 htmlToAppend += '</div>';
 

@@ -169,22 +169,8 @@ background-color: transparent;
     border-top-left-radius: 10px;
 }
 
-.thoughts{
-    display: table-cell;
-}
 
-.thoughtContainer{
-    padding-left: 10px;
-    padding-right: 10px;
-    width:90%;
-}
 
 .hover{
     background-color: #555;
-}
-
-.flip {
-    float: left;
-    margin-left: 15px;
-    color: #333;
 }
