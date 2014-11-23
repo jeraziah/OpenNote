@@ -264,6 +264,9 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
         $('#par_' + userThoughtId).hide();
         $('#confirmation_bar').hide(300);
         
+        // unbind click accept handler to reset it
+        $('#confirmation_accept').unbind("click");
+        
     }   
     
     custom_confirm_bar("Are you sure you want to delete this thought?",callback_fcn,this.id.toString().substring(7),null);
