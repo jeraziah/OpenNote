@@ -81,26 +81,31 @@ function loadNotes(userId) {
 // for retrieving thoughts for the messages wrapper
 function attachMessageWrapperListener(userId){
     // create firebase ref to listen to child_added note thoughts
-    var noteKeyRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").on("child_added", function(snapshot) {
+    var noteKeyRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").on("value", function(snapshot) {
             
-            var id = snapshot.key();
-
-            var notePortion = snapshot.val();
+        // clear messages currently there (in case some were removed, etc.)
+        $('#messagesWrapper').empty();
+        
+        var allThoughts = snapshot.val();
+        
+        for (var id in allThoughts)
+        {
+            var notePortion = allThoughts[id];
 
             // double check thought isn't already being displayed
-            if (($('#par_' + snapshot.key()).length == 0))
+            if (($('#par_' + id).length == 0))
             {       
-                var htmlToAppend = '<div class="notePortionWrapper" id="par_' + snapshot.key() + '">';
+                var htmlToAppend = '<div class="notePortionWrapper" id="par_' + id + '">';
 
                 //add button arrows for navigation when comparing notes
                 htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
 
                 htmlToAppend += '<div class="thoughts">'
                 htmlToAppend += '<div class="thoughtContainer thought">'
-                htmlToAppend += '<div class="noteContent" id="child_' + snapshot.key() + '" contenteditable="true" spellcheck="false">';
+                htmlToAppend += '<div class="noteContent" id="child_' + id + '" contenteditable="true" spellcheck="false">';
                 htmlToAppend += notePortion.noteHTML;
                 htmlToAppend += '</div>';
-                htmlToAppend += '<div class="noteStar" name="' + snapshot.key() + '" isStarred="';
+                htmlToAppend += '<div class="noteStar" name="' + id + '" isStarred="';
                 htmlToAppend += notePortion.isStarred + '" style="color: ';
                 htmlToAppend += ((notePortion.isStarred === "true") ? "#4581E2" : "#333") + ';">&#9733</div>';
                 htmlToAppend += '<div class="noteDate">';
@@ -114,13 +119,13 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '</div>';
                 
                 // flashcard
-                htmlToAppend += '<div class="flip" id="flip_' + snapshot.key() + '"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></div>'; 
+                htmlToAppend += '<div class="flip" id="flip_' + id + '"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></div>'; 
                 
                 // delete thought
-                htmlToAppend += '<div class="delete_thought" id="delete_' + snapshot.key() + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>'; 
+                htmlToAppend += '<div class="delete_thought" id="delete_' + id + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>'; 
                 
                 // merge thought
-                htmlToAppend += '<div class="merge_thought" id="merge_' + snapshot.key() + '" toMerge="false"><span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span></div>'; 
+                htmlToAppend += '<div class="merge_thought" id="merge_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span></div>'; 
                 
                 htmlToAppend += '</div>';
                 htmlToAppend += '</div>';
@@ -129,22 +134,21 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
 
                 htmlToAppend += '</div>';
+                
+                // actually add the html for the note portions
+                $('#messagesWrapper').append(htmlToAppend);
+
+                // attach the firebase thought object to the jquery object for the element
+                $('#child_' + id).data('thought',notePortion);
+
+                // hide the compare navigation buttons
+                $('.compareNavigation').hide();
+
+                // scroll to bottom of messages
+                $('#messagesWrapper').scrollTop($('#messagesWrapper').prop("scrollHeight"));
             }
-
-            // actually add the html for the note portions
-            $('#messagesWrapper').append(htmlToAppend);
-
-            // attach the firebase thought object to the jquery object for the element
-            $('#child_' + snapshot.key()).data('thought',notePortion);
-
-            // hide the compare navigation buttons
-            $('.compareNavigation').hide();
-
-            // scroll to bottom of messages
-            $('#messagesWrapper').scrollTop($('#messagesWrapper').prop("scrollHeight"));
+        }
     });
-    
-   
 }
 
 
