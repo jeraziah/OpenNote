@@ -81,7 +81,7 @@ function loadNotes(userId) {
 // for retrieving thoughts for the messages wrapper
 function attachMessageWrapperListener(userId){
     // create firebase ref to listen to child_added note thoughts
-    var noteKeyRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").on("value", function(snapshot) {
+    var noteKeyRef = rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").orderByChild("startTime").on("value", function(snapshot) {
             
         // clear messages currently there (in case some were removed, etc.)
         $('#messagesWrapper').empty();
@@ -126,6 +126,9 @@ function attachMessageWrapperListener(userId){
                 
                 // merge thought
                 htmlToAppend += '<div class="merge_thought" id="merge_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-small" aria-hidden="true"></span></div>'; 
+                
+                // split thought
+                htmlToAppend += '<div class="split_thought" id="split_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>'; 
                 
                 htmlToAppend += '</div>';
                 htmlToAppend += '</div>';
@@ -278,16 +281,20 @@ function printIt(printThis)
     win.close();
 }
 
-function custom_confirm_bar(msg, accept_callback,accept_param,cancel_callback){
+function custom_confirm_bar(msg, accept_callback,thoughtId,cancel_callback){
+    custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,true);
+}
+
+function custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,focusOnAccept){
     $('#confirmation_msg').html(msg);
     
-    $("#confirmation_accept").click(function(){accept_callback(accept_param)});
+    $("#confirmation_accept").click(function(){accept_callback(thoughtId)});
     
     if (cancel_callback != null)
     {
         $("#confirmation_cancel").click(function(){
             // call cancel callback
-            cancel_callback();
+            cancel_callback(thoughtId);
             
             // hide confirmation bar
             $('#confirmation_bar').hide(500);
@@ -296,11 +303,14 @@ function custom_confirm_bar(msg, accept_callback,accept_param,cancel_callback){
             $('#confirmation_cancel').click(function() {
                 $('#confirmation_bar').hide(500);
             });
+            
+            // unbind click accept handler to reset it
+            $('#confirmation_accept').unbind("click");
         });
         
         $("#confirmation_exit").click(function(){
             // call cancel callback
-            cancel_callback();
+            cancel_callback(thoughtId);
             
             // hide confirmation bar
             $('#confirmation_bar').hide(500);
@@ -309,9 +319,36 @@ function custom_confirm_bar(msg, accept_callback,accept_param,cancel_callback){
             $('#confirmation_cancel').click(function() {
                 $('#confirmation_bar').hide(500);
             });
+            
+            // unbind click accept handler to reset it
+            $('#confirmation_accept').unbind("click");
         });
     }
     
+    
+    
     $("#confirmation_bar").show();
-    $("#confirmation_accept").focus();
+    
+    if (focusOnAccept){
+        $("#confirmation_accept").focus();
+    }    
+}
+
+function getSelectionHtml() {
+    var html = "";
+    if (typeof window.getSelection != "undefined") {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var container = document.createElement("div");
+            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                container.appendChild(sel.getRangeAt(i).cloneContents());
+            }
+            html = container.innerHTML;
+        }
+    } else if (typeof document.selection != "undefined") {
+        if (document.selection.type == "Text") {
+            html = document.selection.createRange().htmlText;
+        }
+    }
+    return html;
 }

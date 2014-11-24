@@ -227,23 +227,26 @@ $('#messagesWrapper').delegate(".noteContent","focusin",function(){
     //console.log("focused on " + this.id.toString().substring(6));
 });
 
-// when the user had clicked on a thought, but now clicks or tabs away from it
+// UPDATE THOUGHT - triggered when the user had clicked on a thought, but now clicks or tabs away from it 
 /* Written by Shaun */
 $('#messagesWrapper').delegate(".noteContent","focusout",function(){
-    // get refernces to the user copy of the note and the class copy of the note
-    var userThoughtId = this.id.toString().substring(6);
-    var classThoughtId = $(this).data().thought.noteIdInClass;
     
-    // get HTML from content box
-    var newHTML = $(this).html();
+    // make sure note still exists and didn't lose focus because it was deleted
+    if ($(this).data() != undefined){
+        // get refernces to the user copy of the note and the class copy of the note
+        var userThoughtId = this.id.toString().substring(6);
+        var classThoughtId = $(this).data().thought.noteIdInClass;
+
+        // get HTML from content box
+        var newHTML = $(this).html();
+
+        // update class copy of thought
+        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
+
+        // update user copy of thought
+        rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
     
-    // update class copy of thought
-    rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});;
-    
-    // update user copy of thought
-    rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});;;
-    
-    
+    }   
 });
 
 
@@ -399,7 +402,7 @@ $(document).on('click', '.merge_thought',function() {
         }    
     }
     
-    cancel_fcn = function(){
+    var cancel_fcn = function(){
         var selectedMergeDivs = $('.merge_thought[toMerge="true"]');
         
         for (var i=0; i<selectedMergeDivs.length; i++)
@@ -413,6 +416,102 @@ $(document).on('click', '.merge_thought',function() {
     custom_confirm_bar("Click Merge Icon on each thought to merge, will merge " + numItemsToMerge + " together now",accept_callbackfcn,null,cancel_fcn);
     
 });
+
+
+$(document).on('click', '.split_thought',function() {
+  
+    var thoughtId = this.id.toString().substring(6);
+    
+    $(document).on("click","#child_" + thoughtId,function(){ 
+        // magic to highlight everything left of cursor
+        var range = document.createRange();
+        range.setStart(this, 0);
+        range.setEnd(document.getSelection().baseNode, document.getSelection().anchorOffset); 
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    });
+    
+    var accept_callbackfcn = function(thoughtId){
+        
+        // get first half
+        var firstHalf = getSelectionHtml();
+        
+        // delete the first half of the note, whats left is valid html for the second half
+        document.getSelection().deleteFromDocument();
+        
+        // get second half
+        var secondHalf = $("#child_" + thoughtId).html();
+        
+        // get original note data
+        var data = $("#child_" + thoughtId).data().thought;
+        
+        // establish ref to class thoughts
+        var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+    
+        // establish ref to user thoughts for that particular class and note
+        var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
+    
+        
+        // make note with first half of HTML
+        var halfToUpload = {
+        noteHTML: firstHalf,
+        authorId: data.authorId,
+        authorName: data.authorName,
+        parentNote: data.parentNote,
+        startTime: data.startTime,
+        isStarred: data.isStarred,
+        endTime: Math.round((data.startTime+data.endTime)/2)
+        }
+
+        //push it up to the user notes thoughts section
+        var noteIdInClass = classThoughtRef.push(halfToUpload);
+
+        // save ref to where the thought is within all of the class thoughts
+        halfToUpload.noteIdInClass = noteIdInClass.key();
+
+        // upload updated first thought to the user thoughts section
+        userNoteThoughtRef.push(halfToUpload);
+        
+        // make note with second half of HTML
+        halfToUpload.endTime = data.endTime;
+        halfToUpload.startTime = Math.round((data.startTime+data.endTime)/2)+1;
+        halfToUpload.noteHTML = secondHalf;
+        delete halfToUpload.noteIdInClass;
+        
+        // push second half to class thoughts
+        noteIdInClass = classThoughtRef.push(halfToUpload);
+
+        // save ref to where the thought is within all of the class thoughts
+        halfToUpload.noteIdInClass = noteIdInClass.key();
+        
+        // upload updated second thought to the user thoughts section
+        userNoteThoughtRef.push(halfToUpload);
+        
+        // delete the original note for user
+        rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(thoughtId).remove();
+        
+        // delete original note for class
+        var classThoughtId = data.noteIdInClass;
+        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).remove();
+        
+        // remove click listener that highlights 
+        $(document).off("click","#child_"+thoughtId);
+        
+        $("#confirmation_exit").click();
+    }    
+    
+    
+    var cancel_fcn = function(thoughtId){
+        $("#child_" + thoughtId).unbind("click");
+    }
+    
+    custom_confirm_all("Will split your thought into two thoughts, dividing where the cursor is",accept_callbackfcn,thoughtId,cancel_fcn,false);
+    
+});
+
+
+
 
 
 

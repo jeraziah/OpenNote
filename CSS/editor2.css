@@ -141,6 +141,16 @@
     color: #4581E2;
 }
 
+.split_thought{
+    color: #333;
+    float: right;
+    margin-right: 10px;
+}
+
+.split_thought:hover{
+    color: #4581E2;
+}
+
 .delete_thought{
     color: #333;
     float: right;
