@@ -39,67 +39,73 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 
 	    // update currentUser and menu options ONE TIME
 	    
-      currentUserRef=rootFBRef.child('users').child(user.uid);
+        currentUserRef=rootFBRef.child('users').child(user.uid);
         
-       currentUserRef.on('value', function (snapshot) {
-		    //GET DATA and store as currentUser
+        currentUserRef.on('value', function (snapshot) {
+            //GET DATA and store as currentUser
 		    currentUser = snapshot.val();	         
             $("#navAccountHeader").html(currentUser.firstName);
             $('#accountDetailsFirstName').val(currentUser.firstName);
             $('#accountDetailsLastName').val(currentUser.lastName);
             $('#accountDetailsEmail').val(currentUser.email);
-           
-           
-            
-        $('#navOptionLogin').hide();
-        $('#navOptionForgotPass').hide();
-        $('#navOptionChangePass').show();
-        $('#navOptionAccountDetails').show();
-        $('#navOptionLogout').show();
+                 
+            $('#navOptionLogin').hide();
+            $('#navOptionForgotPass').hide();
+            $('#navOptionChangePass').show();
+            $('#navOptionAccountDetails').show();
+            $('#navOptionLogout').show();
 
-        $('#welcomescreen').hide();
-        $('#mainscreen').show();    
-        
-        $('#returnToWriting').hide();
+            $('#welcomescreen').hide();
+            $('#mainscreen').show();    
 
-	    // load class lists based off of what user is enrolled in
-	    rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
-	    	var childAdded = snapshot.val();
-            var innerHTML = '';
+            $('#returnToWriting').hide();
 
-	    	// make sure it is a valid class
-	    	if (childAdded.classId != undefined)
-	    	{
-	    		var classList = childAdded;
-	    		if (currentClass == undefined && $('#' + classList.classId).length == 0) // make sure an html element hasn't already been created for it
-				{
-					currentClass = {userClassId: snapshot.key(), classId: classList.classId, className: classList.classShortName};
-					innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.key() + '">';
-					innerHTML += classList.classShortName + '</div>';
-                    
-                    // load notes for that particular class
-                    loadNotes(user.uid);
-				}  
-				else if ($('#' + classList.classId).length == 0) // make sure an html element hasn't already been created for it
-				{
-					innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.key() + '">';
-					innerHTML += classList.classShortName + '</div>';
-				} 
+            // load class lists based off of what user is enrolled in
+            rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
+                var childAdded = snapshot.val();
+                var innerHTML = '';
 
-			    $('#dynamicClassWrapper').append(innerHTML);	
+                // make sure it is a valid class
+                if (childAdded.classId != undefined)
+                {
+                    var classList = childAdded;
+                    // make sure an html element hasn't already been created for it
+                    if (currentClass == undefined && $('#' + classList.classId).length == 0) 
+                    {
+                        // set current class
+                        currentClass = {userClassId: snapshot.key(), classId: classList.classId, className: classList.classShortName};
+                        
+                        // create class div
+                        innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.key() + '">';
+                        innerHTML += classList.classShortName;
+                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
+                        innerHTML += '<div class="removeClass" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-trash"></span></div>';
+                        innerHTML += '</div>';
 
-			    // update click handler for class selection
-			    $('.classTab').click(function() {
-					$('.classTab').attr("class","colTab classTab");
-					$(this).attr("class","colTab classTab tabSelected");
-					currentClass = {userClassId: $(this).attr('name'), classId: this.id, className: this.innerHTML};
-                    loadNotes(user.uid);
-                    $('#editor').empty();
-				});		
-                
-                
-	    	}
-	    });
+                        // load notes for that particular class
+                        loadNotes(user.uid);
+                    }  
+                    else if ($('#' + classList.classId).length == 0) // make sure an html element hasn't already been created for it
+                    {
+                        innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.key() + '">';
+                        innerHTML += classList.classShortName;    
+                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
+                        innerHTML += '<div class="removeClass" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-trash"></span></div>';
+                        innerHTML += '</div>';
+                    } 
+
+                    $('#dynamicClassWrapper').append(innerHTML);	
+
+                    // update click handler for class selection
+                    $('.classTab').click(function() {
+                        $('.classTab').attr("class","colTab classTab");
+                        $(this).attr("class","colTab classTab tabSelected");
+                        currentClass = {userClassId: $(this).attr('name'), classId: this.id, className: this.innerHTML};
+                        loadNotes(user.uid);
+                        $('#editor').empty();
+                    });		
+                }
+            });
 		});
        
 	} 
