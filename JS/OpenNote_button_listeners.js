@@ -278,12 +278,13 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
 
 /*Written by Alec*/
 $('#createGuideBtn').click(function() {
-	var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
-	//for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
+	//var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
+
+ // NOOO ^^ See comments below    //for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
 	//initialize the string for the studyguide
 	var printThis = "<h1>Studyguide</h1>";
 	
-	//still need to get the notes from the studyguide child.
+	//still need to get the notes from the starred thoughts, get all thoughts, there is a "isStarred" property for each thought
 
     printIt(printThis);
 });
@@ -511,7 +512,50 @@ $(document).on('click', '.split_thought',function() {
 });
 
 
-
+$(document).on('click', '.removeClass',function() {
+    
+    // get class id from div tag
+    var classId = this.id.toString();
+    
+    // get class details
+    rootFBRef.child("users").child(currentUser.userId).child("classes").child(classId).once('value',function(snapshot){
+        // get the reference to all the class details (from the university class list)
+        var classData = snapshot.val();
+        
+        // look at who created the class initially
+        rootFBRef.child("universities").child(currentUser.university).child("classes").child(classData.classId).once('value',function(snapshot){
+            var classDataFromUni = snapshot.val();
+            
+            if (classDataFromUni.classCreator == currentUser.userId){
+                // if so, ask are they sure they want to delete the class from the entire university
+                var callbackfcn = function(classIds){
+                    // remove from university list
+                    rootFBRef.child("universities").child(currentUser.university).child("classes").child(classIds.universityId).remove();
+                    
+                    // remove from class list
+                    rootFBRef.child("users").child(currentUser.userId).child("classes").child(classIds.userId).remove();
+                    
+                    $("#confirmation_exit").click();
+                }
+                
+                custom_confirm_bar("This will remove the entire class from the university. Are you sure?",callbackfcn,{"userId": classId,"universityId": classData.classId},null);
+            }   
+            else{
+                // if not, ask if they sure they want to un-enroll themselves 
+                var callbackfcn = function(classIds){
+                    // remove from class list
+                    rootFBRef.child("users").child(currentUser.userId).child("classes").child(classIds.userId).remove();
+                    
+                    $("#confirmation_exit").click();
+                }
+                
+                custom_confirm_bar("This will unenroll you from this class and delete all your notes. Are you sure?",callbackfcn,{"userId": classId,"universityId": classData.classId},null);
+            }
+        });
+        
+    });
+    
+});
 
 
 

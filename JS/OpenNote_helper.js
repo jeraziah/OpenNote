@@ -95,13 +95,23 @@ function attachMessageWrapperListener(userId){
             // double check thought isn't already being displayed
             if (($('#par_' + id).length == 0))
             {       
-                var htmlToAppend = '<div class="notePortionWrapper" id="par_' + id + '">';
-
+                var htmlToAppend = "";
+                htmlToAppend += '<div class="thoughtWrapper">';
+                
+                // view previous notes
+                htmlToAppend += '<div class="compare_wrapper left_compare_wrapper" id="left_compare_"' + id + '">&laquo</div>';
+                
+                // view more recent notes
+                htmlToAppend += '<div class="compare_wrapper right_compare_wrapper" id="right_compare_"' + id + '">&raquo</div>';
+                
+                // create wrapper for note contents
+                htmlToAppend += '<div class="notePortionWrapper" id="par_' + id + '">';
+                
                 //add button arrows for navigation when comparing notes
-                htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
+                //htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
 
-                htmlToAppend += '<div class="thoughts">'
-                htmlToAppend += '<div class="thoughtContainer thought">'
+                //htmlToAppend += '<div class="thoughts">'
+                //htmlToAppend += '<div class="thoughtContainer thought">'
                 htmlToAppend += '<div class="noteContent" id="child_' + id + '" contenteditable="true" spellcheck="false">';
                 htmlToAppend += notePortion.noteHTML;
                 htmlToAppend += '</div>';
@@ -130,13 +140,13 @@ function attachMessageWrapperListener(userId){
                 // split thought
                 htmlToAppend += '<div class="split_thought" id="split_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>'; 
                 
-                htmlToAppend += '</div>';
-                htmlToAppend += '</div>';
+                //htmlToAppend += '</div>';
+                //htmlToAppend += '</div>';
 
                 //add button arrows for navigation when comparing notes
-                htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
+                //htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
 
-                htmlToAppend += '</div>';
+                htmlToAppend += '</div></div>';
                 
                 // actually add the html for the note portions
                 $('#messagesWrapper').append(htmlToAppend);
