@@ -236,16 +236,18 @@ $('#messagesWrapper').delegate(".noteContent","focusout",function(){
         // get refernces to the user copy of the note and the class copy of the note
         var userThoughtId = this.id.toString().substring(6);
         var classThoughtId = $(this).data().thought.noteIdInClass;
+        
+        // check to see that its not updating the flashcard, if it is, then we don't want to update the original note html
+        if ($('#flip_' + userThoughtId).attr("isFlipped") === "false"){
+            // get HTML from content box
+            var newHTML = $(this).html();
 
-        // get HTML from content box
-        var newHTML = $(this).html();
+            // update class copy of thought
+            rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
 
-        // update class copy of thought
-        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
-
-        // update user copy of thought
-        rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
-    
+            // update user copy of thought
+            rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
+        }
     }   
 });
 
