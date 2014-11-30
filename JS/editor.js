@@ -1,17 +1,5 @@
-    var iFrame= document.getElementById('editor-iFrame');
-    var editor = iFrame.contentWindow;
-    var doc = editor.document;
-    var iFrameHead = doc.getElementsByTagName("head")[0];
-    var link = doc.createElement("link");
-    link.setAttribute("rel", "stylesheet");
-    link.setAttribute("type", "text/css");
-    link.setAttribute("href", "../CSS/iFrame.css");
-    iFrameHead.appendChild(link);
-    editor.document.designMode='on';
-    handleIframeCursorMove();
-    editor.focus();
-    
-    
+    var editor=document.getElementById("editor");
+
     //Specify commandNames for the buttons
      $('#bold').data('commandName', 'bold');
      $('#italic').data('commandName', 'italic');
@@ -51,44 +39,25 @@
                      
      });
 
- //Set default font and size
-     editor.document.execCommand('fontName',false,'Arial');
-     editor.document.execCommand('fontSize',false,'3');
-     queryCommandValue('fontName');
-     queryCommandValue('fontSize');
-
-
-    if (doc.addEventListener) {
-        doc.addEventListener("keyup", handleIframeKeyPress, false);
-         doc.addEventListener("click", handleIframeCursorMove, false);
-    } else if (doc.attachEvent) {
-        doc.attachEvent("onkeyup", handleIframeKeyPress);
-        doc.attachEvent("onclick", handleIframeCursorMove);
+    if (document.addEventListener) {
+        editor.addEventListener("keyup", handleIframeKeyPress, false);
+         editor.addEventListener("click", handleIframeCursorMove, false);
+    } else if (document.attachEvent) {
+        editor.attachEvent("onkeyup", handleIframeKeyPress);
+        editor.attachEvent("onclick", handleIframeCursorMove);
     } else {
-        doc.onkeyup = handleIframeKeyPress;
-        doc.onclick=handleIframeCursorMove;
+        editor.onkeyup = handleIframeKeyPress;
+        editor.onclick=handleIframeCursorMove;
     }
     
-    $('.btn.editor-toolbar-item').mouseover(function(){
-        if(!($(this).hasClass('active'))){   
-            $(this).addClass('moused');
-        }
-    });
-    
-    $('.btn.editor-toolbar-item').mouseout(function(){
-        $(this).removeClass('moused');
-    });
-    
     $('.editor-toolbar-item').on('click change',function(){
-         editor.focus();
-        $(this).removeClass('moused');
         
         var value=this.value || '';
         if($(this).data('prompt'))
         {
             value=prompt($(this).data('prompt'),'http://');
         }
-        editor.document.execCommand($(this).data('commandName'),false, value); 
+        document.execCommand($(this).data('commandName'),false, value); 
     
         if($(this).hasClass('radio'))
         {
@@ -104,12 +73,13 @@
                 $(this).siblings().removeClass('active');
             }
         }
-        else if(editor.getSelection().toString() == "" && $(this).hasClass('toggle'))
+        else if($(this).hasClass('toggle'))
         {
             $(this).toggleClass('active');  
         }
         
-        editor.focus();   
+        editor.focus();
+          
     });
 
 
@@ -140,7 +110,7 @@ function handleIframeCursorMove(){
 }
 
 function queryCommand(commandName){
-    var state=doc.queryCommandState(commandName);
+    var state=document.queryCommandState(commandName);
     btn='#'+commandName;
     if(state)
     {
@@ -156,7 +126,7 @@ function queryCommand(commandName){
 
 function queryCommandValue(commandName)
 {
-    var value=doc.queryCommandValue(commandName);
+    var value=document.queryCommandValue(commandName);
     strippedValue=value;
     if(value.search(/['"]*['"]/)>-1){
         strippedValue=value.substring(1,value.length-1);
@@ -166,3 +136,14 @@ function queryCommandValue(commandName)
     
     return strippedValue;
 }
+
+ //Set default font and size
+$( document ).ready(function() {
+//    document.execCommand('fontName',false,'Arial');
+//    document.execCommand('fontSize',false,'3');
+//    queryCommandValue('fontName');
+//    queryCommandValue('fontSize');
+      editor.focus();
+});
+
+
