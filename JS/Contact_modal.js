@@ -4,6 +4,7 @@ $('#navOptionContact').click(function() {
 });
 
 
+/*
 $('#contact_Send').click(function() {
     $.ajax({
   type: “POST”,
@@ -27,3 +28,4 @@ $('#contact_Send').click(function() {
   }
  })
 });
+*/
