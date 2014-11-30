@@ -190,6 +190,122 @@
     color: #4581E2;
 }
 
+/*----------------------
+---- SUB THOUGHTS ------
+----------------------*/
+
+.othersThoughtsWrapper{
+    width: 98%;
+    display: inline-block;
+    color: #eee;
+    margin-top: 5px;
+}
+
+.subThoughtCompare{
+    cursor: pointer;
+    width: 5%;
+    font-size: 30px;
+    margin-top: 5px;
+    float: left;
+}
+
+.subThoughtCompare:hover{
+    color: #4581E2!important;
+}
+
+.subThoughtCompareLeft{
+
+}
+
+.subThoughtCompareRight{
+    
+}
+
+.subThoughtContent{
+    float: left;
+    background-color: #666;
+    width: 90%;
+    border-bottom-style: solid;
+    text-align: left;
+    padding: 10px;
+    padding-bottom: 0px;
+    border-radius: 10px;
+}
+
+.subThoughtHTML{
+    width: 100%;
+    max-height: 70px;
+    float: left;
+    padding: 3px;
+    margin-bottom: 2px;
+}
+
+.subThoughtDate{
+    float: left;
+    padding: 0 4px;
+    border-right-style: solid;
+    border-width: 2px;
+}
+
+.subThoughtAuthor{
+    float: left;
+    padding: 0 4px;
+}
+
+.subThoughtAdd{
+    float: right;
+    padding: 0 8px;
+    background-color: #4581E2;
+    margin: 2px;
+    margin-top: -4px;
+    color: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.subThoughtAdd:hover{
+    text-decoration: underline;
+}
+
+.subThoughtCancel{
+    float: right;
+    padding: 0 4px;
+    margin: 2px;
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+.subThoughtCancel:hover{
+    text-decoration: underline;
+}
+
+.subThoughtReport{
+    float: right;
+    padding: 0 4px;
+    margin: 2px;
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+.subThoughtReport:hover{
+    text-decoration: underline;
+}
+
+.subThoughtLoadMore{
+    margin-left: 15px;
+    font-style: italic;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.subThoughtLoadMore:hover{
+    color: #4581E2!important;
+}
+
+/* ---------------------
+/* ---- SCROLL BARS ----
+/* -------------------*/
+
 #messagesWrapper::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);

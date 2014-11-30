@@ -38,7 +38,7 @@ $('#navOptionAccountDetails').click(function() {
 
 });
 
-//Main Screen 'HEADER' show profile
+//Main Screen 'HEADER' show classes that you are an Admin
 $('#navOptionClassAdmin').click(function() {
 	$('#navOptionClassAdminModal').modal('show');
 
@@ -236,16 +236,18 @@ $('#messagesWrapper').delegate(".noteContent","focusout",function(){
         // get refernces to the user copy of the note and the class copy of the note
         var userThoughtId = this.id.toString().substring(6);
         var classThoughtId = $(this).data().thought.noteIdInClass;
+        
+        // check to see that its not updating the flashcard, if it is, then we don't want to update the original note html
+        if ($('#flip_' + userThoughtId).attr("isFlipped") === "false"){
+            // get HTML from content box
+            var newHTML = $(this).html();
 
-        // get HTML from content box
-        var newHTML = $(this).html();
+            // update class copy of thought
+            rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
 
-        // update class copy of thought
-        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
-
-        // update user copy of thought
-        rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
-    
+            // update user copy of thought
+            rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
+        }
     }   
 });
 
@@ -292,15 +294,42 @@ $('#createGuideBtn').click(function() {
 //Matt
 $(document).on('click', '.flip', function(){
     
-    $(this).parent().children('.noteContent').hide();
-    var htmlToAppend = '<input type="flashCard" class="form-control" id="flashCard" placeholder=""/>';
-    $(this).parent().prepend(htmlToAppend);
-
+    var isFlipped = $(this).attr("isFlipped");
+    var userThoughtId = this.id.toString().substring(5);
+    
+    var thoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId);
+    
+    var data = $("#child_" + userThoughtId).data().thought;
+    
+    if(isFlipped === "false"){  
+    
+        
+        $(this).parent().children('.noteContent').empty();
+        
+        if(data.flashHTML == undefined){
+            $(this).parent().children('.noteContent').html("Enter flashcard here");
+        }
+        else{
+            $(this).parent().children('.noteContent').html(data.flashHTML);  
+        }
+        
+        $(this).attr("isFlipped", "true");    
+    }
+    
+    else{
+        //$(this).parent().children('.noteContent' 
+        
+        var newHTML = $(this).parent().children('.noteContent').html();
+        
+        thoughtRef.update({flashHTML: newHTML});
+        
+        $(this).parent().children('.noteContent').html(data.noteHTML);
+        
+        $(this).attr("isFlipped", "false"); 
+    }
+        
 });
 
-
-//link to a cool flip animation
-//http://codepen.io/rhernando/pen/vjGxH
 
 
 $(document).on('click', '.noteStar',function() {
@@ -559,5 +588,66 @@ $(document).on('click', '.removeClass',function() {
 
 
 
+
+$(document).on('click', '.left_compare_wrapper',function() {
+    var thoughtId = this.id.toString().substring(13);
+    getNotes(thoughtId,'prev',3);
+    // clear saved data in the "others_thoughts_ + id" element
+});
+
+$(document).on('click', '.right_compare_wrapper',function() {
+    var thoughtId = this.id.toString().substring(14);
+    getNotes(thoughtId,'next',3);
+    // clear saved data in the "others_thoughts_ + id" element
+});
+
+$(document).on('click', '.subThoughtCompareLeft',function() {
+    var thoughtId = this.id.toString().substring(14);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")+1);
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")-1);
+    }
+    
+    displayOthersThought(thoughtId,direction)
+});
+
+$(document).on('click', '.subThoughtCompareRight',function() {
+    var thoughtId = this.id.toString().substring(15);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")-1);
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")+1);
+    }
+    
+    displayOthersThought(thoughtId,direction)
+
+});
+
+$(document).on('click', '.subThoughtCancel',function() {
+    var thoughtId = this.id.toString().substring(11);
+    
+    // clear all data and html associated with subthoughts
+    $(".othersThoughtsWrapper").removeData();
+    $(".othersThoughtsWrapper").empty();
+    
+    $('.compare_wrapper').css("color","#eee");
+});
+
+$(document).on('click', '.subThoughtAdd',function() {
+    var thoughtId = this.id.toString().substring(8);
+    
+    // get message to add
+    var messageIndex = $("#others_thoughts_" + thoughtId).data("messageIndex");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    
+    var thought 
+});
 
 
