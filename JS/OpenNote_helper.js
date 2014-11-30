@@ -129,7 +129,7 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '</div>';
                 
                 // flashcard
-                htmlToAppend += '<div class="flip" id="flip_' + id + '"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></div>'; 
+                htmlToAppend += '<div isFlipped = "false" class="flip" id="flip_' + id + '"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span></div>'; 
                 
                 // delete thought
                 htmlToAppend += '<div class="delete_thought" id="delete_' + id + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>'; 

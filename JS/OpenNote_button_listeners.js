@@ -292,12 +292,58 @@ $('#createGuideBtn').click(function() {
 //Matt
 $(document).on('click', '.flip', function(){
     
-    $(this).parent().children('.noteContent').hide();
-    var htmlToAppend = '<input type="flashCard" class="form-control" id="flashCard" placeholder=""/>';
-    $(this).parent().prepend(htmlToAppend);
-
+    var isFlipped = $(this).attr("isFlipped");
+    var userThoughtId = this.id.toString().substring(5);
+    
+    var thoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId);
+    
+    var data = $("#child_" + userThoughtId).data().thought;
+    
+    if(isFlipped === "false"){  
+    
+        
+        $(this).parent().children('.noteContent').empty();
+        
+        if(data.flashHTML == undefined){
+            $(this).parent().children('.noteContent').html("Enter flashcard here");
+        }
+        else{
+            $(this).parent().children('.noteContent').html(data.flashHTML);  
+        }
+        
+        $(this).attr("isFlipped", "true");    
+    }
+    
+    else{
+        //$(this).parent().children('.noteContent' 
+        
+        var newHTML = $(this).parent().children('.noteContent').html();
+        
+        thoughtRef.update({flashHTML: newHTML});
+        
+        $(this).parent().children('.noteContent').html(data.noteHTML);
+        
+        $(this).attr("isFlipped", "false"); 
+    }
+        
 });
 
+/*
+ if(count % 2 == 0){
+        originalNote.hide();
+    
+        $(this).parent().prepend(htmlToAppend);
+        count = count + 1;
+    }
+    else if(count % 2 == 1){
+        flashCard.hide();
+        
+        $(this).parent().prepend(originalNote);
+        count = count + 1;
+    }
+
+
+*/
 
 //link to a cool flip animation
 //http://codepen.io/rhernando/pen/vjGxH
