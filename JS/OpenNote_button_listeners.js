@@ -328,26 +328,6 @@ $(document).on('click', '.flip', function(){
         
 });
 
-/*
- if(count % 2 == 0){
-        originalNote.hide();
-    
-        $(this).parent().prepend(htmlToAppend);
-        count = count + 1;
-    }
-    else if(count % 2 == 1){
-        flashCard.hide();
-        
-        $(this).parent().prepend(originalNote);
-        count = count + 1;
-    }
-
-
-*/
-
-//link to a cool flip animation
-//http://codepen.io/rhernando/pen/vjGxH
-
 
 $(document).on('click', '.noteStar',function() {
 	
@@ -605,5 +585,66 @@ $(document).on('click', '.removeClass',function() {
 
 
 
+
+$(document).on('click', '.left_compare_wrapper',function() {
+    var thoughtId = this.id.toString().substring(13);
+    getNotes(thoughtId,'prev',3);
+    // clear saved data in the "others_thoughts_ + id" element
+});
+
+$(document).on('click', '.right_compare_wrapper',function() {
+    var thoughtId = this.id.toString().substring(14);
+    getNotes(thoughtId,'next',3);
+    // clear saved data in the "others_thoughts_ + id" element
+});
+
+$(document).on('click', '.subThoughtCompareLeft',function() {
+    var thoughtId = this.id.toString().substring(14);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")+1);
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")-1);
+    }
+    
+    displayOthersThought(thoughtId,direction)
+});
+
+$(document).on('click', '.subThoughtCompareRight',function() {
+    var thoughtId = this.id.toString().substring(15);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")-1);
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")+1);
+    }
+    
+    displayOthersThought(thoughtId,direction)
+
+});
+
+$(document).on('click', '.subThoughtCancel',function() {
+    var thoughtId = this.id.toString().substring(11);
+    
+    // clear all data and html associated with subthoughts
+    $(".othersThoughtsWrapper").removeData();
+    $(".othersThoughtsWrapper").empty();
+    
+    $('.compare_wrapper').css("color","#eee");
+});
+
+$(document).on('click', '.subThoughtAdd',function() {
+    var thoughtId = this.id.toString().substring(8);
+    
+    // get message to add
+    var messageIndex = $("#others_thoughts_" + thoughtId).data("messageIndex");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    
+    var thought 
+});
 
 

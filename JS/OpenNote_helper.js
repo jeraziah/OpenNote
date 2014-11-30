@@ -99,10 +99,10 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="thoughtWrapper">';
                 
                 // view previous notes
-                htmlToAppend += '<div class="compare_wrapper left_compare_wrapper" id="left_compare_"' + id + '">&laquo</div>';
+                htmlToAppend += '<div class="compare_wrapper left_compare_wrapper" id="left_compare_' + id + '">&laquo</div>';
                 
                 // view more recent notes
-                htmlToAppend += '<div class="compare_wrapper right_compare_wrapper" id="right_compare_"' + id + '">&raquo</div>';
+                htmlToAppend += '<div class="compare_wrapper right_compare_wrapper" id="right_compare_' + id + '">&raquo</div>';
                 
                 // create wrapper for note contents
                 htmlToAppend += '<div class="notePortionWrapper" id="par_' + id + '">';
@@ -139,14 +139,15 @@ function attachMessageWrapperListener(userId){
                 
                 // split thought
                 htmlToAppend += '<div class="split_thought" id="split_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>'; 
-                
-                //htmlToAppend += '</div>';
-                //htmlToAppend += '</div>';
 
                 //add button arrows for navigation when comparing notes
                 //htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
 
-                htmlToAppend += '</div></div>';
+                htmlToAppend += '</div>'; // end for notePortionWrapper
+                
+                htmlToAppend += '<div class="othersThoughtsWrapper" id="others_thoughts_' + id + '"></div>';
+                
+                htmlToAppend += '</div>'; // end for thoughtWrapper
                 
                 // actually add the html for the note portions
                 $('#messagesWrapper').append(htmlToAppend);
@@ -166,110 +167,110 @@ function attachMessageWrapperListener(userId){
 
 
 /*Written by Kim*/
-function grabNextNote(element, direction)
-{
-      var thought=element.data('thought');
-      var otherUserThought= undefined;
-      var displayedUserId= undefined;
-      var numNotes=0;
-      var foundPortions=false;
-    
-      //reduce number of thoughts showing to 1
-      element.children(".thoughts").children().slice(1).remove();
-    
-      if(!element.data('displayedUser'))
-      {
-          element.data('displayedUser',0);
-      }
-       var displayedUser= element.data('displayedUser')
-    
-        while(!foundPortions)
-        {
-            if(direction === 'right')
-            {
-                displayedUser++;
-                if(displayedUser >= classMembers.length)
-                    displayedUser=0;
-            }
-            else
-            {
-                displayedUser--;
-                if(displayedUser < 0)
-                    displayedUser= classMembers.length-1;
-            }
-            //Get the id for the next user
-            displayedUserId=classMembers[displayedUser];
-            
-            //Get the note portions written by this user in the timeframe
-            var userThoughtRef = rootFBRef.child("users").child(displayedUserId).child("classes").child(currentClass.classId).child("thoughts");
-            
-                    userThoughtRef.on('child_added', function(snapshot){
-                    rootFBRef.child("thoughts").child(snapshot.key()).on('value',function(snapshot){
-                        
-                            if(snapshot.val() != null)
-                            {
-                                 otherUserThought=snapshot.val();
-                                foundPortions=true;
-
-                                //if this is the first note for this user then replace the text in the first
-                                if(++numNotes == 1)
-                                {
-                                    var divToAlter= element.children('.thoughts').children('.thoughtContainer');
-                                    replaceThoughtContent(divToAlter,otherUserThought);              
-                                }
-
-                                //otherwise add a thoughtContainer to the thoughts div
-                                else{
-                                    var htmlToAppend = '<div class="thoughtContainer thought">';
-                                    htmlToAppend = '<div class="noteContent" contenteditable="true" spellcheck="false">';
-                                    htmlToAppend += otherUserThought.noteHTML;
-                                    htmlToAppend += '</div>';
-                                    htmlToAppend += '<div class="noteDate">';
-                                    var ds = new Date(otherUserThought.startTime);
-                                    var de = new Date(otherUserThought.endTime);
-                                    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
-                                    htmlToAppend += dateStr;
-                                    htmlToAppend += '</div>';
-                                    htmlToAppend += '<div class="noteAuthor">';
-                                    htmlToAppend += otherUserThought.authorName;
-                                    htmlToAppend += '</div>';
-                                    htmlToAppend += '</div>';
-
-                                    // actually add the html to the note potionWrapper
-                                    element.children('.thoughts').append(htmlToAppend);
-                                }
-                            }
-                        });
-//                    });
-//                }
-            });
-            
-        }
-        
-        //set the displayedUser data in the currNote equal to the new value
-        element.data('displayedUser',displayedUser);   
-    
-        //if we are not displaying the current user's notes then make the wrapper a different color
-        if(displayedUser == 0)
-            element.removeClass('otherNotes');
-        else
-            element.removeClass('otherNotes');
-}
-
-function replaceThoughtContent(divToAlter,thought)
-{
-    var ds = new Date(thought.startTime);
-    var de = new Date(thought.endTime);
-    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
-
-    divToAlter.children('.noteContent').html(thought.noteHTML);
-    divToAlter.children('.noteDate').html(dateStr);
-    divToAlter.children('.noteAuthor').html(thought.authorName);                 
-}
-
-function restoreUserThoughts(){
-    
-}
+//function grabNextNote(element, direction)
+//{
+//      var thought=element.data('thought');
+//      var otherUserThought= undefined;
+//      var displayedUserId= undefined;
+//      var numNotes=0;
+//      var foundPortions=false;
+//    
+//      //reduce number of thoughts showing to 1
+//      element.children(".thoughts").children().slice(1).remove();
+//    
+//      if(!element.data('displayedUser'))
+//      {
+//          element.data('displayedUser',0);
+//      }
+//       var displayedUser= element.data('displayedUser')
+//    
+//        while(!foundPortions)
+//        {
+//            if(direction === 'right')
+//            {
+//                displayedUser++;
+//                if(displayedUser >= classMembers.length)
+//                    displayedUser=0;
+//            }
+//            else
+//            {
+//                displayedUser--;
+//                if(displayedUser < 0)
+//                    displayedUser= classMembers.length-1;
+//            }
+//            //Get the id for the next user
+//            displayedUserId=classMembers[displayedUser];
+//            
+//            //Get the note portions written by this user in the timeframe
+//            var userThoughtRef = rootFBRef.child("users").child(displayedUserId).child("classes").child(currentClass.classId).child("thoughts");
+//            
+//                    userThoughtRef.on('child_added', function(snapshot){
+//                    rootFBRef.child("thoughts").child(snapshot.key()).on('value',function(snapshot){
+//                        
+//                            if(snapshot.val() != null)
+//                            {
+//                                 otherUserThought=snapshot.val();
+//                                foundPortions=true;
+//
+//                                //if this is the first note for this user then replace the text in the first
+//                                if(++numNotes == 1)
+//                                {
+//                                    var divToAlter= element.children('.thoughts').children('.thoughtContainer');
+//                                    replaceThoughtContent(divToAlter,otherUserThought);              
+//                                }
+//
+//                                //otherwise add a thoughtContainer to the thoughts div
+//                                else{
+//                                    var htmlToAppend = '<div class="thoughtContainer thought">';
+//                                    htmlToAppend = '<div class="noteContent" contenteditable="true" spellcheck="false">';
+//                                    htmlToAppend += otherUserThought.noteHTML;
+//                                    htmlToAppend += '</div>';
+//                                    htmlToAppend += '<div class="noteDate">';
+//                                    var ds = new Date(otherUserThought.startTime);
+//                                    var de = new Date(otherUserThought.endTime);
+//                                    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
+//                                    htmlToAppend += dateStr;
+//                                    htmlToAppend += '</div>';
+//                                    htmlToAppend += '<div class="noteAuthor">';
+//                                    htmlToAppend += otherUserThought.authorName;
+//                                    htmlToAppend += '</div>';
+//                                    htmlToAppend += '</div>';
+//
+//                                    // actually add the html to the note potionWrapper
+//                                    element.children('.thoughts').append(htmlToAppend);
+//                                }
+//                            }
+//                        });
+////                    });
+////                }
+//            });
+//            
+//        }
+//        
+//        //set the displayedUser data in the currNote equal to the new value
+//        element.data('displayedUser',displayedUser);   
+//    
+//        //if we are not displaying the current user's notes then make the wrapper a different color
+//        if(displayedUser == 0)
+//            element.removeClass('otherNotes');
+//        else
+//            element.removeClass('otherNotes');
+//}
+//
+//function replaceThoughtContent(divToAlter,thought)
+//{
+//    var ds = new Date(thought.startTime);
+//    var de = new Date(thought.endTime);
+//    var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ds.getMinutes() + ' - ' + de.getHours() + ":" + de.getMinutes();
+//
+//    divToAlter.children('.noteContent').html(thought.noteHTML);
+//    divToAlter.children('.noteDate').html(dateStr);
+//    divToAlter.children('.noteAuthor').html(thought.authorName);                 
+//}
+//
+//function restoreUserThoughts(){
+//    
+//}
 
 
 /*Written by Alec*/
@@ -362,3 +363,139 @@ function getSelectionHtml() {
     }
     return html;
 }
+
+function getNotes(thoughtId,direction,numNotesToGrab){
+    
+    var currentThoughtData = $("#child_" + thoughtId).data().thought;
+    var classThoughtsRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+    
+    if (direction == 'next'){
+        // construct the query
+        classThoughtsRef.orderByChild("startTime").startAt(currentThoughtData.startTime+1).limitToFirst(numNotesToGrab).once('value',function(snapshot){
+            loadOthersThoughts(thoughtId,direction,snapshot.val());
+        });
+    }
+    else{
+        classThoughtsRef.orderByChild("endTime").endAt(currentThoughtData.endTime-1).limitToLast(numNotesToGrab).once('value',function(snapshot){
+            loadOthersThoughts(thoughtId,direction,snapshot.val());
+        });
+    }
+}
+
+function loadOthersThoughts(thoughtId,direction,thoughtsReturned){
+    
+    if (thoughtsReturned == null){
+        // no notes were found
+    }
+    else{
+        // get everything queued up and in an array
+        var messageQueue = new Array();
+        
+        // TODO -> DOUBLE CHECK THAT AUTHOR DOES NOT EQUAL CURRENT USER
+        for (var classThoughtId in thoughtsReturned){
+            var tempNote = thoughtsReturned[classThoughtId];
+            tempNote.thoughtId = classThoughtId;
+            messageQueue.push(tempNote);
+        }
+        
+        // reverse array list if looking at prev notes to show most recent first
+        if (direction == 'prev'){
+            messageQueue.reverse();
+        }
+        
+        // save array to "others_thoughts_ + id" HTML element 
+        $("#others_thoughts_" + thoughtId).data("messageQueue",messageQueue);
+        
+        // save direction
+        $("#others_thoughts_" + thoughtId).data("messageDirection",direction);
+        
+        // check if they were already looking at a particular index number
+        if ($("#others_thoughts_" + thoughtId).data("messageIndex") == undefined)
+        {
+            // its the first time getNotes was called, start at the beginning
+            $("#others_thoughts_" + thoughtId).data("messageIndex",0);
+        }
+        
+        displayOthersThought(thoughtId,direction);
+    }
+}
+
+function displayOthersThought(thoughtId,direction){
+
+    // leave highlighted what arrow they had clicked initially
+    if (direction == 'prev'){
+        $('#left_compare_' + thoughtId).css("color","#4581E2");
+    }
+    else{
+        $('#right_compare_' + thoughtId).css("color","#4581E2");
+    }
+    
+    // clear existing sub thought HTML
+    $('#others_thoughts_' + thoughtId).empty();
+    
+    var messageIndex = $("#others_thoughts_" + thoughtId).data("messageIndex");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    var subThought = messageQueue[messageIndex];
+    
+    subThoughtHTML = "";
+    subThoughtHTML += "<div class='subThoughtWrapper' id='sub_thought_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+        
+        // figure out if we need a left arrow, if the statement is true, create the div but don't put an arrow in it
+        if ((direction == 'prev' && messageIndex+1 == messageQueue.length) || (direction == 'next' && messageIndex == 0)){
+            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
+        }
+        else{
+           subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'>&laquo</div>"; 
+        }
+    
+        subThoughtHTML += "<div class='subThoughtContent' id='sub_content_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += "<div class='subThoughtHTML' id='sub_html_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += subThought.noteHTML;
+            subThoughtHTML += "</div>";
+    
+            var ds = new Date(subThought.startTime);
+            var de = new Date(subThought.endTime);
+            var dateStr = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear().toString().substring(2,4) + " :    " + ds.getHours() + ":" + ((ds.getMinutes()<10) ? ("0" + ds.getMinutes()) : ds.getMinutes()) + ' - ' + de.getHours() + ":" + ((de.getMinutes()<10) ? ("0" + de.getMinutes()) : de.getMinutes()); // use ternary operator to add 0 to minutes if less than 10
+    
+            subThoughtHTML += "<div class='subThoughtDate' id='sub_date_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += dateStr;
+            subThoughtHTML += "</div>";
+    
+            subThoughtHTML += "<div class='subThoughtAuthor' id='sub_author_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += subThought.authorName;
+            subThoughtHTML += "</div>";
+    
+            subThoughtHTML += "<div class='subThoughtReport' id='sub_report_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += "Report";
+            subThoughtHTML += "</div>";  
+    
+            subThoughtHTML += "<div class='subThoughtCancel' id='sub_cancel_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += "Cancel";
+            subThoughtHTML += "</div>";
+    
+            subThoughtHTML += "<div class='subThoughtAdd' id='sub_add_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+            subThoughtHTML += "Add";
+            subThoughtHTML += "</div>";
+    
+        subThoughtHTML += "</div>";
+        
+        // figure out if we need a right arrow, if the statement is true, create the div but don't put an arrow in it
+        if ((direction == 'next' && messageIndex+1 == messageQueue.length) || (direction == 'prev' && messageIndex == 0)){
+            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareRight' id='sub_comp_right_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
+        }
+        else{
+            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareRight' id='sub_comp_right_" + thoughtId + "' name='" + subThought.thoughtId + "'>&raquo</div>";
+        }
+    
+        subThoughtHTML += "<div class='subThoughtMessageNum' id='sub_message_num_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
+        subThoughtHTML += "Showing Thought " + (messageIndex+1) + " of " + messageQueue.length;
+        subThoughtHTML += "<span class='subThoughtLoadMore' id='sub_load_more_" + thoughtId + "' name='" + subThought.thoughtId + "'>Load More Thoughts</span>";
+        subThoughtHTML += "</div>";
+    
+    subThoughtHTML += "</div>";
+    
+    $("#others_thoughts_" + thoughtId).append(subThoughtHTML);
+    // create subthought w/ arrows, add noteHTML to a sub thought, figure out what arrows should be shown
+    // append to others_thoughts_ + id with customized buttons "Add to Notes, Report, say thanks, cancel" etc. 
+}
+
