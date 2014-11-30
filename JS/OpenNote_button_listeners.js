@@ -38,7 +38,7 @@ $('#navOptionAccountDetails').click(function() {
 
 });
 
-//Main Screen 'HEADER' show profile
+//Main Screen 'HEADER' show classes that you are an Admin
 $('#navOptionClassAdmin').click(function() {
 	$('#navOptionClassAdminModal').modal('show');
 
@@ -327,6 +327,7 @@ $(document).on('click', '.flip', function(){
     }
         
 });
+
 
 
 $(document).on('click', '.noteStar',function() {
