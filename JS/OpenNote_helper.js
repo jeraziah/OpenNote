@@ -47,7 +47,7 @@ function loadNotes(userId) {
     
     rootFBRef.child("users").child(userId).child("classes").child(currentClass.userClassId).child("notes").on("value", function(snapshot) {
         
-        var htmlNotes = '<div class="colHeader" style="border-left-style: solid;">Notes</div><div class="colTab notesTab" id="createNewNoteTab">Create New Note</div>';
+        var htmlNotes = '<div class="colHeader" style="border-left-style: solid;">Notes</div><div class="colTab" id="createNewNoteTab">Create New Note</div>';
         var notes = snapshot.val();
         for (var a_note in notes){
             var tNote = notes[a_note];
