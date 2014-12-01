@@ -254,16 +254,12 @@ select{
     background-color: #ddd;
     border-radius: 5px;
 }
-/*
 .btn.editor-toolbar-item.active {
-    background-color:#dcdcdc; 
-    color: black;
-    border-radius: 0px;
-}
-*/
-.btn.editor-toolbar-item:hover{
     color: #eee;
     background-color: #4581E2;
+}
+.btn.editor-toolbar-item:hover{
+    color: white;
 }
 #editorOptionsWrapper{
     margin-bottom: 0px;
