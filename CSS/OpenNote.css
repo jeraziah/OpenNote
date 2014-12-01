@@ -307,7 +307,29 @@ background-color: transparent;
     background-color: #2561B2;
 }
 
-/* What the heck is this for?? */
+/* What the heck is this for??
+    -It was for the arrows in my compare notes thing
+    -I wanted it to be a different color when the user hovered over it
+       ->Kim
+*/
 .hover{
     background-color: #555;
+}
+
+.upload-button {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    float: left;
+}
+
+.profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
+
+.file-upload {
+    display: none;
 }
