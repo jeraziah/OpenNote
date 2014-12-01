@@ -115,10 +115,6 @@ background-color: transparent;
 
 }
 
-#editorWrapper{
-	height: 100%;
-}
-
 .colHeader{
 	text-align: center;
 	height: 30px;
@@ -191,6 +187,7 @@ background-color: transparent;
     border-bottom-style: solid;
 }
 
+/*
 .compareNavigation{
     width:5%;
     vertical-align: middle;
@@ -206,6 +203,7 @@ background-color: transparent;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
+*/
 
 #confirmation_bar{
     position: absolute;
@@ -305,15 +303,6 @@ background-color: transparent;
 
 .settings_clickable:hover{
     background-color: #2561B2;
-}
-
-/* What the heck is this for??
-    -It was for the arrows in my compare notes thing
-    -I wanted it to be a different color when the user hovered over it
-       ->Kim
-*/
-.hover{
-    background-color: #555;
 }
 
 .upload-button {

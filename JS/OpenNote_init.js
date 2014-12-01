@@ -12,6 +12,7 @@ var currNoteStartTime= undefined;
 
 var classMembers= undefined;
 
+// this is for the messagewrapper height to change dynamically based on page height
 var h = window.innerHeight;
 $('#messagesWrapper').css('height',h-320);
 
@@ -19,6 +20,9 @@ $( window ).resize(function() {
     var h = window.innerHeight;
     $('#messagesWrapper').css('height',h-320);
 });
+
+// enable the "press enter to submit thought" checkbox
+$("#checkboxForEnterPress").click();
 
 var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 	if (error) 

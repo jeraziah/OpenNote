@@ -1,3 +1,8 @@
+#editorWrapper{
+	height: 100%;
+    text-align: center;
+}
+
 #writeNoteWrapper{
     width: 80%;
     max-width: 800px;
@@ -10,9 +15,8 @@
     border-radius: 10px;
     padding: 10px;
     padding-top: 3px;
+    display: inline-block;
 }
-
-
 
 #messagesWrapper{
     overflow-y: auto;
@@ -180,13 +184,38 @@
 
 #editor{
     font-family: arial, sans-serif;
-    margin: 10px;
+    margin: 10px 0;
     background-color: white;
     border-radius: 5px;
     padding: 5px;
     height: 100px;
     color: #333;
     overflow-y: auto;
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+#postThoughtBtn{
+    float: left;
+    margin-top: 5px;
+}
+
+#postThoughtBtn:hover{
+    background-color: #4581E2;
+}
+
+#checkboxTextForEnterPress{
+    float: right;
+    color: #333;
+    margin-right: 5px;
+    font-style: italic;
+    margin-top: 6px;
+}
+
+#checkboxForEnterPress{
+    float: right;
+    margin-top: 10px;
 }
 
 .divider{

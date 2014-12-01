@@ -698,3 +698,25 @@ $(document).on('click', '.subThoughtLoadMore',function() {
     displayOthersThought(thoughtId,direction)
 
 });
+
+$(document).on('click', '#checkboxForEnterPress',function() {
+    
+    // get checkbox status
+    if ($(this).is(":checked")){
+        // it is checked, add keydown listener to editor
+        $("#editor").keydown(function(evt){
+           if(evt.keyCode == 13){
+               // remove the extra line that was added by pressing enter
+               var editorHTML = $("#editor").html();
+               editorHTML.substring(0,editorHTML.length-15);
+               $("#editor").html(editorHTML);
+               
+               $("#postThoughtBtn").click();
+           } 
+        });
+    }
+    else{
+        // remove keydown listener from editor
+        $("#editor").unbind("keydown");
+    }
+});
