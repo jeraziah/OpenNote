@@ -13,11 +13,11 @@ var currNoteStartTime= undefined;
 var classMembers= undefined;
 
 var h = window.innerHeight;
-$('#messagesWrapper').css('height',h-300);
+$('#messagesWrapper').css('height',h-320);
 
 $( window ).resize(function() {
     var h = window.innerHeight;
-    $('#messagesWrapper').css('height',h-300);
+    $('#messagesWrapper').css('height',h-320);
 });
 
 var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {

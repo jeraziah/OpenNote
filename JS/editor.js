@@ -1,4 +1,4 @@
-    var editor=document.getElementById("editor");
+//    var editor=document.getElementById("editor");
 
     //Specify commandNames for the buttons
      $('#bold').data('commandName', 'bold');
@@ -40,44 +40,44 @@
 //                     
 //     });
 
-    if (document.addEventListener) {
-        editor.addEventListener("keyup", handleEditorKeyPress, false);
-         editor.addEventListener("click", handleEditorCursorMove, false);
-    } else if (document.attachEvent) {
-        editor.attachEvent("onkeyup", handleEditorKeyPress);
-        editor.attachEvent("onclick", handleEditorCursorMove);
-    } else {
-        editor.onkeyup = handleEditorKeyPress;
-        editor.onclick=handleEditorCursorMove;
-    }
+//    if (document.addEventListener) {
+//        editor.addEventListener("keyup", handleEditorKeyPress, false);
+//         editor.addEventListener("click", handleEditorCursorMove, false);
+//    } else if (document.attachEvent) {
+//        editor.attachEvent("onkeyup", handleEditorKeyPress);
+//        editor.attachEvent("onclick", handleEditorCursorMove);
+//    } else {
+//        editor.onkeyup = handleEditorKeyPress;
+//        editor.onclick=handleEditorCursorMove;
+//    }
     
     $('.editor-toolbar-item').on('click change',function(){
         
         var value=this.value || '';
-        if($(this).data('prompt'))
-        {
-            value=prompt($(this).data('prompt'),'http://');
-        }
+//        if($(this).data('prompt'))
+//        {
+//            value=prompt($(this).data('prompt'),'http://');
+//        }
         document.execCommand($(this).data('commandName'),false, value); 
     
-        if($(this).hasClass('radio'))
-        {
-            if($(this).hasClass('active'))
-            {
-                if($(this).hasClass('toggle'))
-                {
-                    $(this).removeClass('active')
-                }
-            }
-            else{
-                $(this).addClass('active');   
-                $(this).siblings().removeClass('active');
-            }
-        }
-        else if($(this).hasClass('toggle'))
-        {
-            $(this).toggleClass('active');  
-        }
+//        if($(this).hasClass('radio'))
+//        {
+//            if($(this).hasClass('active'))
+//            {
+//                if($(this).hasClass('toggle'))
+//                {
+//                    $(this).removeClass('active')
+//                }
+//            }
+//            else{
+//                $(this).addClass('active');   
+//                $(this).siblings().removeClass('active');
+//            }
+//        }
+//        else if($(this).hasClass('toggle'))
+//        {
+//            $(this).toggleClass('active');  
+//        }
           
     });
 
@@ -142,13 +142,13 @@ function queryCommandValue(commandName)
 
 
 
- //Set default font and size
-$( document ).ready(function() {
-//    document.execCommand('fontName',false,'Arial');
-//    document.execCommand('fontSize',false,'3');
-//    queryCommandValue('fontName');
-//    queryCommandValue('fontSize');
-      editor.focus();
-});
+// //Set default font and size
+//$( document ).ready(function() {
+////    document.execCommand('fontName',false,'Arial');
+////    document.execCommand('fontSize',false,'3');
+////    queryCommandValue('fontName');
+////    queryCommandValue('fontSize');
+//      editor.focus();
+//});
 
 
