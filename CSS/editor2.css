@@ -243,6 +243,9 @@
     color: #333;
     margin: 3px;
     margin-top: 5px;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 3px;
 }
 select{
     float: left;
@@ -259,7 +262,10 @@ select{
     background-color: #4581E2;
 }
 .btn.editor-toolbar-item:hover{
-    color: white;
+/*    color: white;*/
+    border-color: #4581E2;
+    border-style: solid;
+    border-width: 3px;
 }
 #editorOptionsWrapper{
     margin-bottom: 0px;
