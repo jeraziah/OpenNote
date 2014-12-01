@@ -41,14 +41,14 @@
 //     });
 
     if (document.addEventListener) {
-        editor.addEventListener("keyup", handleIframeKeyPress, false);
-         editor.addEventListener("click", handleIframeCursorMove, false);
+        editor.addEventListener("keyup", handleEditorKeyPress, false);
+         editor.addEventListener("click", handleEditorCursorMove, false);
     } else if (document.attachEvent) {
-        editor.attachEvent("onkeyup", handleIframeKeyPress);
-        editor.attachEvent("onclick", handleIframeCursorMove);
+        editor.attachEvent("onkeyup", handleEditorKeyPress);
+        editor.attachEvent("onclick", handleEditorCursorMove);
     } else {
-        editor.onkeyup = handleIframeKeyPress;
-        editor.onclick=handleIframeCursorMove;
+        editor.onkeyup = handleEditorKeyPress;
+        editor.onclick=handleEditorCursorMove;
     }
     
     $('.editor-toolbar-item').on('click change',function(){
@@ -83,15 +83,19 @@
 
 
 
-function handleIframeKeyPress(e) {
-    e = e || iframe.contentWindow.event;
+function handleEditorKeyPress(e) {
     var code = e.keyCode || e.which;
     if(code==33 || code==34 || code==37 || code==38 || code==39 || code==40){
-           handleIframeCursorMove();
+           handleEditorCursorMove();
         }
 }
 
-function handleIframeCursorMove(){
+$('.editor-toolbar-item').on('mousedown',function(e)
+{
+    e.preventDefault();
+});
+
+function handleEditorCursorMove(){
      queryCommand('bold');
      queryCommand('italic');
      queryCommand('underline');
@@ -135,6 +139,8 @@ function queryCommandValue(commandName)
     
     return strippedValue;
 }
+
+
 
  //Set default font and size
 $( document ).ready(function() {

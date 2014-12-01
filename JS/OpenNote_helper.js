@@ -169,6 +169,20 @@ function attachMessageWrapperListener(userId){
 
                 // attach the firebase thought object to the jquery object for the element
                 $('#child_' + id).data('thought',notePortion);
+                
+                var portionEditor=document.getElementById('child_' + id);
+                
+                // attach the listeners to highlight the editor buttons when the cursor moves
+                if (document.addEventListener) {
+                    portionEditor.addEventListener("keyup", handleEditorKeyPress, false);
+                    portionEditor.addEventListener("click", handleEditorCursorMove, false);
+                } else if (document.attachEvent) {
+                    portionEditor.attachEvent("onkeyup", handleEditorKeyPress);
+                    portionEditor.attachEvent("onclick", handleEditorCursorMove);
+                } else {
+                    portionEditor.onkeyup = handleEditorKeyPress;
+                    portionEditor.onclick=handleEditorCursorMove;
+                }
 
                 // hide the compare navigation buttons
                 $('.compareNavigation').hide();
@@ -179,7 +193,6 @@ function attachMessageWrapperListener(userId){
         }
     });
 }
-
 
 /*Written by Kim*/
 //function grabNextNote(element, direction)
