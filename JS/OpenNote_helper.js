@@ -86,11 +86,34 @@ function attachMessageWrapperListener(userId){
         // clear messages currently there (in case some were removed, etc.)
         $('#messagesWrapper').empty();
         
+        // get hashmap of all thoughts in the note
         var allThoughts = snapshot.val();
         
-        for (var id in allThoughts)
+        // turn that hashmap into an array
+        var thoughtArray = new Array();
+        for (var tempThoughtId in allThoughts){
+            var tempThought = allThoughts[tempThoughtId];
+            tempThought.thoughtId = tempThoughtId;
+            thoughtArray.push(tempThought);
+        }
+        
+        // sort that array by startTime
+        //thoughtArray.sort(function(val1,val2){val1.startTime-val2.startTime});
+        for (var i = 0; i<thoughtArray.length;i++){
+            for (var j=0; j<thoughtArray.length-1; j++){
+                if (thoughtArray[j].startTime>thoughtArray[j+1].startTime){
+                    var temp = thoughtArray[j];
+                    thoughtArray[j]=thoughtArray[j+1];
+                    thoughtArray[j+1]=temp;
+                }
+            }
+        }
+        
+        
+        for (var i=0;i<thoughtArray.length;i++)
         {
-            var notePortion = allThoughts[id];
+            notePortion = thoughtArray[i];
+            id = notePortion.thoughtId;
 
             // double check thought isn't already being displayed
             if (($('#par_' + id).length == 0))
@@ -107,11 +130,6 @@ function attachMessageWrapperListener(userId){
                 // create wrapper for note contents
                 htmlToAppend += '<div class="notePortionWrapper" id="par_' + id + '">';
                 
-                //add button arrows for navigation when comparing notes
-                //htmlToAppend += '<div class="compareNavigation left thought"><i class="fa fa-chevron-left fa-lg compareNavigationImage"></i></div>';
-
-                //htmlToAppend += '<div class="thoughts">'
-                //htmlToAppend += '<div class="thoughtContainer thought">'
                 htmlToAppend += '<div class="noteContent" id="child_' + id + '" contenteditable="true" spellcheck="false">';
                 htmlToAppend += notePortion.noteHTML;
                 htmlToAppend += '</div>';
@@ -139,9 +157,6 @@ function attachMessageWrapperListener(userId){
                 
                 // split thought
                 htmlToAppend += '<div class="split_thought" id="split_' + id + '" toMerge="false"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></div>'; 
-
-                //add button arrows for navigation when comparing notes
-                //htmlToAppend += '<div class="compareNavigation right thought"><i class="fa fa-chevron-right fa-lg compareNavigationImage"></i></div>';
 
                 htmlToAppend += '</div>'; // end for notePortionWrapper
                 

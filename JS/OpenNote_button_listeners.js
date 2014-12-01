@@ -242,8 +242,9 @@ $('#messagesWrapper').delegate(".noteContent","focusout",function(){
             // get HTML from content box
             var newHTML = $(this).html();
 
-            // update class copy of thought
-            rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
+            // update class copy of thought if synced up with class (won't be if its someone elses note)
+           if (classThoughtId != undefined){ rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).update({noteHTML: newHTML});
+                                           }
 
             // update user copy of thought
             rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).update({noteHTML: newHTML});
@@ -260,9 +261,9 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
         var userThoughtId = thoughtId;
         var classThoughtId = $("#child_" + userThoughtId).data().thought.noteIdInClass;
 
-        // remove class copy of thought
-        rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).remove();
-
+        // remove class copy of thought if synced up with class (won't be if its someone elses note)
+       if (classThoughtId != undefined){ rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(classThoughtId).remove();
+       }
         // remove user copy of thought
         rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId).remove();
         
@@ -294,37 +295,54 @@ $('#createGuideBtn').click(function() {
 //Matt
 $(document).on('click', '.flip', function(){
     
+    // check if the flashcard side is currenlty showing 
     var isFlipped = $(this).attr("isFlipped");
+    
+    // get the thoughtId
     var userThoughtId = this.id.toString().substring(5);
     
+    // get the reference to the actual thought
     var thoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").child(userThoughtId);
     
+    // get the data associated with that thought
     var data = $("#child_" + userThoughtId).data().thought;
     
+    // if the card hasn't been flipped yet
     if(isFlipped === "false"){  
-    
-        
+        // clear html inside the noteContent div
         $(this).parent().children('.noteContent').empty();
         
+        // if no flashcard data has been saved before, provide a prompt, otherwise display the flashcard data
         if(data.flashHTML == undefined){
-            $(this).parent().children('.noteContent').html("Enter flashcard here");
+            $(this).parent().children('.noteContent').html("[Enter flashcard here]");
         }
         else{
             $(this).parent().children('.noteContent').html(data.flashHTML);  
         }
         
+        // set css to differentiate flashcard
+        $(this).parent().children('.noteContent').css("background-color","#333");
+        $(this).parent().children('.noteContent').css("color","#eee");
+        
+        // since the flash card text is showing, set isFlipped to true
         $(this).attr("isFlipped", "true");    
     }
     
     else{
-        //$(this).parent().children('.noteContent' 
-        
+        // get flashcard html
         var newHTML = $(this).parent().children('.noteContent').html();
         
+        // update the flashHTML property of the thought
         thoughtRef.update({flashHTML: newHTML});
         
+        // put back the original html for the note 
         $(this).parent().children('.noteContent').html(data.noteHTML);
         
+        // set css back
+        $(this).parent().children('.noteContent').css("background-color","#ddd");
+        $(this).parent().children('.noteContent').css("color","#333");
+        
+        // since the original note is showing, set the isFlipped attr to false
         $(this).attr("isFlipped", "false"); 
     }
         
@@ -645,9 +663,38 @@ $(document).on('click', '.subThoughtAdd',function() {
     
     // get message to add
     var messageIndex = $("#others_thoughts_" + thoughtId).data("messageIndex");
-    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");   
+    var thought = messageQueue[messageIndex];
     
-    var thought 
+    // get reference to note
+    var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
+    
+    // create thought object
+    var userThoughtToUpload = {
+        noteHTML: thought.noteHTML,
+        authorId: thought.authorId,
+        authorName: thought.authorName,
+        parentNote: currentNote.noteId,
+        startTime: thought.startTime,
+        isStarred: "false",
+        endTime: thought.endTime
+        }
+
+    // close adding subthought menu to cleanup (actual html would be erased automatically, this is for other cleanup things)
+    $("#sub_cancel_" + thoughtId).click();
+    
+    //push it up to the user notes thoughts section
+    userNoteThoughtRef.push(userThoughtToUpload);
 });
 
+$(document).on('click', '.subThoughtLoadMore',function() {
+    var thoughtId = this.id.toString().substring(14);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue"); 
+    var numAdditionalNotes = 3;
+    
+    getNotes(thoughtId,direction,messageQueue.length + numAdditionalNotes);
+    
+    displayOthersThought(thoughtId,direction)
 
+});
