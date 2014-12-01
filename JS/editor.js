@@ -27,17 +27,18 @@
      $('#image').data('prompt','Please enter the image url.');
      $('#link').data('prompt','Please enter the url');
 
-     var fontNameRef = rootFBRef.child("fontName");
 
-    //Fill the font name dropdown
-    fontNameRef.on("value",function(fontsObject){
-         var list=$('#fontName');
-         var fonts=fontsObject.val();
-         $.each(fonts, function() {
-             list.append($('<option />').val(this).text(this));
-         });           
-                     
-     });
+//     var fontNameRef = rootFBRef.child("fontName");
+//
+//    //Fill the font name dropdown
+//    fontNameRef.on("value",function(fontsObject){
+//         var list=$('#fontName');
+//         var fonts=fontsObject.val();
+//         $.each(fonts, function() {
+//             list.append($('<option />').val(this).text(this));
+//         });           
+//                     
+//     });
 
     if (document.addEventListener) {
         editor.addEventListener("keyup", handleIframeKeyPress, false);
@@ -77,8 +78,6 @@
         {
             $(this).toggleClass('active');  
         }
-        
-        editor.focus();
           
     });
 
