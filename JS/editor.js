@@ -1,4 +1,5 @@
     var editor=document.getElementById("editor");
+    var focusedElem= $('#editor');
 
     //Specify commandNames for the buttons
      $('#bold').data('commandName', 'bold');
@@ -51,37 +52,53 @@
         editor.onclick=handleEditorCursorMove;
     }
     
-    $('.editor-toolbar-item').on('click change',function(){
-        
-        var value=this.value || '';
-        if($(this).data('prompt'))
+    $('button.editor-toolbar-item').on('click', function(){
+        handleToolbarClick(this);
+    });
+
+    $('select.editor-toolbar-item').on('change', function(){
+        handleToolbarClick(this);
+        focusedElem.focus();
+    });
+
+function handleToolbarClick(elem){ 
+        var value=elem.value || '';
+        if($(elem).data('prompt'))
         {
-            value=prompt($(this).data('prompt'),'http://');
+            value=prompt($(elem).data('prompt'),'http://');
         }
-        document.execCommand($(this).data('commandName'),false, value); 
+        document.execCommand($(elem).data('commandName'),false, value); 
     
-        if($(this).hasClass('radio'))
+        if($(elem).hasClass('radio'))
         {
-            if($(this).hasClass('active'))
+            if($(elem).hasClass('active'))
             {
-                if($(this).hasClass('toggle'))
+                if($(elem).hasClass('toggle'))
                 {
-                    $(this).removeClass('active')
+                    $(elem).removeClass('active')
                 }
             }
             else{
-                $(this).addClass('active');   
-                $(this).siblings().removeClass('active');
+                $(elem).addClass('active');   
+                $(elem).siblings().removeClass('active');
             }
         }
-        else if($(this).hasClass('toggle'))
+        else if($(elem).hasClass('toggle'))
         {
-            $(this).toggleClass('active');  
+            $(elem).toggleClass('active');  
         }
-          
-    });
+}
 
 
+$('button.editor-toolbar-item').on('mousedown',function(e)
+{
+   e.preventDefault();
+   e.stopPropagation();
+});
+
+$('#editor').focus(function(){
+  focusedElem=$(this);
+});
 
 function handleEditorKeyPress(e) {
     var code = e.keyCode || e.which;
@@ -89,11 +106,6 @@ function handleEditorKeyPress(e) {
            handleEditorCursorMove();
         }
 }
-
-$('.editor-toolbar-item').on('mousedown',function(e)
-{
-    e.preventDefault();
-});
 
 function handleEditorCursorMove(){
      queryCommand('bold');
@@ -143,12 +155,12 @@ function queryCommandValue(commandName)
 
 
 // //Set default font and size
-//$( document ).ready(function() {
+$(window).load(function() {
 ////    document.execCommand('fontName',false,'Arial');
 ////    document.execCommand('fontSize',false,'3');
 ////    queryCommandValue('fontName');
 ////    queryCommandValue('fontSize');
-//      editor.focus();
-//});
+        focusedElem.focus();
+});
 
 

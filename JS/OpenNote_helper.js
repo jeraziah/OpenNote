@@ -176,12 +176,18 @@ function attachMessageWrapperListener(userId){
                 if (document.addEventListener) {
                     portionEditor.addEventListener("keyup", handleEditorKeyPress, false);
                     portionEditor.addEventListener("click", handleEditorCursorMove, false);
+                    portionEditor.addEventListener("focus", function(){
+                        focusedElem=$(this)},false);
                 } else if (document.attachEvent) {
                     portionEditor.attachEvent("onkeyup", handleEditorKeyPress);
                     portionEditor.attachEvent("onclick", handleEditorCursorMove);
+                     portionEditor.attachEvent("focus",function(){
+                        focusedElem=$(this)});
                 } else {
                     portionEditor.onkeyup = handleEditorKeyPress;
-                    portionEditor.onclick=handleEditorCursorMove;
+                    portionEditor.onclick = handleEditorCursorMove;
+                    portionEditor.onfocus = function(){
+                        focusedElem=$(this)};
                 }
 
                 // hide the compare navigation buttons
