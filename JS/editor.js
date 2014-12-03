@@ -1,5 +1,5 @@
     var editor=document.getElementById("editor");
-    var focusedElem= $('#editor');
+    var focusedElem= null;
 
     //Specify commandNames for the buttons
      $('#bold').data('commandName', 'bold');
@@ -21,53 +21,68 @@
      $('#redo').data('commandName', 'redo');
      $('#fontName').data('commandName', 'fontName');
      $('#fontSize').data('commandName', 'fontSize');
-     $('#image').data('commandName', 'insertImage');
-     $('#horizontalRule').data('commandName', 'insertHorizontalRule');
-     $('#link').data('commandName', 'createLink');
-     $('#unlink').data('commandName', 'unlink');
-     $('#image').data('prompt','Please enter the image url.');
-     $('#link').data('prompt','Please enter the url');
 
-
-//     var fontNameRef = rootFBRef.child("fontName");
-//
-//    //Fill the font name dropdown
-//    fontNameRef.on("value",function(fontsObject){
-//         var list=$('#fontName');
-//         var fonts=fontsObject.val();
-//         $.each(fonts, function() {
-//             list.append($('<option />').val(this).text(this));
-//         });           
-//                     
-//     });
-
-    if (document.addEventListener) {
-        editor.addEventListener("keyup", handleEditorKeyPress, false);
-         editor.addEventListener("click", handleEditorCursorMove, false);
-    } else if (document.attachEvent) {
-        editor.attachEvent("onkeyup", handleEditorKeyPress);
-        editor.attachEvent("onclick", handleEditorCursorMove);
-    } else {
-        editor.onkeyup = handleEditorKeyPress;
-        editor.onclick=handleEditorCursorMove;
-    }
-    
-    $('button.editor-toolbar-item').on('click', function(){
-        handleToolbarClick(this);
+    $('#editor').focus(function(){
+        focusedElem=$(this);
     });
 
-    $('select.editor-toolbar-item').on('change', function(){
-        handleToolbarClick(this);
+    $('#editor').keyup(function(e){
+        handleEditorKeyPress(e);
+    });
+
+    $('#editor').click(function(){
+        handleEditorCursorMove();
+    });
+
+    //reset the focusedElem when we stop editing notes
+    $('* :not(.dont_lose_focus):not(.dont_lose_focus *)').mousedown(function(){
+       focusedElem=null;
+        //reset the toolbar buttons
+         $('#bold').removeClass('active');
+         $('#italic').removeClass('active');
+         $('#underline').removeClass('active');
+         $('#strikeThrough').removeClass('active');
+         $('#subscript').removeClass('active');
+         $('#superscript').removeClass('active');
+         $('#insertOrderedList').removeClass('active');
+         $('#insertUnorderedList').removeClass('active');
+         $('#justifyLeft').addClass('active');
+         $('#justifyCenter').removeClass('active');
+         $('#justifyRight').removeClass('active');
+         $('#justifyFull').removeClass('active');
+         $('#selected_fontSize').html(2+'<span class="caret"></span>');
+         $('#selected_fontName').html(arial,sans-serif+'<span class="caret"></span>');
+    });
+
+    $('button.editor-toolbar-item').on('mousedown',function(e)
+    {
+       e.preventDefault();
+       e.stopPropagation();
+    });
+
+    $('div.editor-toolbar-item, #editor').on('mousedown',function(e)
+    {
+       e.stopPropagation();
+    });
+
+    $('button.editor-toolbar-item').on('click', function(){
+        handleToolbarClick(this,'');
+    });
+
+    $('.editor-toolbar-item li').on('click', function(){
+        handleToolbarClick($(this).parent(),$(this).text());   
+        
         focusedElem.focus();
     });
 
-function handleToolbarClick(elem){ 
-        var value=elem.value || '';
-        if($(elem).data('prompt'))
+function handleToolbarClick(elem,value){ 
+        if(focusedElem==null)
         {
-            value=prompt($(elem).data('prompt'),'http://');
+            focusedElem=editor;
+            $('#editor').focus();
         }
-        document.execCommand($(elem).data('commandName'),false, value); 
+        var commandName=$(elem).data('commandName');
+        document.execCommand(commandName,false, value); 
     
         if($(elem).hasClass('radio'))
         {
@@ -87,18 +102,13 @@ function handleToolbarClick(elem){
         {
             $(elem).toggleClass('active');  
         }
+        
+        if(value!=='')
+        {
+             var btn='#selected_'+commandName;
+             $(btn).html(value+'<span class="caret"></span>');
+        }
 }
-
-
-$('button.editor-toolbar-item').on('mousedown',function(e)
-{
-   e.preventDefault();
-   e.stopPropagation();
-});
-
-$('#editor').focus(function(){
-  focusedElem=$(this);
-});
 
 function handleEditorKeyPress(e) {
     var code = e.keyCode || e.which;
@@ -146,21 +156,18 @@ function queryCommandValue(commandName)
     if(value.search(/['"]*['"]/)>-1){
         strippedValue=value.substring(1,value.length-1);
     }
-    btn='#'+commandName;
-    $(btn).val(strippedValue);
+    btn='#selected_'+commandName;
+    $(btn).html(strippedValue+'<span class="caret"></span>');
     
     return strippedValue;
 }
 
-
-
-// //Set default font and size
+//Set default font and size
+//Add this to the function that shows the editor box?
 $(window).load(function() {
-////    document.execCommand('fontName',false,'Arial');
-////    document.execCommand('fontSize',false,'3');
-////    queryCommandValue('fontName');
-////    queryCommandValue('fontSize');
-        focusedElem.focus();
+    $('#editor').focus();
+    document.execCommand('fontName',false,'Arial');
+    document.execCommand('fontSize',false,'3');     
 });
 
 

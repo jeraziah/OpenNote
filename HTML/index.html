@@ -139,84 +139,129 @@
             <div id="editorToolbarWrapper">
             <div id="editorButtonToolbar">
                      <div class="btn-toolbar">
-			            <button type="button" id="bold" class="editor-toolbar-item btn toggle" title="Bold">
+			            <button type="button" id="bold" class="editor-toolbar-item dont_lose_focus btn toggle" title="Bold">
 			                <i class="fa fa-bold"></i>
 			             </button>
-			             <button type="button" id="italic" class="editor-toolbar-item btn toggle" title="Italic">
+			             <button type="button" id="italic" class="editor-toolbar-item dont_lose_focus btn toggle" title="Italic">
 			                <i class="fa fa-italic"></i>
 			             </button>
-			             <button type="button" id="underline" class="editor-toolbar-item btn toggle" title="Underline">
+			             <button type="button" id="underline" class="editor-toolbar-item dont_lose_focus btn toggle" title="Underline">
 			                <i class="fa fa-underline"></i>
 			             </button>
-			             <button type="button" id="strikeThrough" class="editor-toolbar-item btn toggle" title="StrikeThrough">
+			             <button type="button" id="strikeThrough" class="editor-toolbar-item dont_lose_focus btn toggle" title="StrikeThrough">
 			                <i class="fa fa-strikethrough"></i>
 			             </button>
                          <div class="divider"></div>
 			             <div class="btn-group-mine">
-			                 <button type="button" id="subscript" class="editor-toolbar-item btn radio toggle" title="Subscript">
+			                 <button type="button" id="subscript" class="editor-toolbar-item dont_lose_focus btn radio toggle" title="Subscript">
 			                    <i class="fa fa-subscript"></i>
 			                 </button>
-			                 <button type="button" id="superscript" class="editor-toolbar-item btn radio toggle" title="Superscript">
+			                 <button type="button" id="superscript" class="editor-toolbar-item dont_lose_focus btn radio toggle" title="Superscript">
 			                    <i class="fa fa-superscript"></i>
 			                 </button>
 			             </div>
                          <div class="divider"></div>
 			             <div class="btn-group-mine">
-			                 <button type="button" id="insertOrderedList" class="editor-toolbar-item btn toggle radio" title="Insert Ordered List">
+			                 <button type="button" id="insertOrderedList" class="editor-toolbar-item dont_lose_focus btn toggle radio" title="Insert Ordered List">
 			                    <i class="fa fa-list-ol"></i>
 			                 </button>
-			                 <button type="button" id="insertUnorderedList" class="editor-toolbar-item btn toggle radio" title="Insert Unordered List">
+			                 <button type="button" id="insertUnorderedList" class="editor-toolbar-item dont_lose_focus btn toggle radio" title="Insert Unordered List">
 			                    <i class="fa fa-list-ul"></i>
 			                 </button>
 			             </div>
                          <div class="divider"></div>
 			             <div class="btn-group-mine">
-			                 <button type="button" id="outdent" class="editor-toolbar-item btn" title="Outdent">
+			                 <button type="button" id="outdent" class="editor-toolbar-item dont_lose_focus btn" title="Outdent">
 			                    <i class="fa fa-outdent"></i>
 			                 </button>
-			                 <button type="button" id="indent" class="editor-toolbar-item btn" title="Indent">
+			                 <button type="button" id="indent" class="editor-toolbar-item dont_lose_focus btn" title="Indent">
 			                    <i class="fa fa-indent"></i>
 			                 </button>
 			             </div>
                          <div class="divider"></div>
 			             <div class="btn-group-mine">
-			                 <button type="button" id="justifyLeft" class="editor-toolbar-item btn toggle radio active" title="Left Align">
+			                 <button type="button" id="justifyLeft" class="editor-toolbar-item dont_lose_focus btn toggle radio active" title="Left Align">
 			                    <i class="fa fa-align-left"></i>
 			                 </button>
-			                 <button type="button" id="justifyCenter" class="editor-toolbar-item btn radio toggle" title="Center Align">
+			                 <button type="button" id="justifyCenter" class="editor-toolbar-item dont_lose_focus btn radio toggle" title="Center Align">
 			                    <i class="fa fa-align-center"></i>
 			                 </button>
-			                 <button type="button" id="justifyRight" class="editor-toolbar-item btn radio toggle" title="Right Align">
+			                 <button type="button" id="justifyRight" class="editor-toolbar-item dont_lose_focus btn radio toggle" title="Right Align">
 			                    <i class="fa fa-align-right"></i>
 			                 </button>
-			                 <button type="button" id="justifyFull" class="editor-toolbar-item btn radio toggle" title="Block Justify">
+			                 <button type="button" id="justifyFull" class="editor-toolbar-item dont_lose_focus btn radio toggle" title="Block Justify">
 			                    <i class="fa fa-align-justify"></i>
 			                 </button>
 			             </div>
                          <div class="divider"></div>
                          
-			             <button type="button" id="undo" class="editor-toolbar-item btn" title="Undo">
+			             <button type="button" id="undo" class="editor-toolbar-item dont_lose_focus btn" title="Undo">
 			                <i class="fa fa-undo"></i>
 			             </button>
-			             <button type="button" id="redo" class="editor-toolbar-item btn" title="Redo">
+			             <button type="button" id="redo" class="editor-toolbar-item dont_lose_focus btn" title="Redo">
 			                <i class="fa fa-repeat"></i>
 			             </button>
                          
                          <div class="divider"></div>
-                         <select id="fontName" class="editor-toolbar-item">
-			             
-			              </select>
-			              <select id="fontSize" class="editor-toolbar-item">
-			                  <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-			              </select>
+                       <div class="btn-group editor-toolbar-item dont_lose_focus">
+  <button type="button" id="selected_fontName" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+Arial<span class="caret"></span>
+  </button>
+                         <ul class="dropdown-menu" role="menu" id="fontName">
+                            <li><a href="#"><font face='Arial'>Arial</font></a></li>
+                            <li><a href="#"><font face='Arial Black'>Arial Black</font></a></li>
+                            <li><a href="#"><font face='Arial Narrow'>Arial Narrow</font></a></li>
+                            <li><a href="#"><font face='Arial Rounded MT Bold'>Arial Rounded MT Bold</font></a></li>
+                            <li><a href="#"><font face='Avant Garde'>Avant Garde</font></a></li>
+                            <li><a href="#"><font face='Baskerville'>Baskerville</font></a></li>
+                            <li><a href="#"><font face='Big Caslon'>Big Caslon</font></a></li>
+                            <li><a href="#"><font face='Bodoni MT'>Bodoni MT</font></a></li>
+                            <li><a href="#"><font face='Book Antiqua'>Book Antiqua</font></a></li>
+                            <li><a href="#"><font face='Calibri'>Calibri</font></a></li>
+                            <li><a href="#"><font face='Calisto MT'>Calisto MT</font></a></li>
+                            <li><a href="#"><font face='Cambria'>Cambria</font></a></li>
+                            <li><a href="#"><font face='Candara'>Candara</font></a></li>
+                            <li><a href="#"><font face='Century Gothic'>Century Gothic</font></a></li>
+                            <li><a href="#"><font face='Didot'>Didot</font></a></li>
+                            <li><a href="#"><font face='Franklin Gothic Medium'>Franklin Gothic Medium</font></a></li>
+                            <li><a href="#"><font face='Futura'>Futura</font></a></li>
+                            <li><a href="#"><font face='Garamond'>Garamond</font></a></li>
+                            <li><a href="#"><font face='Geneva'>Geneva</font></a></li>
+                            <li><a href="#"><font face='Georgia'>Georgia</font></a></li>
+                            <li><a href="#"><font face='Gill Sans'>Gill Sans</font></a></li>
+                            <li><a href="#"><font face='Goudy Old Style'>Goudy Old Style</font></a></li>
+                            <li><a href="#"><font face='Helvetica'>Helvetica</font></a></li>
+                            <li><a href="#"><font face='Hoefler Text'>Hoefler Text</font></a></li>
+                            <li><a href="#"><font face='Impact'>Impact</font></a></li>
+                            <li><a href="#"><font face='Lucida Bright'>Lucida Bright</font></a></li>
+                            <li><a href="#"><font face='Lucida Grande'>Lucida Grande</font></a></li>
+                            <li><a href="#"><font face='Optima'>Optima</font></a></li>
+                            <li><a href="#"><font face='Palatino'>Palatino</font></a></li>
+                            <li><a href="#"><font face='Perpetua'>Perpetua</font></a></li>
+                            <li><a href="#"><font face='Rockwell'>Rockwell</font></a></li>
+                            <li><a href="#"><font face='Rockwell Extra Bold'>Rockwell Extra Bold</font></a></li>
+                            <li><a href="#"><font face='Segoe UI'>Segoe UI</a></font></li>
+                            <li><a href="#"><font face='Tahoma'>Tahoma</a></font></li>
+                            <li><a href="#"><font face='Times New Roman'>Times New Roman</font></a></li>
+                            <li><a href="#"><font face='Trebuchet MS'>Trebuchet MS</font></a></li>
+                            <li><a href="#"><font face='Verdana'>Verdana</font></a></li>
+                          </ul>
+                         </div>
+<div class="btn-group editor-toolbar-item dont_lose_focus">
+  <button type="button" id="selected_fontSize" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">2<span class="caret"></span>
+  </button>
+                         <ul class="dropdown-menu" role="menu" id="fontSize">
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">6</a></li>
+                            <li><a href="#">7</a></li>
+                          </ul>
+                         </div>
 			             <div class="divider"></div>
-                         <button type="button" id="removeFormatting" class="editor-toolbar-item btn" title="Remove Formatting">
+                         <button type="button" id="removeFormatting" class="editor-toolbar-item dont_lose_focus btn" title="Remove Formatting">
 			                <span class="fa-stack" style="font-size:9px;">
                                 <i class="fa fa-ban fa-stack-2x"></i>
                                 <i class="fa fa-font fa-stack-1x"></i>
@@ -227,7 +272,7 @@
                 </div>
             
 			<div id="writeNoteWrapper">
-                <div contenteditable="true" id="editor"></div>
+                <div contenteditable="true" class="dont_lose_focus" id="editor"></div>
                 <button id = "postThoughtBtn" class = "btn btn-default">Post Thought</button>
                 <input type="checkbox" id="checkboxForEnterPress"><span id="checkboxTextForEnterPress">Pressing Enter will Post Thought</span>
             </div>

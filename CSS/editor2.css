@@ -232,20 +232,29 @@
     margin: 0px;
 }
 .btn.editor-toolbar-item {
+    width:35px;
+    margin: 3px;
+    margin-top: 5px;
+}
+.editor-toolbar-item {
     cursor:pointer;
     float: left;
-    width:35px;
     text-align: center;
     margin:0px;
     padding-left: 0px;
     padding-right: 0px;
     background-color: #ddd;
     color: #333;
-    margin: 3px;
-    margin-top: 5px;
     border-color: #ddd;
     border-style: solid;
     border-width: 3px;
+    margin: 3px;
+    margin-top: 5px;
+}
+.editor-toolbar-item button{
+    background-color: #ddd;
+    color: #333;
+    border: none;
 }
 select{
     float: left;
@@ -262,7 +271,6 @@ select{
     background-color: #4581E2;
 }
 .btn.editor-toolbar-item:hover{
-/*    color: white;*/
     border-color: #4581E2;
     border-style: solid;
     border-width: 3px;

@@ -130,7 +130,7 @@ function attachMessageWrapperListener(userId){
                 // create wrapper for note contents
                 htmlToAppend += '<div class="notePortionWrapper" id="par_' + id + '">';
                 
-                htmlToAppend += '<div class="noteContent" id="child_' + id + '" contenteditable="true" spellcheck="false">';
+                htmlToAppend += '<div class="noteContent dont_lose_focus" id="child_' + id + '" contenteditable="true" spellcheck="false">';
                 htmlToAppend += notePortion.noteHTML;
                 htmlToAppend += '</div>';
                 htmlToAppend += '<div class="noteStar" name="' + id + '" isStarred="';
@@ -177,17 +177,23 @@ function attachMessageWrapperListener(userId){
                     portionEditor.addEventListener("keyup", handleEditorKeyPress, false);
                     portionEditor.addEventListener("click", handleEditorCursorMove, false);
                     portionEditor.addEventListener("focus", function(){
-                        focusedElem=$(this)},false);
+                        focusedElem=$(this);},false);
+                    portionEditor.addEventListener("mousedown", function(e){
+                        e.stopPropagation();});
                 } else if (document.attachEvent) {
                     portionEditor.attachEvent("onkeyup", handleEditorKeyPress);
                     portionEditor.attachEvent("onclick", handleEditorCursorMove);
-                     portionEditor.attachEvent("focus",function(){
-                        focusedElem=$(this)});
+                    portionEditor.attachEvent("focus",function(){
+                        focusedElem=$(this);});
+                    portionEditor.attachEvent("mousedown",function(e){
+                        e.stopPropagation();});
                 } else {
                     portionEditor.onkeyup = handleEditorKeyPress;
                     portionEditor.onclick = handleEditorCursorMove;
                     portionEditor.onfocus = function(){
-                        focusedElem=$(this)};
+                        focusedElem=$(this);};
+                    portionEditor.onmousedown = function(e){
+                        e.stopPropagation();};
                 }
 
                 // hide the compare navigation buttons
