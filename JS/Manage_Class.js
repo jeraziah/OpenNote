@@ -13,7 +13,8 @@ $(document).on('click', '.viewClassDetails',function() {
         
         // create html for modal
         modalHTML = "";
-        modalHTML += "";
+        modalHTML += "<div class="modal fade lightBG" id="navOptionForgotPassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">";
+        modalHTML +=
     
         // add modal html to document
         

@@ -25,6 +25,8 @@ function loadNotes(userId) {
     //console.log("Load Notes Being Called");
     
     firstNote=true; // global on purpse
+   
+    var hasNoteBeenCreated = 'false';
     
     $('#messagesWrapper').empty();
     
@@ -71,6 +73,17 @@ function loadNotes(userId) {
         //set the start time for new thought to be right now
             var tmp=new Date();
             currNoteStartTime= tmp.getTime();
+        
+        var showTutorial = $('#editorTutorial');
+        
+        if(hasNoteBeenCreated == 'true'){
+            $('#editorTutorial').hide();
+            $('editorWrapper').show();  
+        }
+        else{
+            $('#editorTutorial').show();
+            $('editorWrapper').hide();
+        }
         
         $('#noteWrapper').empty().html(htmlNotes);
     });
