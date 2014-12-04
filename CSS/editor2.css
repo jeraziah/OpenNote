@@ -279,7 +279,15 @@ select{
     margin-bottom: 0px;
     text-align: center;
 }
-
+#fontSize{
+    height: 195px;
+    min-width: 0px;
+}
+#fontName{
+    height: 300px;
+    overflow-y: scroll;
+    min-width: 0px;
+}
 
 /*----------------------
 ---- SUB THOUGHTS ------

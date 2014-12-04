@@ -50,8 +50,8 @@
          $('#justifyCenter').removeClass('active');
          $('#justifyRight').removeClass('active');
          $('#justifyFull').removeClass('active');
-         $('#selected_fontSize').html(2+'<span class="caret"></span>');
-         $('#selected_fontName').html(arial,sans-serif+'<span class="caret"></span>');
+         $('#selected_fontSize').html('2<span class="caret"></span>');
+         $('#selected_fontName').html('Arial<span class="caret"></span>');
     });
 
     $('button.editor-toolbar-item').on('mousedown',function(e)
@@ -80,10 +80,24 @@ function handleToolbarClick(elem,value){
         {
             focusedElem=editor;
             $('#editor').focus();
+            handleEditorCursorMove();
         }
         var commandName=$(elem).data('commandName');
-        document.execCommand(commandName,false, value); 
     
+        document.execCommand(commandName,false, value); 
+        
+//necessary to fix stupid superscript subscript toggling bug
+//        if(commandName==='superscript' || commandName==='subscript')
+//        {
+//            if($(elem).hasClass('active'))
+//                {
+//                    if(document.queryCommandState(commandName))
+//                    {
+//                        document.execCommand(commandName,false, value); 
+//                    }
+//                }
+//        }
+        
         if($(elem).hasClass('radio'))
         {
             if($(elem).hasClass('active'))
