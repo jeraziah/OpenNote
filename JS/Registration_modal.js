@@ -26,7 +26,8 @@ $('#finalizeRegistration').click(function() {
 				email: $('#registration_inputEmail').val(),
 				university: $('#registration_university').val(),
 				provider: user.provider,
-				userId: user.uid  
+				userId: user.uid,
+                image: ""
 		    });
 
 		    // log user in

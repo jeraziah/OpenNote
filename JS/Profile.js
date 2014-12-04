@@ -4,10 +4,26 @@ $('#saveProfile').click(function() {
         currentUserRef.update({
             "firstName": $("#accountDetailsFirstName").val(),
             "lastName": $("#accountDetailsLastName").val(),
-            "email": $("#accountDetailsEmail").val()   
+            "email": $("#accountDetailsEmail").val(),
+            "image": $('#profile-pic').attr('src')
         })
     
     $("#personalProfileModal").modal("hide");
+});
+
+$('#personalProfileModal').on('hidden.bs.modal', function () {
+    $("#navAccountHeader").html(currentUser.firstName);
+    $('#accountDetailsFirstName').val(currentUser.firstName);
+    $('#accountDetailsLastName').val(currentUser.lastName);
+    $('#accountDetailsEmail').val(currentUser.email);
+    if(currentUser.image==="")
+    {
+        $('#profile-pic').attr('src','http://fbcofchesapeake.com/wp-content/uploads/2013/05/question-mark-face.jpg');
+    }
+    else
+    {
+        $('#profile-pic').attr('src',currentUser.image);
+    } 
 });
 
 //Post to the wall button
@@ -38,6 +54,7 @@ $('#wallPostBtn').click(function() {
 $(document).ready(function() {
 
     
+    
     var readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -58,4 +75,5 @@ $(document).ready(function() {
     $(".upload-button").on('click', function() {
        $(".file-upload").click();
     });
+    
 });

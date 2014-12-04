@@ -52,6 +52,14 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             $('#accountDetailsFirstName').val(currentUser.firstName);
             $('#accountDetailsLastName').val(currentUser.lastName);
             $('#accountDetailsEmail').val(currentUser.email);
+            if(currentUser.image==="")
+            {
+                $('#profile-pic').attr('src','http://fbcofchesapeake.com/wp-content/uploads/2013/05/question-mark-face.jpg');
+            }
+            else
+            {
+                $('#profile-pic').attr('src',currentUser.image);
+            }
                  
             $('#navOptionLogin').hide();
             $('#navOptionForgotPass').hide();
