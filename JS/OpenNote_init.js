@@ -49,6 +49,8 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             //GET DATA and store as currentUser
 		    currentUser = snapshot.val();	         
             $("#navAccountHeader").html(currentUser.firstName);
+            
+            
             $('#accountDetailsFirstName').val(currentUser.firstName);
             $('#accountDetailsLastName').val(currentUser.lastName);
             $('#accountDetailsEmail').val(currentUser.email);
@@ -142,5 +144,17 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 
 	    $('#mainscreen').hide();
 	    $('#welcomescreen').show();
+        
+        currentUser = undefined;
+
+        currentUserRef= undefined;
+
+        currentClass = undefined;
+
+        currentNote = undefined;
+
+        currNoteStartTime= undefined;
+
+        classMembers= undefined;
 	}
 });

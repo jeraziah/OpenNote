@@ -125,7 +125,7 @@ $(document).on('click', '.notesTab', function() {
     $(this).attr("class","colTab notesTab tabSelected");
     
     // update current note
-    currentNote = {noteId: $(this).attr("id"), noteName: this.innerHTML};
+    currentNote = {noteId: $(this).attr("id"), noteName: this.innerHTML, isPrivate: $(this).attr("isPrivate")};
     
     // clear current thoughts
     $('#messagesWrapper').empty();
@@ -140,8 +140,6 @@ $(document).on('click', '.notesTab', function() {
 /*Written by Kim and Shaun*/
 
 $('#postThoughtBtn').click(function() {    
-    // establish ref to class thoughts
-    var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
     
     // establish ref to user thoughts for that particular class and note
     var userNoteThoughtRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts");
@@ -166,11 +164,18 @@ $('#postThoughtBtn').click(function() {
         endTime: endTime
     }
     
-    //push it up to the user notes thoughts section
-    var noteIdInClass = classThoughtRef.push(thoughtToUpload);
+    // check if note was private, if not
+    if (currentNote.isPrivate == "false"){
+        // establish ref to class thoughts
+        var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
+
+        //push it up to the class thoughts section
+        var noteIdInClass = classThoughtRef.push(thoughtToUpload);
+
+        // save ref to where the thought is within all of the class thoughts
+        thoughtToUpload.noteIdInClass = noteIdInClass.key();
+    }
     
-    // save ref to where the thought is within all of the class thoughts
-    thoughtToUpload.noteIdInClass = noteIdInClass.key();
     
     // upload updated thought to the user thoughts section
     userNoteThoughtRef.push(thoughtToUpload);
