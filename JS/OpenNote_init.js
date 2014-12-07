@@ -118,6 +118,11 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                     });		
                 }
             });
+            
+            // also add event listener for when a class is removed
+            rootFBRef.child('users').child(user.uid).child('classes').on('child_removed', function( snapshot) {
+                $("#" + snapshot.val().classId).hide();
+            });
 		});
        
 	} 
