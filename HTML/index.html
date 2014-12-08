@@ -507,22 +507,80 @@ Arial<span class="caret"></span>
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Manage Classes</h4>
-                    <h6 class="modal-subtitle" id="myModalSubLabel">Classes that YOU are an Admin</h6>
+					<h4 class="modal-title" id="manageClassModalTitle">Manage Classes</h4>
 				</div>
-				<div class="modal-body">
-					<form class="form-horizontal" role="form" id="navOptionListClasses">
+                <div id="classAdminList">
+                    <div id="classAdminDescription"></div>
+                <table id="classAdminListTable" style="display: none;">
 						
-					</form>
-					<div class="col-sm-4"></div>
-					<div class="col-sm-8">
-						<span id="navOptionForgotPassErrorMsg" style="color: red; display: none;"></span>
-					</div>
-					
+					</table>
+                </div>
+                <div id="manageClassTabs" style="display:none">
+				<ul class="nav nav-tabs">
+                    <li class="active"><a href="#classDetails" role="tab" data-toggle="tab">Class Details</a></li>
+                    <li><a href="#removeUsers" role="tab" data-toggle="tab">Remove Users</a></li>
+                    <li><a href="#moderateNotes" role="tab" data-toggle="tab">Remove Notes</a></li>
+</ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane fade in active" id="classDetails">
+                        <form class="form-horizontal" role="form" id="classDetailsChangeForm"> 
+                          <div class="form-group">
+							<label for="classDetailsName" class="col-sm-4 control-label">Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="classDetailsName" placeholder="[Insert Name Here]">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="classDetailsShortName" class="col-sm-4 control-label">Short Name:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="classDetailsShortName" placeholder="[Insert Name Here]">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="classDetailsDescription" class="col-sm-4 control-label">Description:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="classDetailsDescription" placeholder="[Insert Description Here]">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="classDetailsInstructor" class="col-sm-4 control-label">Instructor:</label>
+							<div class="col-sm-8">
+								<input type="text" id="classDetailsInstructor" class="form-control"> 
+                            </div>
+                          </div>
+                            <div class="form-group">
+							<label for="classDetailsTerm" class="col-sm-4 control-label">Term:</label>
+							<div class="col-sm-8">
+								<input type="text" id="classDetailsTerm" class="form-control"> 
+                                <button type="button" id="updateClassDetails" class="btn btn-primary">Update</button>
+                            </div>
+                          </div>
+                          </form>
+                        </div>   
+                      <div class="tab-pane fade" id="removeUsers">
+                        <table id="classUserListTable" style="display: none;">
+						
+					</table>
+                          <hr/>
+					<button type="button" class="btn btn-primary" id="removeUsersButton">Remove</button>
 				</div>
+                       
+                        
+                      <div class="tab-pane fade" id="moderateNotes">
+                    <table id="moderateNotesListTable" style="display: none;">
+						
+					</table>
+                          <hr/>
+                          <button type="button" class="btn btn-primary" id="moderateNotesButton">Remove</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+					
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="updateClassList">Update</button>
+	
 				</div>
 			</div>
 		</div>
@@ -844,7 +902,7 @@ Arial<span class="caret"></span>
 	<script type="text/javascript" src="../JS/Profile.js"></script>
 	<script type="text/javascript" src="../JS/Registration_modal.js"></script>
     <script type="text/javascript" src="../JS/Manage_Class.js"></script>
-
+  <script type="text/javascript" src="../JS/ClassAdmin_modal.js"></script>
     <!-- MUST BE LAST -->
     <script type="text/javascript" src="../JS/OpenNote_init.js"></script>
 </body>
