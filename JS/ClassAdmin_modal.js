@@ -13,7 +13,7 @@ var numNotesShowing;
 $('#navOptionClassAdminModal').on("hidden.bs.modal",function(){
     if(classDetailsUpdated)
     {
-        $('#classDetailsName').val(classDetailsName);
+      //  $('#classDetailsName').val(classDetailsName);
         $('#classDetailsShortName').val(classDetailsShortName);
         $('#classDetailsDescription').val(classDetailsDescription);
         $('#classDetailsInstructor').val(classDetailsInstructor);
@@ -141,13 +141,14 @@ function displayReportedThoughts(){
             {
                     rootFBRef.child("universities").child(currentUser.university).child("classes").child(classAdminId).child("thoughts").child(aNote).on('value',function(snapshot){
                         var tempNote = snapshot.val();
+                        var noteId= snapshot.key();
                         
                          rootFBRef.child("users").child(tempNote.authorId).on('value',function(snapshot){
                                 var noteAuthor=snapshot.val();
                                 tableHTML += '<tr><td>' +noteAuthor.firstName +' ' +noteAuthor.lastName+ '</td>';
                                 tableHTML += '<td>' + tempNote.noteHTML + '</td>';
                                 tableHTML += '<td style="text-align: center;"><input type="checkbox" class="moderateNoteCheckbox" value="'; 
-                                tableHTML += snapshot.key() +'"></input></td></tr>';
+                                tableHTML += noteId +'"></input></td></tr>';
                                 numNotesShowing++;
                                 if(numNotesShowing>=numNotesToShow)
                                 {

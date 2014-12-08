@@ -188,7 +188,7 @@ $('#postThoughtBtn').click(function() {
     }
     
     // check if note was private, if not
-    if (currentNote.isPrivate == "false"){
+    if (currentNote.isPrivate == false){
         // establish ref to class thoughts
         var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
 
@@ -353,7 +353,7 @@ $('#settings_unstar_all').click(function() {
  */
 $('#settings_print_starred').click(function() {
 
-	var printThis = "<h1>Studyguide</h1>";
+	var printThis = "<h1 align = \"center\">Studyguide</h1>";
 	// NOOO ^^ See comments below
 	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 	
