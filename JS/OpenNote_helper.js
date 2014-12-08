@@ -25,8 +25,6 @@ function loadNotes(userId) {
     //console.log("Load Notes Being Called");
     
     firstNote=true; // global on purpse
-   
-    var hasNoteBeenCreated = 'false';
     
     $('#messagesWrapper').empty();
     
@@ -51,6 +49,17 @@ function loadNotes(userId) {
         
         var htmlNotes = '<div class="colHeader" style="border-left-style: solid;">Notes</div><div class="colTab" id="createNewNoteTab">Create New Note</div>';
         var notes = snapshot.val();
+        if(snapshot.numChildren() > 0){
+            $('#editorClassTutorial').hide();
+            $('#editorWrapper').show(); 
+            $('#createFirstNote').hide();
+        }
+        else{
+            $('#editorClassTutorial').show();
+            $('#editorWrapper').hide(); 
+            $('#createFirstNote').show();
+        }
+        
         for (var a_note in notes){
             var tNote = notes[a_note];
             if (firstNote || a_note==currentNote.noteId)
@@ -74,16 +83,6 @@ function loadNotes(userId) {
             var tmp=new Date();
             currNoteStartTime= tmp.getTime();
         
-        var showTutorial = $('#editorTutorial');
-        
-        if(hasNoteBeenCreated == 'true'){
-            $('#editorTutorial').hide();
-            $('editorWrapper').show();  
-        }
-        else{
-            $('#editorTutorial').show();
-            $('editorWrapper').hide();
-        }
         
         $('#noteWrapper').empty().html(htmlNotes);
     });
@@ -350,51 +349,51 @@ function custom_confirm_bar(msg, accept_callback,thoughtId,cancel_callback){
 }
 
 function custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,focusOnAccept){
-    $('#confirmation_msg').html(msg);
+    $('.confirmation_msg').html(msg);
     
-    $("#confirmation_accept").click(function(){accept_callback(thoughtId)});
+    $(".confirmation_accept").click(function(){accept_callback(thoughtId)});
     
     if (cancel_callback != null)
     {
-        $("#confirmation_cancel").click(function(){
+        $(".confirmation_cancel").click(function(){
             // call cancel callback
             cancel_callback(thoughtId);
             
             // hide confirmation bar
-            $('#confirmation_bar').hide(500);
+            $('.confirmation_bar').hide(500);
             
             // reset default confirmation cancel/exit behavior
-            $('#confirmation_cancel').click(function() {
-                $('#confirmation_bar').hide(500);
+            $('.confirmation_cancel').click(function() {
+                $('.confirmation_bar').hide(500);
             });
             
             // unbind click accept handler to reset it
-            $('#confirmation_accept').unbind("click");
+            $('.confirmation_accept').unbind("click");
         });
         
-        $("#confirmation_exit").click(function(){
+        $(".confirmation_exit").click(function(){
             // call cancel callback
             cancel_callback(thoughtId);
             
             // hide confirmation bar
-            $('#confirmation_bar').hide(500);
+            $('.confirmation_bar').hide(500);
             
             // reset default confirmation cancel/exit behavior
-            $('#confirmation_cancel').click(function() {
-                $('#confirmation_bar').hide(500);
+            $('.confirmation_cancel').click(function() {
+                $('.confirmation_bar').hide(500);
             });
             
             // unbind click accept handler to reset it
-            $('#confirmation_accept').unbind("click");
+            $('.confirmation_accept').unbind("click");
         });
     }
     
     
     
-    $("#confirmation_bar").show();
+    $(".confirmation_bar").show();
     
     if (focusOnAccept){
-        $("#confirmation_accept").focus();
+        $(".confirmation_accept").focus();
     }    
 }
 

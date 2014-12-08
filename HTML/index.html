@@ -117,6 +117,8 @@
         <div id="mainscreen" class="row no_padding_margins" style="height: 100%; display: none;">
         	<div class="col-md-3 no_padding_margins" style="height: 100%;">
         		<div class="row no_padding_margins" style="height: 100%;">
+                    
+                    
 		        	<div id="classWrapper" class="colWrapper col-md-6 no_padding_margins">
 		        		<div class="colHeader" style="border-right-style: solid;">Classes</div>
 						
@@ -127,18 +129,59 @@
 						<div class="colTab" id="joinClassTab">Join a Class</div>
 						<div class="colTab" id="createNewClassTab">Create New Class</div>
 		        	</div>
-
-		        	<div id="noteWrapper" class="colWrapper col-md-6 no_padding_margins">
-		        		
+                    
+                    
+                    <div class="colWrapper col-md-6 no_padding_margins"> 
+                        <div id="noteWrapper">
+		                
+                        </div>
+                        
+                        <div id="joinFirstClass" style="margin-left: 10%; width: 80%; text-align: center; font-family: smallChalk; margin-top: 15%;">
+                                <img class="classArrow" id="classArrowPic" src="../IMG/left_arrow.png" style="margin-top: 15%;width: 50%;">
+                                <br>
+                                <span>Begin by joining or creating a class!</span>
+                        </div> 
+                        
+                        <div id="createFirstNote" style="margin-left: 10%; width: 80%; text-align: center; font-family: smallChalk; margin-top: 15%; display: none" >
+                            <img class="noteArrow" id="noteArrowPic" src="../IMG/up_arrow.png" style="width: 45%;">
+                            <br>
+                              <span>Create a new note!</span>
+                        </div>
                     </div>
+		        	
 				</div>
 			</div>
             
+        <div id="editorClassTutorial" class="col-md-9 no_padding_margins" style="display: inline-block; text-align: center; overflow-y: auto;">
+            <div id="editorClassTutorialText" style="width: 80%; margin-left: 10%; margin-top: 50px; font-size:1.5em;padding-bottom: 20px;">
+                <span style="
+                    font-size: 2.4em;
+                    color: #2561B2;
+                    font-family: bigChalk;">
+                    Thank you for joining OpenNote!
+                </span>
+                
+                <hr>
+                <span style="
+    font-family: smallChalk;
+">OpenNote is a program designed to make note taking a breeze. You can take, edit, and compare notes with other students in your class, as well as highlight specific notes to make the 'Ultimate Study Guide!'</span>
+                
+                
+            </div>
+                
+                
+            </div>
+            <div class="confirmation_bar" style="display: none;">
+                <div class="confirmation_msg_wrapper">
+                    <div class="confirmation_msg"></div>
+                    <button class="confirmation_accept">Accept</button>
+                    <div class="confirmation_cancel">Cancel</div>
+                </div>
+                <div class="confirmation_exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+            </div>  
+
             
-		<div id="editorWrapper" class="col-md-9 no_padding_margins">
-            <div id="editorTutorial" class="col-md-9 no_padding_margins">
-            <div id="editorHelper" style="display:none;"> To begin taking notes, please join a class, or create a note.</div>   
-        </div> 
+		<div id="editorWrapper" style= "display:none" class="col-md-9 no_padding_margins">  
             <div id="editorToolbarWrapper">
             <div id="editorButtonToolbar">
                      <div class="btn-toolbar">
@@ -299,13 +342,13 @@ Arial<span class="caret"></span>
                 <div id="settings_print_starred" class="settings_clickable">Print Starred</div>
             </div>
             
-            <div id="confirmation_bar" style="display: none;">
-                <div id="confirmation_msg_wrapper">
-                    <div id="confirmation_msg"></div>
-                    <button id="confirmation_accept">Accept</button>
-                    <div id="confirmation_cancel">Cancel</div>
+            <div class="confirmation_bar" style="display: none;">
+                <div class="confirmation_msg_wrapper">
+                    <div class="confirmation_msg"></div>
+                    <button class="confirmation_accept">Accept</button>
+                    <div class="confirmation_cancel">Cancel</div>
                 </div>
-                <div id="confirmation_exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+                <div class="confirmation_exit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
             </div>
         </div>
     </div>

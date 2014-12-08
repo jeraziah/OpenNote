@@ -205,7 +205,7 @@ background-color: transparent;
 }
 */
 
-#confirmation_bar{
+.confirmation_bar{
     position: absolute;
     top: 0;
     left: 0;
@@ -216,18 +216,18 @@ background-color: transparent;
     height: 30px;
 }
 
-#confirmation_msg_wrapper{
+.confirmation_msg_wrapper{
     float: left;
     width: 95%;
 }
 
-#confirmation_msg{
+.confirmation_msg{
     display: inline-block;
     padding: 5px;
     font-style: italic;
 }
 
-#confirmation_accept{
+.confirmation_accept{
     display: inline-block;
     background-color: #2561B2;
 /*    padding: 3px 5px;*/
@@ -237,16 +237,16 @@ background-color: transparent;
     cursor: pointer;
 }
 
-#confirmation_cancel{
+.confirmation_cancel{
     display: inline-block;
     cursor: pointer;
 }
 
-#confirmation_cancel:hover{
+.confirmation_cancel:hover{
     text-decoration: underline;
 }
 
-#confirmation_exit{
+.confirmation_exit{
     float: right;
     margin: 5px;
     cursor: pointer;

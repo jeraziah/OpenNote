@@ -78,6 +78,11 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             // load class lists based off of what user is enrolled in
             rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
                 var childAdded = snapshot.val();
+                
+                
+                
+                
+                
                 var innerHTML = '';
 
                 // make sure it is a valid class
@@ -87,6 +92,9 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                     // make sure an html element hasn't already been created for it
                     if (currentClass == undefined && $('#' + classList.classId).length == 0) 
                     {
+                        $('#joinFirstClass').hide();
+                        $('#createFirstNote').show();
+                        
                         // set current class
                         currentClass = {userClassId: snapshot.key(), classId: classList.classId, className: classList.classShortName};
                         
@@ -125,9 +133,9 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             
     //get the list of classes for which the user is an admin
    
-    var adminRef = rootFBRef.child("universities").child(currentUser.university).child("classes");
+
     
- adminRef.orderByChild("classCreator").equalTo(currentUser.userId).on("value",function(snapshot){
+ rootFBRef.child("universities").child(currentUser.university).child("classes").orderByChild("classCreator").equalTo(currentUser.userId).on("value",function(snapshot){
     var tableHTML = "<thead><tr><th>Class</th><th>Full Name</th><th>Instructor</th><th>Term</th>";
 	tableHTML += "<th>Year</th>";
     tableHTML += "<th>Manage?</th></tr></thead>";
@@ -186,6 +194,20 @@ loadScript("https://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js", func
 
             // also add event listener for when a class is removed
             rootFBRef.child('users').child(user.uid).child('classes').on('child_removed', function( snapshot) {
+                if($(".classTab:visible").length > 0){
+                    // if there is a class
+                    $('#createFirstNote').show();
+                    $('#joinFirstClass').hide();
+                    $('#editorClassTutorial').show();
+                    $('#editorWrapper').hide();
+                    $('#noteWrapper').show();
+                }
+                else{
+                    $('#editorClassTutorial').show();
+                    $('#createFirstNote').hide();
+                    $('#joinFirstClass').show();
+                    $('#noteWrapper').hide();
+                }
                 $("#" + snapshot.val().classId).hide();
             });
 		});
