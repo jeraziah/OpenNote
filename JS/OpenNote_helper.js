@@ -133,8 +133,14 @@ function attachMessageWrapperListener(userId){
                 var htmlToAppend = "";
                 htmlToAppend += '<div class="thoughtWrapper">';
                 
+                // view previous notes bulk
+                htmlToAppend += '<div class="compare_wrapper_bulk left_compare_wrapper_bulk" id="left_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-backward"></span></div>';
+                
                 // view previous notes
                 htmlToAppend += '<div class="compare_wrapper left_compare_wrapper" id="left_compare_' + id + '">&laquo</div>';
+                  
+                // view more recent notes bulk
+                htmlToAppend += '<div class="compare_wrapper_bulk right_compare_wrapper_bulk" id="right_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-forward"></div>';
                 
                 // view more recent notes
                 htmlToAppend += '<div class="compare_wrapper right_compare_wrapper" id="right_compare_' + id + '">&raquo</div>';

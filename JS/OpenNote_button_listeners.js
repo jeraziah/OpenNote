@@ -33,9 +33,31 @@ $('#navOptionChangePass').click(function () {
 });
 
 //Main Screen 'HEADER' show profile
+//Modified by Alec
 $('#navOptionAccountDetails').click(function() {
 	$('#personalProfileModal').modal('show');
 
+	var wall = document.getElementById("wallPosts");
+
+	var textToAdd = "";
+
+	rootFBRef.child("users").child(currentUser.userId).child("wall").once("value", function(snapshot){
+		var allPosts = snapshot.val();
+		for(var postID in allPosts)
+		{
+			var Post = allPosts[postID];
+			textToAdd += "<div>";
+			textToAdd += Post.postHTML;
+			textToAdd += "</div>";
+			textToAdd += "<br>";
+		}
+	
+	});
+	
+	$(wall).empty();
+	$(wall).append(textToAdd);
+	//load wall posts here
+	
 });
 
 //Main Screen 'HEADER' show classes that you are an Admin
@@ -285,16 +307,69 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
     
 });
 
-/*Written by Alec*/
-$('#createGuideBtn').click(function() {
-	//var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
-
- // NOOO ^^ See comments below    //for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
-	//initialize the string for the studyguide
-	var printThis = "<h1>Studyguide</h1>";
+/*
+ * Written by Alec
+ */
+$('#settings_star_all').click(function() {
+	//star all the notes!
 	
-	//still need to get the notes from the starred thoughts, get all thoughts, there is a "isStarred" property for each thought
+	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 
+		//printIt("<h1>hello!</h1>"); this actually does get called.
+		var allThoughts = snapshot.val();
+		
+		for (var thoughtId in allThoughts){
+			var thought = allThoughts[thoughtId];
+
+			var jThought = $(".noteStar[name=" + thoughtId + "]");
+			jThought.attr("isStarred","true");
+			jThought.css("color","#4581E2");
+		}
+	});
+});
+
+/*
+ * Written by Alec
+ */
+$('#settings_unstar_all').click(function() {
+	//unstar all the notes!
+	
+	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
+
+		var allThoughts = snapshot.val();
+		
+		for (var thoughtId in allThoughts){
+			var thought = allThoughts[thoughtId];
+
+			var jThought = $(".noteStar[name=" + thoughtId + "]");
+			jThought.attr("isStarred","false");
+			jThought.css("color","#333");
+		}
+	});
+});
+
+/*
+ * Written by Alec
+ */
+$('#settings_print_starred').click(function() {
+
+	var printThis = "<h1>Studyguide</h1>";
+	// NOOO ^^ See comments below
+	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
+	
+		var allThoughts = snapshot.val();
+		
+		for (var thoughtId in allThoughts){
+			var thought = allThoughts[thoughtId];
+			var thoughtHTML = thought.noteHTML;
+	
+			if (thought.isStarred == "true"){ //this isn't working currently. 
+				printThis += "<div class='' id='sub_comp_left_" + thoughtId + "' name='" + thought.thoughtId + "'>" + "<br>" + thought.noteHTML;
+				printThis += "</div>";
+			}
+		}
+	});
+ 
     printIt(printThis);
 });
 

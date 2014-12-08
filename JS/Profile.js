@@ -26,12 +26,15 @@ $('#personalProfileModal').on('hidden.bs.modal', function () {
     } 
 });
 
+/*
+ * written by alec
+ */
 //Post to the wall button
 $('#wallPostBtn').click(function() {
 
     // establish ref to note posts
-    var postRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("wall");
-    
+    var postRef = rootFBRef.child("users").child(currentUser.userId).child("wall");
+	
     // get text to save
     var ToSave = document.getElementById('wallPost').value;
     
@@ -39,7 +42,7 @@ $('#wallPostBtn').click(function() {
     // wrap it in an object
     var d = new Date();
     var postToUpload = {
-        noteHTML: ToSave,
+        postHTML: ToSave,
         authorId: currentUser.userId,
         authorName: currentUser.firstName + " " + currentUser.lastName,
         parentNote: currentNote.noteId,
