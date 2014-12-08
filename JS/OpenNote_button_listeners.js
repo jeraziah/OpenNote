@@ -353,7 +353,7 @@ $('#settings_unstar_all').click(function() {
  */
 $('#settings_print_starred').click(function() {
 
-	var printThis = "<h1>Studyguide</h1>";
+	var printThis = "<h1 align = \"center\">Studyguide</h1>";
 	// NOOO ^^ See comments below
 	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 	
