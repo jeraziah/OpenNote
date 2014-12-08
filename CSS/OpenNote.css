@@ -322,3 +322,13 @@ background-color: transparent;
 .file-upload {
     display: none;
 }
+
+/* -------------------------------- */
+/* ------ Manage Class Modal ------ */
+/* -------------------------------- */
+.tab-pane{
+    padding-top: 15px;
+}
+#updateClassDetails{
+    margin-top: 15px;
+}
