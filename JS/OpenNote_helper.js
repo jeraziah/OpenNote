@@ -134,13 +134,13 @@ function attachMessageWrapperListener(userId){
                 htmlToAppend += '<div class="thoughtWrapper">';
                 
                 // view previous notes bulk
-                htmlToAppend += '<div class="compare_wrapper_bulk left_compare_wrapper_bulk" id="left_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-backward"></span></div>';
+//                htmlToAppend += '<div class="compare_wrapper_bulk left_compare_wrapper_bulk" id="left_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-backward"></span></div>';
                 
                 // view previous notes
                 htmlToAppend += '<div class="compare_wrapper left_compare_wrapper" id="left_compare_' + id + '">&laquo</div>';
                   
                 // view more recent notes bulk
-                htmlToAppend += '<div class="compare_wrapper_bulk right_compare_wrapper_bulk" id="right_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-forward"></div>';
+//                htmlToAppend += '<div class="compare_wrapper_bulk right_compare_wrapper_bulk" id="right_compare_bulk_' + id + '"><span class="glyphicon glyphicon-fast-forward"></div>';
                 
                 // view more recent notes
                 htmlToAppend += '<div class="compare_wrapper right_compare_wrapper" id="right_compare_' + id + '">&raquo</div>';
@@ -500,10 +500,12 @@ function displayOthersThought(thoughtId,direction){
         
         // figure out if we need a left arrow, if the statement is true, create the div but don't put an arrow in it
         if ((direction == 'prev' && messageIndex+1 == messageQueue.length) || (direction == 'next' && messageIndex == 0)){
-            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
+            subThoughtHTML += "<div class='subThoughtCompareBulk subThoughtCompareLeftBulk' id='sub_comp_left_bulk_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
+            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";          
         }
         else{
-           subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'>&laquo</div>"; 
+            subThoughtHTML += "<div class='subThoughtCompareBulk subThoughtCompareLeftBulk' id='sub_comp_left_bulk_" + thoughtId + "' name='" + subThought.thoughtId + "'><span class='glyphicon glyphicon-fast-backward'></span></div>";
+            subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareLeft' id='sub_comp_left_" + thoughtId + "' name='" + subThought.thoughtId + "'>&laquo</div>"; 
         }
     
         subThoughtHTML += "<div class='subThoughtContent' id='sub_content_" + thoughtId + "' name='" + subThought.thoughtId + "'>";
@@ -540,9 +542,11 @@ function displayOthersThought(thoughtId,direction){
         // figure out if we need a right arrow, if the statement is true, create the div but don't put an arrow in it
         if ((direction == 'next' && messageIndex+1 == messageQueue.length) || (direction == 'prev' && messageIndex == 0)){
             subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareRight' id='sub_comp_right_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
+            subThoughtHTML += "<div class='subThoughtCompareBulk subThoughtCompareRightBulk' id='sub_comp_right_bulk_" + thoughtId + "' name='" + subThought.thoughtId + "'></div>";
         }
         else{
             subThoughtHTML += "<div class='subThoughtCompare subThoughtCompareRight' id='sub_comp_right_" + thoughtId + "' name='" + subThought.thoughtId + "'>&raquo</div>";
+            subThoughtHTML += "<div class='subThoughtCompareBulk subThoughtCompareRightBulk' id='sub_comp_right_bulk_" + thoughtId + "' name='" + subThought.thoughtId + "'><span class='glyphicon glyphicon-fast-forward'></span></div>";
         }
     
         subThoughtHTML += "<div class='subThoughtMessageNum' id='sub_message_num_" + thoughtId + "' name='" + subThought.thoughtId + "'>";

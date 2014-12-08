@@ -42,7 +42,7 @@
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    width:86%;
+    width:92%;
     margin-left: 1%;
     float: left;
 }
@@ -68,6 +68,7 @@
     float: right;
 }
 
+/*
 .compare_wrapper_bulk{
     margin-top: 22px;
     display: inline-block;
@@ -88,6 +89,7 @@
 .right_compare_wrapper_bulk{
     float: right;
 }
+*/
 
 .noteSelected{
     border-style: dashed;
@@ -324,7 +326,7 @@ select{
 
 .subThoughtCompare{
     cursor: pointer;
-    width: 5%;
+    width: 3%;
     font-size: 30px;
     margin-top: 5px;
     float: left;
@@ -342,10 +344,31 @@ select{
     
 }
 
+.subThoughtCompareBulk{
+    cursor: pointer;
+    width: 3%;
+    font-size: 16px;
+    margin-top: 17px;
+    float: left;
+}
+
+.subThoughtCompareBulk:hover{
+    color: #4581E2!important;
+}
+
+.subThoughtCompareLeftBulk{
+
+}
+
+.subThoughtCompareRightBulk{
+    
+}
+
 .subThoughtContent{
     float: left;
     background-color: #666;
-    width: 90%;
+    width: 86%;
+    margin-left: 1%;
     border-bottom-style: solid;
     text-align: left;
     padding: 10px;

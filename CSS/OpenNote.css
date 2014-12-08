@@ -271,6 +271,7 @@ background-color: transparent;
     width: 180px;
     border-top-left-radius: 15px;
     border-left-style: solid;
+    text-align: left;
 }
 
 #settings_header{
