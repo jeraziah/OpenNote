@@ -122,7 +122,6 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                 }
             });
             
-<<<<<<< HEAD
             
     //get the list of classes for which the user is an admin
    
