@@ -690,13 +690,13 @@ $(document).on('click', '.removeClass',function() {
 
 $(document).on('click', '.left_compare_wrapper',function() {
     var thoughtId = this.id.toString().substring(13);
-    getNotes(thoughtId,'prev',3);
+    getNotes(thoughtId,'prev',6);
     // clear saved data in the "others_thoughts_ + id" element
 });
 
 $(document).on('click', '.right_compare_wrapper',function() {
     var thoughtId = this.id.toString().substring(14);
-    getNotes(thoughtId,'next',3);
+    getNotes(thoughtId,'next',6);
     // clear saved data in the "others_thoughts_ + id" element
 });
 
@@ -714,6 +714,21 @@ $(document).on('click', '.subThoughtCompareLeft',function() {
     displayOthersThought(thoughtId,direction)
 });
 
+$(document).on('click', '.subThoughtCompareLeftBulk',function() {
+    var thoughtId = this.id.toString().substring(19);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",Math.min($("#others_thoughts_" + thoughtId).data("messageIndex")+3,messageQueue.length-1));
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",Math.max($("#others_thoughts_" + thoughtId).data("messageIndex")-3,0));
+    }
+    
+    displayOthersThought(thoughtId,direction)
+});
+
 $(document).on('click', '.subThoughtCompareRight',function() {
     var thoughtId = this.id.toString().substring(15);
     var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
@@ -723,6 +738,22 @@ $(document).on('click', '.subThoughtCompareRight',function() {
     }
     else{
         $("#others_thoughts_" + thoughtId).data("messageIndex",$("#others_thoughts_" + thoughtId).data("messageIndex")+1);
+    }
+    
+    displayOthersThought(thoughtId,direction)
+
+});
+
+$(document).on('click', '.subThoughtCompareRightBulk',function() {
+    var thoughtId = this.id.toString().substring(20);
+    var direction = $("#others_thoughts_" + thoughtId).data("messageDirection");
+    var messageQueue = $("#others_thoughts_" + thoughtId).data("messageQueue");
+    
+    if (direction == 'prev'){
+        $("#others_thoughts_" + thoughtId).data("messageIndex",Math.max($("#others_thoughts_" + thoughtId).data("messageIndex")-3,0));
+    }
+    else{
+        $("#others_thoughts_" + thoughtId).data("messageIndex",Math.min($("#others_thoughts_" + thoughtId).data("messageIndex")+3,messageQueue.length-1));
     }
     
     displayOthersThought(thoughtId,direction)
