@@ -25,7 +25,7 @@ $('#navOptionClassAdminModal').on("hidden.bs.modal",function(){
 
 function manageClass(classId,name)
 {
-    $('#manageClassModalTitle').html(name);
+  //  $('#manageClassModalTitle').html(name);
     $('#classAdminList').hide();
     $('#manageClassTabs').show();
     classAdminId=classId.split("||||")[1];
