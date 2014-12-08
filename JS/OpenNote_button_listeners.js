@@ -280,15 +280,26 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
 });
 
 /*Written by Alec*/
-$('#createGuideBtn').click(function() {
+$('#settings_print_starred').click(function() {
 	//var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
 
- // NOOO ^^ See comments below    //for(rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide"))
-	//initialize the string for the studyguide
-	var printThis = "<h1>Studyguide</h1>";
+ // NOOO ^^ See comments below
+	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 	
-	//still need to get the notes from the starred thoughts, get all thoughts, there is a "isStarred" property for each thought
-
+		var allThoughts = snapshot.val();
+		var printThis = "";
+		
+		for (var thoughtId in allThoughts){
+			var thought = allThoughts[thoughtId];
+			var thoughtHTML = thought.noteHTML;
+	
+			if (thought.isStarred){
+				printThis += "<div class='' id='sub_comp_left_" + thoughtId + "' name='" + thought.thoughtId + "'>" + thought.noteHTML;
+				printThis += "</div>";
+			}
+		}
+	});
+ 
     printIt(printThis);
 });
 
