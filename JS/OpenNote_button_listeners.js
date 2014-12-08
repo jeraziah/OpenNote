@@ -289,7 +289,7 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
 $('#settings_print_starred').click(function() {
 
 	var printThis = "";
- // NOOO ^^ See comments below
+	// NOOO ^^ See comments below
 	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 	
 		var allThoughts = snapshot.val();
@@ -299,7 +299,7 @@ $('#settings_print_starred').click(function() {
 			var thoughtHTML = thought.noteHTML;
 	
 			if (thought.isStarred){
-				printThis += "<div class='' id='sub_comp_left_" + thoughtId + "' name='" + thought.thoughtId + "'>" + thought.noteHTML;
+				printThis += "<div class='' id='sub_comp_left_" + thoughtId + "' name='" + thought.thoughtId + "'>" + "<br>" + thought.noteHTML;
 				printThis += "</div>";
 			}
 		}
