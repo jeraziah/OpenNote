@@ -49,6 +49,8 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             //GET DATA and store as currentUser
 		    currentUser = snapshot.val();	         
             $("#navAccountHeader").html(currentUser.firstName);
+            
+            
             $('#accountDetailsFirstName').val(currentUser.firstName);
             $('#accountDetailsLastName').val(currentUser.lastName);
             $('#accountDetailsEmail').val(currentUser.email);
@@ -120,6 +122,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                 }
             });
             
+<<<<<<< HEAD
             
     //get the list of classes for which the user is an admin
    
@@ -181,6 +184,11 @@ loadScript("https://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js", func
      }
      
     });
+
+            // also add event listener for when a class is removed
+            rootFBRef.child('users').child(user.uid).child('classes').on('child_removed', function( snapshot) {
+                $("#" + snapshot.val().classId).hide();
+            });
 		});
        
 	} 
@@ -201,5 +209,17 @@ loadScript("https://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js", func
 
 	    $('#mainscreen').hide();
 	    $('#welcomescreen').show();
+        
+        currentUser = undefined;
+
+        currentUserRef= undefined;
+
+        currentClass = undefined;
+
+        currentNote = undefined;
+
+        currNoteStartTime= undefined;
+
+        classMembers= undefined;
 	}
 });

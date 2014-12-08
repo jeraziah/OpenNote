@@ -55,8 +55,8 @@ function loadNotes(userId) {
             var tNote = notes[a_note];
             if (firstNote || a_note==currentNote.noteId)
             {
-                htmlNotes += '<div class="colTab notesTab tabSelected" id="' + a_note + '">' + tNote.noteName + '</div>';
-                currentNote = {noteId: a_note, noteName: tNote.noteName};
+                htmlNotes += '<div class="colTab notesTab tabSelected" id="' + a_note + '" isPrivate="' + tNote.noteIsPrivate + '">' + tNote.noteName + '</div>';
+                currentNote = {noteId: a_note, noteName: tNote.noteName, isPrivate: tNote.noteIsPrivate};
                 $('#' + currentNote.noteId).attr("class","colTab notesTab tabSelected");
                 
                 // create firebase ref to listen to child_added note thoughts
@@ -66,7 +66,7 @@ function loadNotes(userId) {
             }
             else
             {
-                htmlNotes += '<div class="colTab notesTab" id="' + a_note + '">' + tNote.noteName + '</div>';
+                htmlNotes += '<div class="colTab notesTab" id="' + a_note + '" isPrivate="' + tNote.noteIsPrivate + '">' + tNote.noteName + '</div>';
             }
         }
         
