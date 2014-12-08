@@ -188,7 +188,7 @@ $('#postThoughtBtn').click(function() {
     }
     
     // check if note was private, if not
-    if (currentNote.isPrivate == "false"){
+    if (currentNote.isPrivate == false){
         // establish ref to class thoughts
         var classThoughtRef = rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts");
 
