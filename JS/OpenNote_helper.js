@@ -357,7 +357,7 @@ function custom_confirm_bar(msg, accept_callback,thoughtId,cancel_callback){
 function custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,focusOnAccept){
     $('.confirmation_msg').html(msg);
     
-    $(".confirmation_accept").click(function(){accept_callback(thoughtId)});
+    $(".confirmation_accept").click(function(){accept_callback(thoughtId);$(".confirmation_exit").click()});
     
     if (cancel_callback != null)
     {
@@ -377,9 +377,10 @@ function custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,focus
             $('.confirmation_accept').unbind("click");
         });
         
+        
+    }
+    else{
         $(".confirmation_exit").click(function(){
-            // call cancel callback
-            cancel_callback(thoughtId);
             
             // hide confirmation bar
             $('.confirmation_bar').hide(500);
@@ -393,7 +394,6 @@ function custom_confirm_all(msg, accept_callback,thoughtId,cancel_callback,focus
             $('.confirmation_accept').unbind("click");
         });
     }
-    
     
     
     $(".confirmation_bar").show();
