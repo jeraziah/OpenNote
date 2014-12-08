@@ -33,9 +33,31 @@ $('#navOptionChangePass').click(function () {
 });
 
 //Main Screen 'HEADER' show profile
+//Modified by Alec
 $('#navOptionAccountDetails').click(function() {
 	$('#personalProfileModal').modal('show');
 
+	var wall = document.getElementById("wallPosts");
+
+	var textToAdd = "";
+
+	rootFBRef.child("users").child(currentUser.userId).child("wall").once("value", function(snapshot){
+		var allPosts = snapshot.val();
+		for(var postID in allPosts)
+		{
+			var Post = allPosts[postID];
+			textToAdd += "<div>";
+			textToAdd += Post.postHTML;
+			textToAdd += "</div>";
+			textToAdd += "<br>";
+		}
+	
+	});
+	
+	$(wall).empty();
+	$(wall).append(textToAdd);
+	//load wall posts here
+	
 });
 
 //Main Screen 'HEADER' show classes that you are an Admin

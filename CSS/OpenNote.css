@@ -323,6 +323,12 @@ background-color: transparent;
     display: none;
 }
 
+#wallPosts{
+	height: 100px;
+	overflow-y: auto;
+	width: 100%;
+}
+
 /* -------------------------------- */
 /* ------ Manage Class Modal ------ */
 /* -------------------------------- */
