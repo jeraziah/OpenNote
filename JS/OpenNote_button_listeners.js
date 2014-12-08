@@ -163,7 +163,8 @@ $('#postThoughtBtn').click(function() {
         parentNote: currentNote.noteId,
         startTime: currNoteStartTime,
         isStarred: "false",
-        endTime: endTime
+        endTime: endTime,
+        reported: "false"
     }
     
     //push it up to the user notes thoughts section
@@ -656,6 +657,17 @@ $(document).on('click', '.subThoughtCancel',function() {
     $(".othersThoughtsWrapper").empty();
     
     $('.compare_wrapper').css("color","#eee");
+});
+
+
+$(document).on('click', '.subThoughtReport',function() {
+    var thoughtId = this.getAttribute("name");
+    
+    rootFBRef.child("universities").child(currentUser.university).child("classes").child(currentClass.classId).child("thoughts").child(thoughtId).update(
+        {
+            "reported": "true"
+        }
+    );
 });
 
 $(document).on('click', '.subThoughtAdd',function() {

@@ -6,7 +6,7 @@ $('#saveProfile').click(function() {
             "lastName": $("#accountDetailsLastName").val(),
             "email": $("#accountDetailsEmail").val(),
             "image": $('#profile-pic').attr('src')
-        })
+        });
     
     $("#personalProfileModal").modal("hide");
 });

@@ -65,6 +65,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
             $('#navOptionForgotPass').hide();
             $('#navOptionChangePass').show();
             $('#navOptionAccountDetails').show();
+            $('#navOptionClassAdmin').show();
             $('#navOptionLogout').show();
 
             $('#welcomescreen').hide();
@@ -90,7 +91,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                         // create class div
                         innerHTML += '<div class="colTab classTab tabSelected" id="' + classList.classId + '" name="' + snapshot.key() + '">';
                         innerHTML += classList.classShortName;
-                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
+//                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
                         innerHTML += '<div class="removeClass" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-trash"></span></div>';
                         innerHTML += '</div>';
 
@@ -101,7 +102,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                     {
                         innerHTML += '<div class="colTab classTab" id="' + classList.classId + '" name="' + snapshot.key() + '">';
                         innerHTML += classList.classShortName;    
-                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
+//                        innerHTML += '<div class="viewClassDetails" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-edit"></span></div>';
                         innerHTML += '<div class="removeClass" id="' + snapshot.key() + '"><span class="glyphicon glyphicon-trash"></span></div>';
                         innerHTML += '</div>';
                     } 
@@ -118,6 +119,68 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
                     });		
                 }
             });
+            
+            
+    //get the list of classes for which the user is an admin
+   
+    var adminRef = rootFBRef.child("universities").child(currentUser.university).child("classes");
+    
+ adminRef.orderByChild("classCreator").equalTo(currentUser.userId).on("value",function(snapshot){
+    var tableHTML = "<thead><tr><th>Class</th><th>Full Name</th><th>Instructor</th><th>Term</th>";
+	tableHTML += "<th>Year</th>";
+    tableHTML += "<th>Manage?</th></tr></thead>";
+	tableHTML += '<tbody>';
+     
+     var adminSnapshot=snapshot.val();
+      if(snapshot.numChildren()>0)
+     {
+        for (aClass in adminSnapshot)
+        {
+            var tempClass=adminSnapshot[aClass];
+            tableHTML += '<tr><td>' + tempClass.shortClassName + '</td><td>' + tempClass.longClassName + '</td>';
+			tableHTML += '<td>' + tempClass.instructor + '</td><td>' + tempClass.term + '</td>';
+			tableHTML += '<td>' + tempClass.year + '</td>';
+			tableHTML += '<td style="text-align: center;"><button type="button" id="manageClass||||' + aClass + '" name=' + tempClass.shortClassName+'" class="btn btn-primary">Manage</button></td></tr>';
+        }
+     
+        tableHTML += '</tbody>';
+		
+		$('#classAdminListTable').html(tableHTML);
+       
+         for (aClass in adminSnapshot)
+        {
+            var tempClass=adminSnapshot[aClass];
+             var button=document.getElementById('manageClass||||' + aClass);
+         
+             if (document.addEventListener) {
+                    button.addEventListener("click", function(){
+                        manageClass($(this).attr("id"),$(this).attr("name"));
+                    }
+                                            , false);
+            } else if (document.attachEvent) {
+                    button.attachEvent("onclick", function(){
+                        manageClass($(this).attr("id"),$(this).attr("name"));
+                    });
+            } else {
+                    button.onclick = function(){
+                        manageClass($(this).attr("id"),$(this).attr("name"));
+                    }
+                        ;
+            }
+        }
+
+
+//		// add styling async
+loadScript("https://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js", function () {
+		 	$('#classAdminListTable').DataTable();
+		 	$('#classAdminListTable').show();
+	    });
+     }
+     else{
+         $('#classAdminDescription').html("You are not an admin for any classes.");
+     }
+     
+    });
 		});
        
 	} 
@@ -134,6 +197,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 	    $('#navOptionChangePass').hide();
 	    $('#navOptionAccountDetails').hide();
 	    $('#navOptionLogout').hide();
+        $('#navOptionClassAdmin').hide();
 
 	    $('#mainscreen').hide();
 	    $('#welcomescreen').show();
