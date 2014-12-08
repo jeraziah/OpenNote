@@ -42,15 +42,16 @@
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    width:92%;
+    width:86%;
+    margin-left: 1%;
     float: left;
 }
 
 .compare_wrapper{
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-block;
     height: 100%;
-    width: 4%;
+    width: 3%;
     font-size: 30px;
     cursor: pointer;
 } 
@@ -64,6 +65,27 @@
 }
 
 .right_compare_wrapper{
+    float: right;
+}
+
+.compare_wrapper_bulk{
+    margin-top: 22px;
+    display: inline-block;
+    height: 100%;
+    width: 3%;
+    font-size: 16px;
+    cursor: pointer;
+} 
+
+.compare_wrapper_bulk:hover{
+    color: #4581E2;
+}
+
+.left_compare_wrapper_bulk{
+    float: left;
+}
+
+.right_compare_wrapper_bulk{
     float: right;
 }
 
