@@ -287,13 +287,12 @@ $('#messagesWrapper').delegate(".delete_thought","click",function(){
 
 /*Written by Alec*/
 $('#settings_print_starred').click(function() {
-	//var guideRef = rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("studyGuide");
 
+	var printThis = "";
  // NOOO ^^ See comments below
 	rootFBRef.child("users").child(currentUser.userId).child("classes").child(currentClass.userClassId).child("notes").child(currentNote.noteId).child("thoughts").once("value",function(snapshot){
 	
 		var allThoughts = snapshot.val();
-		var printThis = "";
 		
 		for (var thoughtId in allThoughts){
 			var thought = allThoughts[thoughtId];
