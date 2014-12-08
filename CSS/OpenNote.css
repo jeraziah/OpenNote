@@ -332,3 +332,11 @@ background-color: transparent;
 #updateClassDetails{
     margin-top: 15px;
 }
+#removeUsersButton{
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+#moderateNotesButton{
+    margin-bottom: 15px;
+    margin-left: 15px;
+}

@@ -77,6 +77,7 @@ var authClient = new FirebaseSimpleLogin(rootFBRef, function (error, user) {
 
             // load class lists based off of what user is enrolled in
             rootFBRef.child('users').child(user.uid).child('classes').on('child_added', function( snapshot) {
+                
                 var childAdded = snapshot.val();
                 var innerHTML = '';
 
