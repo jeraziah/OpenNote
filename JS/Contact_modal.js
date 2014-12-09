@@ -35,5 +35,6 @@ $('#contact_Send').click(function() {
   }
     
 });
+    $('#contactModal').modal('hide');
     
 });
